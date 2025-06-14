@@ -1,10 +1,9 @@
 {
   "name": "ont-ui",
   "version": "1.0.0",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "react-native": "src/index.ts",
   "files": [
     "dist"
   ],
