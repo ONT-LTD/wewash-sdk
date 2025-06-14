@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5", // Target ES5 for backward compatibility
+    "module": "ESNext", // Output ES modules for modern tooling
+    "jsx": "react", // Use React JSX syntax
+    "strict": true, // Enable strict mode for better type checking
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "skipLibCheck": true, // Skip type checking for declaration files
+    "declaration": true, // Generate `.d.ts` files
+    "declarationMap": true, // Generate source maps for `.d.ts` files
+    "moduleResolution": "node", // Use Node.js module resolution
+    "outDir": "dist", // Output directory for compiled files
+    "resolveJsonModule": true // Allow importing JSON modules
+  },
+  "include": ["src/**/*"], // Include all files in the `src` directory
+  "exclude": ["node_modules", "dist"] // Exclude `node_modules` and `dist` directories
+}

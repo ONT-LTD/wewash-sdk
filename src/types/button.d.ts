@@ -1,0 +1,24 @@
+export type ButtonProps = {
+  title: string;
+  onPress?: () => void;
+  disabled?: boolean;
+  backgroundColor?: string;
+  textColor?: string;
+  marginBottom?: number;
+  marginTop?: number;
+  marginLeft?: number;
+  marginRight?: number;
+  marginHorizontal?: number;
+  marginVertical?: number;
+  paddingVertical?: number;
+  borderColor?: string;
+  isTextMedium?: boolean;
+  icon?: React.ReactNode;
+  alignSelf?: string;
+  fontSize?: number;
+  isHalfWidth?: boolean;
+  isLoading?: boolean;
+  isSmallButton?: boolean;
+  paddingHorizontal?: number;
+  estimated?: string;
+};
