@@ -2,7 +2,7 @@ import { StyleSheet, Image, View } from 'react-native';
 import React, { FC } from 'react';
 import moment from 'moment';
 import { CustomText } from '../CustomText/CustomText';
-import { Notification } from '../../types/others';
+import { Notification } from '../../services/profileServices/types';
 import { COLORS } from '../../constant/Colors';
 
 type Props = {

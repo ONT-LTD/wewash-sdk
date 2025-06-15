@@ -42,6 +42,579 @@ type IVehicle = {
   updatedAt: string;
 };
 
+type IChatMessages = {
+  conversationId: string;
+  content: string;
+  mediaUrl: string;
+  senderId: string;
+  id: string;
+  createdAt: Date | string;
+};
+
+type FAQS = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
+type PromoCodes = {
+  id: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonAction: string;
+  icon: string;
+  backgroundStyle: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type ICategories = {
+  id: string;
+  name: string;
+  slug: string;
+  desc: string;
+  estimatedPrice: string;
+  image: {
+    icon: {
+      primary: string;
+      secondary: string;
+    };
+    background: string;
+  };
+  features: Feature[];
+  createdAt: string;
+  updatedAt: string;
+  addons: Addon[];
+};
+
+interface ISignInType {
+    id: string;
+    password: string;
+    authenticateBy: 'phone-number' | 'email';
+    context: string;
+}
+interface ISignInWithBiometricsType {
+    deviceId: string;
+    signature: string;
+}
+interface IResetPassword {
+    otp: string;
+    newPassword: string;
+}
+declare enum otpChannel {
+    SMS = "sms",
+    EMAIL = "email"
+}
+declare enum apiContext {
+    reset = "reset-password",
+    signIn = "signin",
+    signUp = "signup",
+    updatePassword = "update-password"
+}
+interface IRequestOTP {
+    recipient: string;
+    otpChannel: 'sms' | 'email';
+    context?: string;
+}
+interface IVerifyOTP {
+    recipient: string;
+    otp: string;
+    otpChannel: 'sms' | 'email';
+    context?: string;
+}
+interface ISignInResponse {
+    statusCode: number;
+    message: string;
+    data: {
+        user: {
+            id: string;
+            email: string;
+            phone: string;
+            profile: any;
+        };
+    };
+}
+interface IGoogleAuthResponse {
+    statusCode: number;
+    message: string;
+    data: {
+        link: string;
+    };
+}
+interface IRequestError {
+    message: string;
+    statusCode?: number;
+    error?: {
+        code: string;
+        data?: any[];
+        message: string;
+        recommendedActions?: string[];
+        statusCode: number;
+    };
+}
+
+type ApiResponse<T> = {
+    statusCode: number;
+    message: string;
+    data: T;
+    meta: {
+        requestId: string;
+    };
+};
+type IDtype = {
+    id: string;
+};
+type IVehicleData = {
+    type: string;
+    make: string;
+    model: string;
+    year: string;
+    category: string;
+};
+type IAddressData = {
+    country: string;
+    city: string;
+    state: string;
+    postalCode?: string;
+    fullAddress?: string;
+    latitude?: number;
+    longitude?: number;
+    street?: string;
+    type?: string;
+};
+type IVehicleUpdateData = IVehicleData & {
+    vehicleId: string;
+};
+type IProfileType = {
+    firstName?: string;
+    middleName?: string;
+    lastName?: string;
+    image?: string;
+};
+type IUpdatePasswordData = {
+    currentPassword: string;
+    newPassword: string;
+};
+type IUserProfile = {
+    email?: string;
+    phone?: string;
+    profile?: IProfileType;
+    pushNotificationToken?: string;
+};
+type IUserProfileData = {
+    firstName: string;
+    lastName: string;
+    image?: string;
+};
+type IUserData = {
+    id: string;
+    email: string;
+    isEmailVerified: boolean;
+    phone: string;
+    isPhoneVerified: boolean;
+    profile: IUserProfileData;
+    username: string | null;
+    role: string;
+    status: string;
+    source: string;
+    createdAt: string;
+    updatedAt: string;
+};
+type IActivateBiometrics = {
+    deviceId?: string;
+    signature?: string;
+    enabled?: boolean;
+    publicKey?: string;
+    biometricToken?: string;
+};
+type VehicleMakeAndModel = {
+    make: string;
+    models: string[];
+};
+type VehicleConfigs = {
+    makesAndModels: VehicleMakeAndModel[];
+    type: string[];
+    category: string[];
+};
+type UserProfile = {
+    lastName: string;
+    firstName: string;
+    middleName: string;
+};
+type User = {
+    id: string;
+    email: string;
+    phone: string;
+    username: string;
+    status: 'active' | 'inactive' | 'banned';
+    isEmailVerified: boolean;
+    isPhoneVerified: boolean;
+    profile: UserProfile;
+    role: 'admin' | 'user' | 'customer' | 'moderator';
+    source: 'local' | 'google' | 'facebook';
+    createdAt: string;
+    updatedAt: string;
+    referralCode: string;
+};
+type Address = {
+    id: string;
+    userId: string;
+    country: string;
+    city: string;
+    fullAddress: string;
+    latitude: number;
+    longitude: number;
+    state: string;
+    postalCode?: string;
+    street: string;
+    type?: 'Home' | 'Office' | 'Other';
+    createdAt: string;
+    updatedAt: string;
+};
+type IReferralParam = {
+    perPage?: number;
+    page?: number;
+};
+type Referral = {
+    data: any[];
+    meta: {
+        total: number;
+        perPage: number;
+        totalPages: number;
+        page: number;
+    };
+};
+type ReferralConfigData = {
+    count: number;
+    discount: number;
+};
+type ReferralsConfig = {
+    config: ReferralConfigData[];
+};
+type Notification = {
+    createdAt: string;
+    icon: string | null;
+    id: string;
+    message: string;
+    meta: any;
+    recipientId: string;
+    status: 'unread' | 'read';
+    title: string;
+    type: 'security-notification' | string;
+    updatedAt: string;
+};
+type VehicleResponse = ApiResponse<{
+    vehicle: Vehicle;
+}>;
+type FAQResponse = ApiResponse<{
+    faqs: FAQS[];
+}>;
+type VehicleConfigResponse = ApiResponse<{
+    configs: VehicleConfigs;
+}>;
+type ProfileImageResponse = ApiResponse<{
+    imageUrl: string;
+}>;
+type ProfileResponse = ApiResponse<{
+    user: User;
+    addresses: Address[];
+}>;
+type ProfileNotificationResponse = ApiResponse<{
+    notifications: Notification[];
+}>;
+type ReferralResponse = ApiResponse<{
+    referrals: Referral;
+}>;
+type ReferralConfigResponse = ApiResponse<{
+    config: any;
+}>;
+type GoogleMapResponse = ApiResponse<any>;
+
+type ILocation = {
+    address: string;
+    city: string;
+    state: string;
+    longitude: string;
+    latitude: string;
+};
+type IWashDetails = {
+    vehicleId: string;
+    addonIds: string[];
+};
+type WashData = {
+    coupon?: string;
+    schedule?: string;
+    isPreview?: boolean;
+    categoryId: string;
+    washDetails: IWashDetails[];
+    location: ILocation;
+};
+type PaginationParams = {
+    perPage: string;
+    page: string;
+    status?: string;
+};
+interface ImageIcons {
+    primary: string;
+    secondary: string;
+}
+interface Image {
+    icon: ImageIcons;
+    background: string;
+}
+interface Feature$1 {
+    name: string;
+    desc: string;
+    icon: string;
+}
+interface Addon$1 {
+    id: string;
+    categoryId: string;
+    name: string;
+    slug: string;
+    desc: string;
+    icon: string;
+    price: string;
+    createdAt: string;
+    updatedAt: string;
+}
+interface Location {
+    address: string;
+    city: string;
+    state: string;
+    longitude: string;
+    latitude: string;
+}
+interface Profile {
+    image: string;
+    lastName: string;
+    firstName: string;
+}
+interface CustomerDetails {
+    id: string;
+    email: string;
+    phone: string;
+    username: string;
+    referralCode: string;
+    referralBalance: string;
+    pushNotificationToken: string | null;
+    status: string;
+    isEmailVerified: boolean;
+    isPhoneVerified: boolean;
+    profile: Profile;
+    role: string;
+    source: string;
+    paymentMethod: string;
+    createdAt: string;
+    updatedAt: string;
+}
+interface LogEntry {
+    id: string;
+    orderId: string;
+    logged: string;
+    event: string;
+    metaData: any;
+    createdAt: string;
+    updatedAt: string;
+}
+interface PriceBreakdown {
+    id: string;
+    orderId: string;
+    item: string;
+    price: string;
+    createdAt: string;
+    updatedAt: string;
+}
+interface Category {
+    id: string;
+    name: string;
+    slug: string;
+    desc: string;
+    estimatedPrice: string;
+    image: Image;
+    features: Feature$1[];
+    createdAt: string;
+    updatedAt: string;
+}
+type Vehicle = {
+    userId: string;
+    type: string;
+    make: string;
+    model: string;
+    year: string;
+    category: string;
+    id: string;
+    createdAt: string;
+    updatedAt: string | null;
+};
+interface IWash {
+    id: string;
+    netPrice: string;
+    vat: string;
+    discount: string;
+    customerId: string;
+    washerId: string | null;
+    paymentReference: string | null;
+    callback: string | null;
+    category: Category;
+    vehicles: Vehicle[];
+    addons: Addon$1[];
+    location: Location;
+    paymentMethod: string;
+    code: string;
+    status: string;
+    coupon: string | null;
+    schedule: string | null;
+    isScheduled: boolean;
+    canceledBy: string | null;
+    createdAt: string;
+    updatedAt: string | null;
+    canceledByDetails: string | null;
+    washDetails: any[];
+    customerDetails: CustomerDetails;
+    logHistory: LogEntry[];
+    priceBreakDown: PriceBreakdown[];
+}
+interface Meta {
+    total: number;
+    perPage: number;
+    totalPages: number;
+    page: number;
+}
+interface IWashHistory {
+    washes: {
+        data: IWash[];
+        meta: Meta;
+    };
+}
+interface ISingleWashHistory {
+    washes: IWash;
+}
+interface CancelOrderData {
+    orderId: string;
+    userId: string;
+}
+interface OrderIdData {
+    orderId: string;
+}
+interface ICouponCode {
+    coupon: string;
+}
+interface ConfirmOrderData {
+    orderId: string;
+    code: string;
+}
+interface RateUserData {
+    orderId: string;
+    ratedUserId: string;
+    stars: number;
+    comment: string;
+}
+type PromoCodesResponse = ApiResponse<PromoCodes[]>;
+type CategoriesResponses = ApiResponse<ICategories[]>;
+type CreateWashResponse = ApiResponse<{}>;
+type CouponResponse = ApiResponse<{
+    discount: string;
+}>;
+type GetWashResponse = ApiResponse<{
+    washes: {
+        data: IWash[];
+        meta: Meta;
+    };
+}>;
+type WashResponse = ApiResponse<{
+    washes: {
+        data: IWash;
+        meta: Meta;
+    };
+}>;
+
+type IConversationMembers = {
+    memberIds: [string];
+};
+type ICreateTicketData = {
+    subject: string;
+    department: string;
+    priority: string;
+    content: string;
+    mediaUrl?: string;
+    transactionId?: string;
+};
+type ICloseConversationBody = {
+    conversationId: string;
+};
+type ICreateTicket = {
+    ticketNumber: string;
+    subject: string;
+    department: string;
+    priority: string;
+    status: string;
+    conversationId: string;
+    createdBy: string;
+    id: string;
+    transactionId?: string | null;
+    createdAt: string;
+    updatedAt: string;
+};
+type ISendMessageBody = {
+    conversationId: string;
+    content: string;
+    mediaUrl?: string;
+};
+type IConversations = {
+    isGroup: boolean;
+    name: string;
+    memberIds: [string];
+    id: string;
+    createdAt: string;
+};
+type ITicketConversation = {
+    id: string;
+    name: string;
+    isGroup: boolean;
+    createdAt: string;
+    updatedAt: string;
+    members: User[];
+};
+type ITicketMessages = {
+    conversationId: string;
+    content: string;
+    mediaUrl: string;
+    senderId: string;
+    id: string;
+    status: string;
+    createdAt: string;
+    sender: User;
+};
+interface IUploadImageBody {
+    formData: FormData;
+    headers?: Record<string, string>;
+}
+type ChatConversationResponse = ApiResponse<{
+    conversation: IConversations;
+}>;
+type ConversationResponse = ApiResponse<{
+    conversations: IConversations;
+}>;
+type MessageResponse = ApiResponse<{
+    messages: IChatMessages;
+}>;
+type CreateTicketResponse = ApiResponse<{
+    ticket: {
+        data: ICreateTicket[];
+        meta: Meta;
+    };
+}>;
+type TicketConversationResponse = ApiResponse<{
+    messages: {
+        ticket: ICreateTicket;
+        conversation: ITicketConversation;
+        messages: ITicketMessages[];
+        order: IWash;
+    };
+}>;
+
 declare const CustomButton: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<React$1.ForwardRefExoticComponent<react_native.TouchableOpacityProps & React$1.RefAttributes<react_native.View>>>>;
 
 declare function CustomTextNeutral(props: TextProps): React$1.JSX.Element;
@@ -321,4 +894,70 @@ interface SocketProviderProps {
 }
 declare const SocketProvider: FC<SocketProviderProps>;
 
-export { API_URL, type ButtonProps, COLORS, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList, type IVehicle, ModalContent, SOCKET_URL, SocketProvider, type TextProps, api, customStyles, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+declare class AuthService {
+    SIGN_IN(data: ISignInType): Promise<axios.AxiosResponse<any, any>>;
+    SIGN_IN_WITH_GOOGLE(): Promise<axios.AxiosResponse<any, any>>;
+    SIGN_IN_WITH_BIOMETRICS(data: ISignInWithBiometricsType): Promise<axios.AxiosResponse<any, any>>;
+    RESET_PASSWORD(data: IResetPassword): Promise<axios.AxiosResponse<any, any>>;
+    REQUEST_OTP(data: IRequestOTP): Promise<axios.AxiosResponse<any, any>>;
+    VERIFY_OTP(data: IVerifyOTP): Promise<axios.AxiosResponse<any, any>>;
+}
+declare const _default$3: AuthService;
+
+declare class WashService {
+    PROMO_CARDS(): Promise<axios.AxiosResponse<any, any>>;
+    GET_CATEGORIES(): Promise<axios.AxiosResponse<any, any>>;
+    CREATE_WASH(data: WashData): Promise<axios.AxiosResponse<any, any>>;
+    GET_WASHES(data: PaginationParams): Promise<axios.AxiosResponse<any, any>>;
+    GET_WASH(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
+    CANCEL_ORDER(data: CancelOrderData): Promise<axios.AxiosResponse<any, any>>;
+    COMPLETE_ORDER(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
+    CONFIRM_ORDER(data: ConfirmOrderData): Promise<axios.AxiosResponse<any, any>>;
+    RATE_USER(data: RateUserData): Promise<axios.AxiosResponse<any, any>>;
+    WASHER_ARRIVED(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
+    RETRY_WASHER(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
+    COUPON(data: ICouponCode): Promise<axios.AxiosResponse<any, any>>;
+}
+declare const _default$2: WashService;
+
+declare class ProfileService {
+    ADD_VEHICLE(data: IVehicleData): Promise<axios.AxiosResponse<any, any>>;
+    UPDATE_VEHICLE(data: IVehicleUpdateData): Promise<axios.AxiosResponse<any, any>>;
+    DELETE_VEHICLE(id: string): Promise<axios.AxiosResponse<any, any>>;
+    VEHICLES(): Promise<axios.AxiosResponse<any, any>>;
+    VEHICLES_CONFIG(): Promise<axios.AxiosResponse<any, any>>;
+    ADD_ADDRESS(data: IAddressData): Promise<axios.AxiosResponse<any, any>>;
+    UPDATE_ADDRESS(data: IAddressData): Promise<axios.AxiosResponse<any, any>>;
+    DELETE_ADDRESS(id: string): Promise<axios.AxiosResponse<any, any>>;
+    ADDRESSES(): Promise<axios.AxiosResponse<any, any>>;
+    UPDATE_PROFILE(data: IUserProfile): Promise<axios.AxiosResponse<any, any>>;
+    PROFILE(): Promise<axios.AxiosResponse<any, any>>;
+    DELETE_PROFILE(): Promise<axios.AxiosResponse<any, any>>;
+    UPDATE_PASSWORD(data: IUpdatePasswordData): Promise<axios.AxiosResponse<any, any>>;
+    UPLOAD_PROFILE_IMAGE(formData: any, headers?: {}): Promise<axios.AxiosResponse<any, any>>;
+    ACTIVATE_BIOMETRICS(data: IActivateBiometrics): Promise<axios.AxiosResponse<any, any>>;
+    COUNTRIES(): Promise<axios.AxiosResponse<any, any>>;
+    FAQS(): Promise<axios.AxiosResponse<any, any>>;
+    GET_REFERRALS(data: IReferralParam): Promise<axios.AxiosResponse<any, any>>;
+    GET_REFERRALS_CONFIG(): Promise<axios.AxiosResponse<any, any>>;
+    REDEEM_REFERRAL(): Promise<axios.AxiosResponse<any, any>>;
+    NOTIFICATIONS(): Promise<axios.AxiosResponse<any, any>>;
+}
+declare const _default$1: ProfileService;
+
+declare class ChatService {
+    INITIATE_CONVERSATION(data: IConversationMembers): Promise<axios.AxiosResponse<any, any>>;
+    INITIATE_SUPPORT_CONVERSATION(): Promise<axios.AxiosResponse<any, any>>;
+    SEND_MESSAGE(data: ISendMessageBody): Promise<axios.AxiosResponse<any, any>>;
+    GET_CONVERSATIONS(userId: string): Promise<axios.AxiosResponse<any, any>>;
+    GET_MESSAGES(conversationId: string): Promise<axios.AxiosResponse<any, any>>;
+    CLOSE_CONVERSATIONS(data: ICloseConversationBody): Promise<axios.AxiosResponse<any, any>>;
+    UPLOAD_IMAGE(formData: any, headers?: {}): Promise<axios.AxiosResponse<any, any>>;
+    CREATE_TICKET(data: ICreateTicketData): Promise<axios.AxiosResponse<any, any>>;
+    GET_TICKETS(data: PaginationParams): Promise<axios.AxiosResponse<any, any>>;
+    GET_TICKET_CONVERSATIONS(ticketId: string): Promise<axios.AxiosResponse<any, any>>;
+    SEND_TICKET_MESSAGE(data: ISendMessageBody): Promise<axios.AxiosResponse<any, any>>;
+}
+declare const _default: ChatService;
+
+export { API_URL, type Addon$1 as Addon, type Address, type ApiResponse, _default$3 as AuthService, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, _default as ChatService, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, ENDPOINT, EmptyList, type FAQResponse, type FAQS, type Feature$1 as Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type ICategories, type IChatMessages, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type IDtype, type IGoogleAuthResponse, type ILocation, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketMessages, type IUpdatePasswordData, type IUploadImageBody, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderIdData, type PaginationParams, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, _default$1 as ProfileService, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SocketProvider, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, _default$2 as WashService, api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };

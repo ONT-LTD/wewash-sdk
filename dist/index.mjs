@@ -36,6 +36,25 @@ function _async_to_generator(fn) {
         });
     };
 }
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
 function _define_property(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -1239,6 +1258,19 @@ var styles10 = StyleSheet11.create({
         alignItems: "center"
     }
 });
+// src/services/authServices/types.ts
+var otpChannel = /* @__PURE__ */ function(otpChannel2) {
+    otpChannel2["SMS"] = "sms";
+    otpChannel2["EMAIL"] = "email";
+    return otpChannel2;
+}(otpChannel || {});
+var apiContext = /* @__PURE__ */ function(apiContext2) {
+    apiContext2["reset"] = "reset-password";
+    apiContext2["signIn"] = "signin";
+    apiContext2["signUp"] = "signup";
+    apiContext2["updatePassword"] = "update-password";
+    return apiContext2;
+}(apiContext || {});
 // src/hooks/useModal/useModal.tsx
 import { useState as useState2, useCallback } from "react";
 var useModal = function() {
@@ -1571,5 +1603,375 @@ var SocketProvider = function(param) {
         }
     }, children);
 };
-export { API_URL, COLORS, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, SOCKET_URL, SocketProvider, baseApi_default as api, customStyles, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+// src/services/authServices/authServices.ts
+var AuthService = /*#__PURE__*/ function() {
+    "use strict";
+    function AuthService() {
+        _class_call_check(this, AuthService);
+    }
+    _create_class(AuthService, [
+        {
+            key: "SIGN_IN",
+            value: function SIGN_IN(data) {
+                return baseApi_default.post("".concat(ENDPOINT.SIGN_IN), data);
+            }
+        },
+        {
+            key: "SIGN_IN_WITH_GOOGLE",
+            value: function SIGN_IN_WITH_GOOGLE() {
+                return baseApi_default.post("".concat(ENDPOINT.SIGN_IN_WITH_GOOGLE));
+            }
+        },
+        {
+            key: "SIGN_IN_WITH_BIOMETRICS",
+            value: function SIGN_IN_WITH_BIOMETRICS(data) {
+                return baseApi_default.post("".concat(ENDPOINT.SIGN_IN_WITH_BIOMETRICS), data);
+            }
+        },
+        {
+            key: "RESET_PASSWORD",
+            value: function RESET_PASSWORD(data) {
+                return baseApi_default.post("".concat(ENDPOINT.RESET_PASSWORD), data);
+            }
+        },
+        {
+            key: "REQUEST_OTP",
+            value: function REQUEST_OTP(data) {
+                return baseApi_default.post("".concat(ENDPOINT.REQUEST_OTP), data);
+            }
+        },
+        {
+            key: "VERIFY_OTP",
+            value: function VERIFY_OTP(data) {
+                return baseApi_default.post("".concat(ENDPOINT.VERIFY_OTP), data);
+            }
+        }
+    ]);
+    return AuthService;
+}();
+var authServices_default = new AuthService();
+// src/services/washServices/washServices.ts
+var WashService = /*#__PURE__*/ function() {
+    "use strict";
+    function WashService() {
+        _class_call_check(this, WashService);
+    }
+    _create_class(WashService, [
+        {
+            key: "PROMO_CARDS",
+            value: function PROMO_CARDS() {
+                return baseApi_default.get("".concat(ENDPOINT.PROMO_CARD));
+            }
+        },
+        {
+            key: "GET_CATEGORIES",
+            value: function GET_CATEGORIES() {
+                return baseApi_default.get("".concat(ENDPOINT.CATEGORIES));
+            }
+        },
+        {
+            key: "CREATE_WASH",
+            value: function CREATE_WASH(data) {
+                var requestData = _object_spread_props(_object_spread({}, data), {
+                    schedule: data.schedule || void 0,
+                    coupon: data.coupon || void 0
+                });
+                Object.keys(requestData).forEach(function(key) {
+                    return (requestData[key] === void 0 || requestData[key] === "") && delete requestData[key];
+                });
+                return baseApi_default.post("".concat(ENDPOINT.ORDER), requestData);
+            }
+        },
+        {
+            key: "GET_WASHES",
+            value: function GET_WASHES(data) {
+                var params = new URLSearchParams();
+                if (data === null || data === void 0 ? void 0 : data.perPage) params.append("perPage", data.perPage.toString());
+                if (data === null || data === void 0 ? void 0 : data.page) params.append("page", data.page.toString());
+                if (data === null || data === void 0 ? void 0 : data.status) params.append("status", data.status.toString());
+                return baseApi_default.get("".concat(ENDPOINT.GET_WASHES, "/?").concat(params.toString()));
+            }
+        },
+        {
+            key: "GET_WASH",
+            value: function GET_WASH(data) {
+                return baseApi_default.get("".concat(ENDPOINT.GET_WASH, "/").concat(data.orderId));
+            }
+        },
+        {
+            key: "CANCEL_ORDER",
+            value: function CANCEL_ORDER(data) {
+                return baseApi_default.post("".concat(ENDPOINT.CANCEL_ORDER), data);
+            }
+        },
+        {
+            key: "COMPLETE_ORDER",
+            value: function COMPLETE_ORDER(data) {
+                return baseApi_default.post("".concat(ENDPOINT.COMPLETE_ORDER), data);
+            }
+        },
+        {
+            key: "CONFIRM_ORDER",
+            value: function CONFIRM_ORDER(data) {
+                return baseApi_default.post("".concat(ENDPOINT.CONFIRM_ORDER), data);
+            }
+        },
+        {
+            key: "RATE_USER",
+            value: function RATE_USER(data) {
+                return baseApi_default.post("".concat(ENDPOINT.RATE_USER), data);
+            }
+        },
+        {
+            key: "WASHER_ARRIVED",
+            value: function WASHER_ARRIVED(data) {
+                return baseApi_default.post("".concat(ENDPOINT.WASHER_ARRIVED), data);
+            }
+        },
+        {
+            key: "RETRY_WASHER",
+            value: function RETRY_WASHER(data) {
+                return baseApi_default.post("".concat(ENDPOINT.RETRY_WASH), data);
+            }
+        },
+        {
+            key: "COUPON",
+            value: function COUPON(data) {
+                return baseApi_default.post("".concat(ENDPOINT.COUPON), data);
+            }
+        }
+    ]);
+    return WashService;
+}();
+var washServices_default = new WashService();
+// src/services/profileServices/profileServices.ts
+var ProfileService = /*#__PURE__*/ function() {
+    "use strict";
+    function ProfileService() {
+        _class_call_check(this, ProfileService);
+    }
+    _create_class(ProfileService, [
+        {
+            key: "ADD_VEHICLE",
+            value: function ADD_VEHICLE(data) {
+                return baseApi_default.post("".concat(ENDPOINT.VEHICLE), data);
+            }
+        },
+        {
+            key: "UPDATE_VEHICLE",
+            value: function UPDATE_VEHICLE(data) {
+                return baseApi_default.patch("".concat(ENDPOINT.VEHICLE), data);
+            }
+        },
+        {
+            key: "DELETE_VEHICLE",
+            value: function DELETE_VEHICLE(id) {
+                return baseApi_default.delete("".concat(ENDPOINT.VEHICLE, "/").concat(id));
+            }
+        },
+        {
+            key: "VEHICLES",
+            value: function VEHICLES() {
+                return baseApi_default.get("".concat(ENDPOINT.GET_VEHICLES));
+            }
+        },
+        {
+            key: "VEHICLES_CONFIG",
+            value: function VEHICLES_CONFIG() {
+                return baseApi_default.get("".concat(ENDPOINT.GET_VEHICLES_CONFIG));
+            }
+        },
+        {
+            key: "ADD_ADDRESS",
+            value: function ADD_ADDRESS(data) {
+                return baseApi_default.post("".concat(ENDPOINT.ADDRESS), data);
+            }
+        },
+        {
+            key: "UPDATE_ADDRESS",
+            value: function UPDATE_ADDRESS(data) {
+                return baseApi_default.patch("".concat(ENDPOINT.ADDRESS), data);
+            }
+        },
+        {
+            key: "DELETE_ADDRESS",
+            value: function DELETE_ADDRESS(id) {
+                return baseApi_default.delete("".concat(ENDPOINT.ADDRESS, "/").concat(id));
+            }
+        },
+        {
+            key: "ADDRESSES",
+            value: function ADDRESSES() {
+                return baseApi_default.get("".concat(ENDPOINT.ADDRESS));
+            }
+        },
+        {
+            key: "UPDATE_PROFILE",
+            value: function UPDATE_PROFILE(data) {
+                return baseApi_default.post("".concat(ENDPOINT.PROFILE), data);
+            }
+        },
+        {
+            key: "PROFILE",
+            value: function PROFILE() {
+                return baseApi_default.get("".concat(ENDPOINT.PROFILE));
+            }
+        },
+        {
+            key: "DELETE_PROFILE",
+            value: function DELETE_PROFILE() {
+                return baseApi_default.delete("".concat(ENDPOINT.PROFILE));
+            }
+        },
+        {
+            key: "UPDATE_PASSWORD",
+            value: function UPDATE_PASSWORD(data) {
+                return baseApi_default.post("".concat(ENDPOINT.UPDATE_PASSWORD), data);
+            }
+        },
+        {
+            key: "UPLOAD_PROFILE_IMAGE",
+            value: function UPLOAD_PROFILE_IMAGE(formData) {
+                var headers = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+                return baseApi_default.post("".concat(ENDPOINT.UPLOAD_PROFILE_IMAGE), formData, {
+                    headers: headers
+                });
+            }
+        },
+        {
+            key: "ACTIVATE_BIOMETRICS",
+            value: function ACTIVATE_BIOMETRICS(data) {
+                var cleanedData = Object.fromEntries(Object.entries(data).filter(function(param) {
+                    var _param = _sliced_to_array(param, 2), _ = _param[0], value = _param[1];
+                    return value !== null && value !== void 0;
+                }));
+                return baseApi_default.post("".concat(ENDPOINT.ACTIVATE_BIOMETRICS), cleanedData);
+            }
+        },
+        {
+            key: "COUNTRIES",
+            value: function COUNTRIES() {
+                return baseApi_default.get("".concat(ENDPOINT.GET_COUNTRIES));
+            }
+        },
+        {
+            key: "FAQS",
+            value: function FAQS() {
+                return baseApi_default.get("".concat(ENDPOINT.FAQS));
+            }
+        },
+        {
+            key: "GET_REFERRALS",
+            value: function GET_REFERRALS(data) {
+                return baseApi_default.get("".concat(ENDPOINT.GET_REFERRALS, "?perPage=").concat(data.perPage, "&page=").concat(data.page));
+            }
+        },
+        {
+            key: "GET_REFERRALS_CONFIG",
+            value: function GET_REFERRALS_CONFIG() {
+                return baseApi_default.get("".concat(ENDPOINT.GET_REFERRALS_CONFIG));
+            }
+        },
+        {
+            key: "REDEEM_REFERRAL",
+            value: function REDEEM_REFERRAL() {
+                return baseApi_default.post("".concat(ENDPOINT.REDEEM_REFERRAL));
+            }
+        },
+        {
+            key: "NOTIFICATIONS",
+            value: function NOTIFICATIONS() {
+                return baseApi_default.get("".concat(ENDPOINT.NOTIFICATIONS));
+            }
+        }
+    ]);
+    return ProfileService;
+}();
+var profileServices_default = new ProfileService();
+// src/services/chatServices/chatServices.ts
+var ChatService = /*#__PURE__*/ function() {
+    "use strict";
+    function ChatService() {
+        _class_call_check(this, ChatService);
+    }
+    _create_class(ChatService, [
+        {
+            key: "INITIATE_CONVERSATION",
+            value: function INITIATE_CONVERSATION(data) {
+                return baseApi_default.post("".concat(ENDPOINT.INITIATE_CONVERSATION), data);
+            }
+        },
+        {
+            key: "INITIATE_SUPPORT_CONVERSATION",
+            value: function INITIATE_SUPPORT_CONVERSATION() {
+                return baseApi_default.post("".concat(ENDPOINT.INITIATE_SUPPORT_CONVERSATION));
+            }
+        },
+        {
+            key: "SEND_MESSAGE",
+            value: function SEND_MESSAGE(data) {
+                return baseApi_default.post("".concat(ENDPOINT.SEND_MESSAGE), data);
+            }
+        },
+        {
+            key: "GET_CONVERSATIONS",
+            value: function GET_CONVERSATIONS(userId) {
+                return baseApi_default.get("".concat(ENDPOINT.GET_CONVERSATIONS, "/").concat(userId));
+            }
+        },
+        {
+            key: "GET_MESSAGES",
+            value: function GET_MESSAGES(conversationId) {
+                return baseApi_default.get("".concat(ENDPOINT.GET_MESSAGES, "/").concat(conversationId));
+            }
+        },
+        {
+            key: "CLOSE_CONVERSATIONS",
+            value: function CLOSE_CONVERSATIONS(data) {
+                return baseApi_default.post("".concat(ENDPOINT.CLOSE_CONVERSATIONS), data);
+            }
+        },
+        {
+            key: "UPLOAD_IMAGE",
+            value: function UPLOAD_IMAGE(formData) {
+                var headers = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+                return baseApi_default.post("".concat(ENDPOINT.UPLOAD_IMAGE), formData, {
+                    headers: headers
+                });
+            }
+        },
+        {
+            key: "CREATE_TICKET",
+            value: function CREATE_TICKET(data) {
+                return baseApi_default.post("".concat(ENDPOINT.CREATE_TICKET), data);
+            }
+        },
+        {
+            key: "GET_TICKETS",
+            value: function GET_TICKETS(data) {
+                var _data_perPage, _data_page;
+                var params = new URLSearchParams({
+                    perPage: data === null || data === void 0 ? void 0 : (_data_perPage = data.perPage) === null || _data_perPage === void 0 ? void 0 : _data_perPage.toString(),
+                    page: data === null || data === void 0 ? void 0 : (_data_page = data.page) === null || _data_page === void 0 ? void 0 : _data_page.toString()
+                });
+                return baseApi_default.get("".concat(ENDPOINT.GET_TICKETS, "/?").concat(params.toString()));
+            }
+        },
+        {
+            key: "GET_TICKET_CONVERSATIONS",
+            value: function GET_TICKET_CONVERSATIONS(ticketId) {
+                return baseApi_default.get("".concat(ENDPOINT.GET_TICKET_CONVERSATIONS, "/").concat(ticketId));
+            }
+        },
+        {
+            key: "SEND_TICKET_MESSAGE",
+            value: function SEND_TICKET_MESSAGE(data) {
+                return baseApi_default.post("".concat(ENDPOINT.SEND_TICKET_MESSAGE), data);
+            }
+        }
+    ]);
+    return ChatService;
+}();
+var chatServices_default = new ChatService();
+export { API_URL, authServices_default as AuthService, COLORS, chatServices_default as ChatService, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, profileServices_default as ProfileService, SOCKET_URL, SocketProvider, washServices_default as WashService, baseApi_default as api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
 //# sourceMappingURL=index.mjs.map

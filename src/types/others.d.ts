@@ -10,15 +10,48 @@ export type IVehicle = {
   updatedAt: string;
 };
 
-export type Notification = {
-  createdAt: string;
-  icon: string | null;
+export type IChatMessages = {
+  conversationId: string;
+  content: string;
+  mediaUrl: string;
+  senderId: string;
   id: string;
-  message: string;
-  meta: any;
-  recipientId: string;
-  status: 'unread' | 'read';
+  createdAt: Date | string;
+};
+
+export type FAQS = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
+export type PromoCodes = {
+  id: string;
   title: string;
-  type: 'security-notification' | string;
+  description: string;
+  buttonText: string;
+  buttonAction: string;
+  icon: string;
+  backgroundStyle: string;
+  createdAt: string;
   updatedAt: string;
+};
+
+export type ICategories = {
+  id: string;
+  name: string;
+  slug: string;
+  desc: string;
+  estimatedPrice: string;
+  image: {
+    icon: {
+      primary: string;
+      secondary: string;
+    };
+    background: string;
+  };
+  features: Feature[];
+  createdAt: string;
+  updatedAt: string;
+  addons: Addon[];
 };
