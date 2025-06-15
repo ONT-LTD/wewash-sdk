@@ -7,6 +7,35 @@ function _array_like_to_array(arr, len) {
 function _array_with_holes(arr) {
     if (Array.isArray(arr)) return arr;
 }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+    try {
+        var info = gen[key](arg);
+        var value = info.value;
+    } catch (error) {
+        reject(error);
+        return;
+    }
+    if (info.done) {
+        resolve(value);
+    } else {
+        Promise.resolve(value).then(_next, _throw);
+    }
+}
+function _async_to_generator(fn) {
+    return function() {
+        var self = this, args = arguments;
+        return new Promise(function(resolve, reject) {
+            var gen = fn.apply(self, args);
+            function _next(value) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+            }
+            function _throw(err) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+            }
+            _next(undefined);
+        });
+    };
+}
 function _define_property(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -124,6 +153,101 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
+function _ts_generator(thisArg, body) {
+    var f, y, t, g, _ = {
+        label: 0,
+        sent: function() {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+        },
+        trys: [],
+        ops: []
+    };
+    return g = {
+        next: verb(0),
+        "throw": verb(1),
+        "return": verb(2)
+    }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+        return this;
+    }), g;
+    function verb(n) {
+        return function(v) {
+            return step([
+                n,
+                v
+            ]);
+        };
+    }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while(_)try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [
+                op[0] & 2,
+                t.value
+            ];
+            switch(op[0]){
+                case 0:
+                case 1:
+                    t = op;
+                    break;
+                case 4:
+                    _.label++;
+                    return {
+                        value: op[1],
+                        done: false
+                    };
+                case 5:
+                    _.label++;
+                    y = op[1];
+                    op = [
+                        0
+                    ];
+                    continue;
+                case 7:
+                    op = _.ops.pop();
+                    _.trys.pop();
+                    continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                        _ = 0;
+                        continue;
+                    }
+                    if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                        _.label = op[1];
+                        break;
+                    }
+                    if (op[0] === 6 && _.label < t[1]) {
+                        _.label = t[1];
+                        t = op;
+                        break;
+                    }
+                    if (t && _.label < t[2]) {
+                        _.label = t[2];
+                        _.ops.push(op);
+                        break;
+                    }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop();
+                    continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) {
+            op = [
+                6,
+                e
+            ];
+            y = 0;
+        } finally{
+            f = t = 0;
+        }
+        if (op[0] & 5) throw op[1];
+        return {
+            value: op[0] ? op[1] : void 0,
+            done: true
+        };
+    }
+}
 import React, { forwardRef } from "react";
 import { ActivityIndicator, StyleSheet as StyleSheet2, Text, TouchableOpacity } from "react-native";
 // src/constant/Colors.ts
@@ -215,6 +339,12 @@ var customStyles = StyleSheet.create({
         fontFamily: "UrbanistSemiBold"
     }
 });
+var statusColor = function(title) {
+    return (title === null || title === void 0 ? void 0 : title.toString()) === "eco" ? "#EEE6FD" : (title === null || title === void 0 ? void 0 : title.toString()) === "luxury" ? "#E0FCE2" : "#FAEAF4";
+};
+var statusBorderColor = function(title) {
+    return (title === null || title === void 0 ? void 0 : title.toString()) === "eco" ? "#E5D9FC" : (title === null || title === void 0 ? void 0 : title.toString()) === "luxury" ? "#BEF9C2" : "#F7DEEE";
+};
 // src/components/CustomButton/CustomButton.tsx
 var CustomButton = forwardRef(function(param, ref) {
     var title = param.title, onPress = param.onPress, disabled = param.disabled, backgroundColor = param.backgroundColor, textColor = param.textColor, marginBottom = param.marginBottom, marginTop = param.marginTop, marginHorizontal = param.marginHorizontal, marginVertical = param.marginVertical, marginLeft = param.marginLeft, marginRight = param.marginRight, borderColor = param.borderColor, isTextMedium = param.isTextMedium, icon = param.icon, alignSelf = param.alignSelf, isHalfWidth = param.isHalfWidth, paddingHorizontal = param.paddingHorizontal, fontSize = param.fontSize, paddingVertical = param.paddingVertical, isLoading = param.isLoading, isSmallButton = param.isSmallButton, estimated = param.estimated;
@@ -870,6 +1000,29 @@ var CustomSwitch_default = CustomSwitchButton;
 import { StyleSheet as StyleSheet9, TouchableOpacity as TouchableOpacity6, View as View6, FlatList } from "react-native";
 import React14 from "react";
 // src/helper/helper.ts
+function truncateText(text) {
+    if (typeof text !== "string" || text.length <= 4) {
+        return text;
+    }
+    var firstTwo = text.slice(0, 2);
+    var lastTwo = text.slice(-2);
+    return "".concat(firstTwo, "***").concat(lastTwo);
+}
+function truncateTextWithEmail(text) {
+    if (typeof text !== "string" || text.length <= 4) {
+        return text;
+    }
+    var firstTwo = text.slice(0, 2);
+    var lastEight = text.slice(-8);
+    return "".concat(firstTwo, "***").concat(lastEight);
+}
+function truncateTextSubtitle(text, size) {
+    if (typeof text !== "string" || (text === null || text === void 0 ? void 0 : text.length) <= size) {
+        return text;
+    }
+    var firstTwo = text.slice(0, size);
+    return "".concat(firstTwo, "...");
+}
 function truncateTextLast4(text, size) {
     if (typeof text !== "string" || text.length <= size) {
         return text;
@@ -1086,5 +1239,337 @@ var styles10 = StyleSheet11.create({
         alignItems: "center"
     }
 });
-export { CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, EmptyList_default as EmptyList, ModalContent_default as ModalContent };
+// src/hooks/useModal/useModal.tsx
+import { useState as useState2, useCallback } from "react";
+var useModal = function() {
+    var _useState2 = _sliced_to_array(useState2(false), 2), visible = _useState2[0], setVisible = _useState2[1];
+    var onOpen = useCallback(function() {
+        setVisible(true);
+    }, []);
+    var onClose = useCallback(function() {
+        setVisible(false);
+    }, []);
+    return {
+        visible: visible,
+        onOpen: onOpen,
+        onClose: onClose
+    };
+};
+// src/hooks/useShareLink/useShareLink.tsx
+import { useCallback as useCallback2 } from "react";
+import { Share } from "react-native";
+var useShareLink = function() {
+    var shareLink = useCallback2(/*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(content, options) {
+            var result, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            2,
+                            ,
+                            3
+                        ]);
+                        return [
+                            4,
+                            Share.share(content, options)
+                        ];
+                    case 1:
+                        result = _state.sent();
+                        if (result.action === Share.sharedAction) {
+                            if (result.activityType) {
+                                console.log("Shared with activity type: ".concat(result.activityType));
+                            } else {
+                                console.log("Link shared successfully");
+                            }
+                        } else if (result.action === Share.dismissedAction) {
+                            console.log("Share dismissed");
+                        }
+                        return [
+                            3,
+                            3
+                        ];
+                    case 2:
+                        error = _state.sent();
+                        console.error("Error while sharing link:", error);
+                        return [
+                            3,
+                            3
+                        ];
+                    case 3:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function(content, options) {
+            return _ref.apply(this, arguments);
+        };
+    }(), []);
+    return {
+        shareLink: shareLink
+    };
+};
+// src/hooks/useTimer/useTimer.tsx
+import { useState as useState3, useEffect } from "react";
+var useTimer = function(initialSeconds) {
+    var _useState3 = _sliced_to_array(useState3(initialSeconds), 2), seconds = _useState3[0], setSeconds = _useState3[1];
+    var _useState31 = _sliced_to_array(useState3(false), 2), isFinished = _useState31[0], setIsFinished = _useState31[1];
+    useEffect(function() {
+        var timer = null;
+        if (seconds > 0) {
+            timer = setTimeout(function() {
+                return setSeconds(seconds - 1);
+            }, 1e3);
+        } else {
+            setIsFinished(true);
+        }
+        return function() {
+            if (timer) clearTimeout(timer);
+        };
+    }, [
+        seconds
+    ]);
+    var formatTime = function() {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+        return "".concat(minutes, ":").concat(remainingSeconds < 10 ? "0".concat(remainingSeconds) : remainingSeconds);
+    };
+    return {
+        seconds: seconds,
+        isFinished: isFinished,
+        formattedTime: formatTime()
+    };
+};
+// src/hooks/useCountDown/useCountDown.ts
+import { useEffect as useEffect2, useRef, useState as useState4 } from "react";
+var useCountdown = function(minutes) {
+    var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
+    var _useState4 = _sliced_to_array(useState4(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState4[0], setTimeLeft = _useState4[1];
+    var intervalRef = useRef(null);
+    var hasStarted = useRef(false);
+    var hasCompleted = useRef(false);
+    useEffect2(function() {
+        if (minutes > 0) {
+            setTimeLeft(minutes * 60);
+            hasStarted.current = false;
+            hasCompleted.current = false;
+        }
+    }, [
+        minutes
+    ]);
+    useEffect2(function() {
+        if (timeLeft > 0 && !hasStarted.current) {
+            hasStarted.current = true;
+            onStart === null || onStart === void 0 ? void 0 : onStart();
+        }
+        if (timeLeft <= 0) {
+            if (!hasCompleted.current) {
+                hasCompleted.current = true;
+                onComplete === null || onComplete === void 0 ? void 0 : onComplete();
+            }
+            return;
+        }
+        intervalRef.current = setInterval(function() {
+            setTimeLeft(function(prev) {
+                if (prev <= 1) {
+                    clearInterval(intervalRef.current);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1e3);
+        return function() {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
+    }, [
+        timeLeft,
+        onStart,
+        onComplete
+    ]);
+    var formatTime = function(totalSeconds) {
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes2 = Math.floor(totalSeconds % 3600 / 60);
+        var seconds = totalSeconds % 60;
+        var pad = function(n) {
+            return String(n).padStart(2, "0");
+        };
+        return "".concat(pad(hours), ":").concat(pad(minutes2), ":").concat(pad(seconds));
+    };
+    return formatTime(timeLeft);
+};
+// src/config/endpoints.ts
+var V1 = "v1";
+var AUTH = "".concat(V1, "/auth/customers");
+var PROFILE = "".concat(V1, "/profile");
+var NOTIFICATIONS = "".concat(V1, "/notifications");
+var CHAT = "".concat(V1, "/chats");
+var TICKETS = "".concat(CHAT, "/tickets");
+var WASHES = "".concat(V1, "/washes");
+var ORDERS = "".concat(V1, "/orders");
+var ENDPOINT = {
+    SIGN_IN: "".concat(AUTH, "/init/local"),
+    SIGN_IN_WITH_GOOGLE: "".concat(AUTH, "/init/google"),
+    SIGN_IN_WITH_BIOMETRICS: "".concat(AUTH, "/init/biometric"),
+    RESET_PASSWORD: "".concat(AUTH, "/reset-password"),
+    REQUEST_OTP: "".concat(AUTH, "/otp"),
+    VERIFY_OTP: "".concat(AUTH, "/otp/verify"),
+    VEHICLE: "".concat(PROFILE, "/vehicle"),
+    GET_VEHICLES: "".concat(PROFILE, "/vehicles"),
+    GET_VEHICLES_CONFIG: "".concat(PROFILE, "/vehicles/config"),
+    ADDRESS: "".concat(PROFILE, "/address"),
+    PROFILE: "".concat(PROFILE),
+    NOTIFICATIONS: "".concat(NOTIFICATIONS),
+    UPLOAD_PROFILE_IMAGE: "".concat(PROFILE, "/upload/image"),
+    UPDATE_PASSWORD: "".concat(PROFILE, "/update-password"),
+    ACTIVATE_BIOMETRICS: "".concat(PROFILE, "/biometric/activate"),
+    GET_COUNTRIES: "".concat(PROFILE, "/countries"),
+    FAQS: "".concat(PROFILE, "/faqs"),
+    INITIATE_CONVERSATION: "".concat(CHAT, "/conversation"),
+    INITIATE_SUPPORT_CONVERSATION: "".concat(CHAT, "/support"),
+    SEND_MESSAGE: "".concat(CHAT, "/message"),
+    GET_CONVERSATIONS: "".concat(CHAT, "/conversations"),
+    CLOSE_CONVERSATIONS: "".concat(CHAT, "/conversation/close"),
+    UPLOAD_IMAGE: "".concat(CHAT, "/upload/image"),
+    GET_MESSAGES: "".concat(CHAT, "/messages"),
+    GET_REFERRALS: "".concat(PROFILE, "/referrals"),
+    GET_REFERRALS_CONFIG: "".concat(PROFILE, "/referrals/configs"),
+    REDEEM_REFERRAL: "".concat(PROFILE, "/referrals/redeem"),
+    PROMO_CARD: "".concat(WASHES, "/promo-cards"),
+    CATEGORIES: "".concat(WASHES, "/categories"),
+    ORDER: "".concat(ORDERS, "/washer/find"),
+    CANCEL_ORDER: "".concat(ORDERS, "/cancel"),
+    COMPLETE_ORDER: "".concat(ORDERS, "/complete"),
+    CONFIRM_ORDER: "".concat(ORDERS, "/confirm"),
+    RATE_USER: "".concat(ORDERS, "/rate-user"),
+    WASHER_ARRIVED: "".concat(ORDERS, "/washer-arrived"),
+    RETRY_WASH: "".concat(ORDERS, "/washer/retry"),
+    COUPON: "".concat(ORDERS, "/validate-coupon"),
+    GET_WASHES: "".concat(WASHES, "/customer"),
+    GET_WASH: "".concat(WASHES),
+    CREATE_TICKET: "".concat(TICKETS, "/create"),
+    GET_TICKETS: "".concat(TICKETS, "/customer"),
+    GET_TICKET_CONVERSATIONS: "".concat(TICKETS, "/conversations"),
+    SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support")
+};
+// src/config/baseApi.ts
+import axios from "axios";
+var API_URL = "https://gateway-ms-production.up.railway.app";
+var SOCKET_URL = "https://chats-ms-production.up.railway.app";
+var api = axios.create({
+    baseURL: "".concat(API_URL),
+    headers: {
+        "Content-type": "application/json"
+    }
+});
+var baseApi_default = api;
+// src/context/socket.tsx
+import React17, { createContext, useContext, useEffect as useEffect3, useState as useState5 } from "react";
+// src/config/socket.ts
+import { io } from "socket.io-client";
+var socket = null;
+var initializeSocket = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function() {
+        return _ts_generator(this, function(_state) {
+            if (!socket) {
+                socket = io(API_URL, {
+                    transports: [
+                        "websocket"
+                    ]
+                });
+                socket.on("connect", function() {
+                    console.log("Socket connected!");
+                });
+                socket.on("reconnect_attempt", function(attempt) {
+                    console.log("Trying to reconnect (#".concat(attempt, ")"));
+                });
+                socket.on("reconnect_failed", function() {
+                    console.log("Failed to reconnect");
+                });
+                socket.on("connect_error", function(err) {
+                    console.log("connect_error due to ".concat(err.message));
+                });
+                socket.on("disconnect", function() {
+                    console.log("Socket disconnected!");
+                });
+            }
+            return [
+                2,
+                socket
+            ];
+        });
+    });
+    return function initializeSocket() {
+        return _ref.apply(this, arguments);
+    };
+}();
+var disconnectSocket = function() {
+    if (socket) {
+        socket.disconnect();
+        socket = null;
+    }
+};
+// src/context/socket.tsx
+var SocketContext = createContext({
+    socket: null
+});
+var SocketProvider = function(param) {
+    var children = param.children;
+    var _useState5 = _sliced_to_array(useState5(null), 2), socket2 = _useState5[0], setSocket = _useState5[1];
+    useEffect3(function() {
+        var setupSocket = /*#__PURE__*/ function() {
+            var _ref = _async_to_generator(function() {
+                var initializedSocket, error;
+                return _ts_generator(this, function(_state) {
+                    switch(_state.label){
+                        case 0:
+                            _state.trys.push([
+                                0,
+                                2,
+                                ,
+                                3
+                            ]);
+                            return [
+                                4,
+                                initializeSocket()
+                            ];
+                        case 1:
+                            initializedSocket = _state.sent();
+                            setSocket(initializedSocket);
+                            return [
+                                3,
+                                3
+                            ];
+                        case 2:
+                            error = _state.sent();
+                            console.error("Error initializing socket:", error);
+                            return [
+                                3,
+                                3
+                            ];
+                        case 3:
+                            return [
+                                2
+                            ];
+                    }
+                });
+            });
+            return function setupSocket() {
+                return _ref.apply(this, arguments);
+            };
+        }();
+        setupSocket();
+        return function() {
+            disconnectSocket();
+        };
+    }, []);
+    return /* @__PURE__ */ React17.createElement(SocketContext.Provider, {
+        value: {
+            socket: socket2
+        }
+    }, children);
+};
+export { API_URL, COLORS, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, SOCKET_URL, SocketProvider, baseApi_default as api, customStyles, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
 //# sourceMappingURL=index.mjs.map

@@ -1,4 +1,4 @@
-export type {
+export {
   truncateText,
   truncateTextWithEmail,
   truncateTextSubtitle,
