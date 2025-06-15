@@ -30,15 +30,15 @@ type ButtonProps = {
 type TextProps = ThemeProps & Text['props'];
 
 type IVehicle = {
-    id: string;
-    userId: string;
-    type: string;
-    make: string;
-    model: string;
-    year: `${number}`;
-    category: string;
-    createdAt: string;
-    updatedAt: string;
+  id: string;
+  userId: string;
+  type: string;
+  make: string;
+  model: string;
+  year: `${number}`; // Ensures it's a stringified number
+  category: string;
+  createdAt: string; // Use Date if parsing dates
+  updatedAt: string;
 };
 
 declare const CustomButton: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<React$1.ForwardRefExoticComponent<react_native.TouchableOpacityProps & React$1.RefAttributes<react_native.View>>>>;
@@ -148,4 +148,9 @@ type Props = {
 };
 declare const EmptyList: FC<Props>;
 
-export { type ButtonProps, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, EmptyList, type IVehicle, ModalContent, type TextProps };
+declare function truncateText(text: string): string;
+declare function truncateTextWithEmail(text: string): string;
+declare function truncateTextSubtitle(text: string, size: number): string;
+declare function truncateTextLast4(text: string, size: number): string;
+
+export { type ButtonProps, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, EmptyList, type IVehicle, ModalContent, type TextProps, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail };
