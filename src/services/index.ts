@@ -1,4 +1,4 @@
-export { default as AuthService } from './authServices/authServices';
-export { default as WashService } from './washServices/washServices';
-export { default as ProfileService } from './profileServices/profileServices';
-export { default as ChatService } from './chatServices/chatServices';
+export { AuthServices } from './authServices/authServices';
+export { WashServices } from './washServices/washServices';
+export { ProfileServices } from './profileServices/profileServices';
+export { ChatServices } from './chatServices/chatServices';

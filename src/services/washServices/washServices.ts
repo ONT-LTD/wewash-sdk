@@ -69,4 +69,4 @@ class WashService {
   }
 }
 
-export default new WashService();
+export const WashServices = new WashService();

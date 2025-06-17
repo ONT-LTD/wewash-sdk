@@ -335,14 +335,14 @@ __export(index_exports, {
     API_URL: function() {
         return API_URL;
     },
-    AuthService: function() {
-        return authServices_default;
+    AuthServices: function() {
+        return AuthServices;
     },
     COLORS: function() {
         return COLORS;
     },
-    ChatService: function() {
-        return chatServices_default;
+    ChatServices: function() {
+        return ChatServices;
     },
     CustomButton: function() {
         return CustomButton_default;
@@ -404,8 +404,8 @@ __export(index_exports, {
     ModalContent: function() {
         return ModalContent_default;
     },
-    ProfileService: function() {
-        return profileServices_default;
+    ProfileServices: function() {
+        return ProfileServices;
     },
     SOCKET_URL: function() {
         return SOCKET_URL;
@@ -413,8 +413,8 @@ __export(index_exports, {
     SocketProvider: function() {
         return SocketProvider;
     },
-    WashService: function() {
-        return washServices_default;
+    WashServices: function() {
+        return WashServices;
     },
     api: function() {
         return baseApi_default;
@@ -1842,7 +1842,7 @@ var AuthService = /*#__PURE__*/ function() {
     ]);
     return AuthService;
 }();
-var authServices_default = new AuthService();
+var AuthServices = new AuthService();
 // src/services/washServices/washServices.ts
 var WashService = /*#__PURE__*/ function() {
     function WashService() {
@@ -1935,7 +1935,7 @@ var WashService = /*#__PURE__*/ function() {
     ]);
     return WashService;
 }();
-var washServices_default = new WashService();
+var WashServices = new WashService();
 // src/services/profileServices/profileServices.ts
 var ProfileService = /*#__PURE__*/ function() {
     function ProfileService() {
@@ -2078,7 +2078,7 @@ var ProfileService = /*#__PURE__*/ function() {
     ]);
     return ProfileService;
 }();
-var profileServices_default = new ProfileService();
+var ProfileServices = new ProfileService();
 // src/services/chatServices/chatServices.ts
 var ChatService = /*#__PURE__*/ function() {
     function ChatService() {
@@ -2162,13 +2162,13 @@ var ChatService = /*#__PURE__*/ function() {
     ]);
     return ChatService;
 }();
-var chatServices_default = new ChatService();
+var ChatServices = new ChatService();
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
     API_URL: API_URL,
-    AuthService: AuthService,
+    AuthServices: AuthServices,
     COLORS: COLORS,
-    ChatService: ChatService,
+    ChatServices: ChatServices,
     CustomButton: CustomButton,
     CustomDropdown: CustomDropdown,
     CustomError: CustomError,
@@ -2189,10 +2189,10 @@ var chatServices_default = new ChatService();
     ENDPOINT: ENDPOINT,
     EmptyList: EmptyList,
     ModalContent: ModalContent,
-    ProfileService: ProfileService,
+    ProfileServices: ProfileServices,
     SOCKET_URL: SOCKET_URL,
     SocketProvider: SocketProvider,
-    WashService: WashService,
+    WashServices: WashServices,
     api: api,
     apiContext: apiContext,
     customStyles: customStyles,

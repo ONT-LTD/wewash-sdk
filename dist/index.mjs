@@ -1649,7 +1649,7 @@ var AuthService = /*#__PURE__*/ function() {
     ]);
     return AuthService;
 }();
-var authServices_default = new AuthService();
+var AuthServices = new AuthService();
 // src/services/washServices/washServices.ts
 var WashService = /*#__PURE__*/ function() {
     "use strict";
@@ -1743,7 +1743,7 @@ var WashService = /*#__PURE__*/ function() {
     ]);
     return WashService;
 }();
-var washServices_default = new WashService();
+var WashServices = new WashService();
 // src/services/profileServices/profileServices.ts
 var ProfileService = /*#__PURE__*/ function() {
     "use strict";
@@ -1887,7 +1887,7 @@ var ProfileService = /*#__PURE__*/ function() {
     ]);
     return ProfileService;
 }();
-var profileServices_default = new ProfileService();
+var ProfileServices = new ProfileService();
 // src/services/chatServices/chatServices.ts
 var ChatService = /*#__PURE__*/ function() {
     "use strict";
@@ -1972,6 +1972,6 @@ var ChatService = /*#__PURE__*/ function() {
     ]);
     return ChatService;
 }();
-var chatServices_default = new ChatService();
-export { API_URL, authServices_default as AuthService, COLORS, chatServices_default as ChatService, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, profileServices_default as ProfileService, SOCKET_URL, SocketProvider, washServices_default as WashService, baseApi_default as api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+var ChatServices = new ChatService();
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
 //# sourceMappingURL=index.mjs.map

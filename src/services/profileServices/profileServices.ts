@@ -84,4 +84,4 @@ class ProfileService {
   }
 }
 
-export default new ProfileService();
+export const ProfileServices = new ProfileService();

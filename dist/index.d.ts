@@ -902,7 +902,7 @@ declare class AuthService {
     REQUEST_OTP(data: IRequestOTP): Promise<axios.AxiosResponse<any, any>>;
     VERIFY_OTP(data: IVerifyOTP): Promise<axios.AxiosResponse<any, any>>;
 }
-declare const _default$3: AuthService;
+declare const AuthServices: AuthService;
 
 declare class WashService {
     PROMO_CARDS(): Promise<axios.AxiosResponse<any, any>>;
@@ -918,7 +918,7 @@ declare class WashService {
     RETRY_WASHER(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
     COUPON(data: ICouponCode): Promise<axios.AxiosResponse<any, any>>;
 }
-declare const _default$2: WashService;
+declare const WashServices: WashService;
 
 declare class ProfileService {
     ADD_VEHICLE(data: IVehicleData): Promise<axios.AxiosResponse<any, any>>;
@@ -943,7 +943,7 @@ declare class ProfileService {
     REDEEM_REFERRAL(): Promise<axios.AxiosResponse<any, any>>;
     NOTIFICATIONS(): Promise<axios.AxiosResponse<any, any>>;
 }
-declare const _default$1: ProfileService;
+declare const ProfileServices: ProfileService;
 
 declare class ChatService {
     INITIATE_CONVERSATION(data: IConversationMembers): Promise<axios.AxiosResponse<any, any>>;
@@ -958,6 +958,6 @@ declare class ChatService {
     GET_TICKET_CONVERSATIONS(ticketId: string): Promise<axios.AxiosResponse<any, any>>;
     SEND_TICKET_MESSAGE(data: ISendMessageBody): Promise<axios.AxiosResponse<any, any>>;
 }
-declare const _default: ChatService;
+declare const ChatServices: ChatService;
 
-export { API_URL, type Addon$1 as Addon, type Address, type ApiResponse, _default$3 as AuthService, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, _default as ChatService, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, ENDPOINT, EmptyList, type FAQResponse, type FAQS, type Feature$1 as Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type ICategories, type IChatMessages, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type IDtype, type IGoogleAuthResponse, type ILocation, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketMessages, type IUpdatePasswordData, type IUploadImageBody, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderIdData, type PaginationParams, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, _default$1 as ProfileService, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SocketProvider, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, _default$2 as WashService, api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+export { API_URL, type Addon$1 as Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, ENDPOINT, EmptyList, type FAQResponse, type FAQS, type Feature$1 as Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type ICategories, type IChatMessages, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type IDtype, type IGoogleAuthResponse, type ILocation, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketMessages, type IUpdatePasswordData, type IUploadImageBody, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderIdData, type PaginationParams, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SocketProvider, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };

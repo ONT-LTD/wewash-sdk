@@ -50,4 +50,4 @@ class ChatService {
   }
 }
 
-export default new ChatService();
+export const ChatServices = new ChatService();
