@@ -1019,6 +1019,12 @@ var CustomSwitch_default = CustomSwitchButton;
 import { StyleSheet as StyleSheet9, TouchableOpacity as TouchableOpacity6, View as View6, FlatList } from "react-native";
 import React14 from "react";
 // src/helper/helper.ts
+import * as SecureStore from "expo-secure-store";
+import * as Device from "expo-device";
+import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
+import Toast from "react-native-toast-message";
+import RNSimpleCrypto from "react-native-simple-crypto";
 function truncateText(text) {
     if (typeof text !== "string" || text.length <= 4) {
         return text;
@@ -1049,6 +1055,52 @@ function truncateTextLast4(text, size) {
     var firstTwo = text.slice(0, size);
     return "...".concat(firstTwo);
 }
+var validationSchema = Yup.object().shape({
+    oldPassword: Yup.string().min(8, "Password must be at least 8 characters long").matches(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()._])/, "Password must contain at least one uppercase letter, one number, and one special character").required("Password is required"),
+    newPassword: Yup.string().min(8, "Password must be at least 8 characters long").matches(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()._])/, "Password must contain at least one uppercase letter, one number, and one special character").required("Password is required"),
+    confirmPassword: Yup.string().required("Confirm password is required").test("passwords-match", "Passwords must match", function(value) {
+        return this.parent.newPassword === value;
+    })
+});
+var resetValidationSchema = Yup.object().shape({
+    newPassword: Yup.string().min(8, "Password must be at least 8 characters long").matches(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()._])/, "Password must contain at least one uppercase letter, one number, and one special character").required("Password is required"),
+    confirmPassword: Yup.string().required("Confirm password is required").test("passwords-match", "Passwords must match", function(value) {
+        return this.parent.newPassword === value;
+    })
+});
+var cardValidationSchema = Yup.object().shape({
+    card_name: Yup.string().matches(/^[a-zA-Z\s]*$/, "Card name can only contain letters and spaces").required("Card name is required"),
+    card_number: Yup.string().test("is-16-digits", "Card number must be exactly 16 digits", function(value) {
+        var cleanValue = value === null || value === void 0 ? void 0 : value.replace(/\s+/g, "");
+        return cleanValue && cleanValue.length === 16;
+    }).required("Card number is required"),
+    expiry_date: Yup.string().matches(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry date must be in the format MM/YY").test("expiry_date", "Card has expired", function(value) {
+        if (!value) return false;
+        var _value_split_map = _sliced_to_array(value.split("/").map(Number), 2), month = _value_split_map[0], year = _value_split_map[1];
+        var now = /* @__PURE__ */ new Date();
+        var currentYear = parseInt(now.getFullYear().toString().slice(-2));
+        var currentMonth = now.getMonth() + 1;
+        return year > currentYear || year === currentYear && month >= currentMonth;
+    }).max(5, "Expiry date must be in MM/YY format").required("Expiry date is required"),
+    cvv: Yup.string().matches(/^\d{3}$/, "CVV must be exactly 3 digits").required("CVV is required")
+});
+var profileValidationSchema = Yup.object().shape({
+    phone: Yup.string().matches(/^(0\d{10}|234\d{10})$/, 'Phone number must start with "0" or "234" and be 11 or 13 digits long').required("Phone number is required"),
+    email: Yup.string().email("Invalid email address").required("Email is required"),
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required")
+});
+var ticketValidationSchema = Yup.object().shape({
+    subject: Yup.string().required("Subject is required"),
+    department: Yup.string().required("Department is required")
+});
+var loginValidationSchema = Yup.object().shape({
+    phone: Yup.string().matches(/^0\d{10}$/, 'Phone number must start with "0" and be 11 digits long').required("Phone number is required"),
+    password: Yup.string().min(8, "Password must be at least 8 characters long").matches(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()._])/, "Password must contain at least one uppercase letter, one number, and one special character").required("Password is required")
+});
+var phoneValidationSchema = Yup.object().shape({
+    phone: Yup.string().matches(/^0\d{10}$/, 'Phone number must start with "0" and be 11 digits long').required("Phone number is required")
+});
 // src/assets/svg/MasterCardSmall.tsx
 import * as React13 from "react";
 import Svg5, { Path as Path5 } from "react-native-svg";
@@ -1524,7 +1576,7 @@ var api = axios.create({
 var baseApi_default = api;
 // src/config/useStorageState.ts
 import { useEffect as useEffect3, useCallback as useCallback3, useReducer } from "react";
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore2 from "expo-secure-store";
 import { Platform } from "react-native";
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
@@ -1571,7 +1623,7 @@ function _setStorageItemAsync() {
                     ];
                     return [
                         4,
-                        SecureStore.deleteItemAsync(key)
+                        SecureStore2.deleteItemAsync(key)
                     ];
                 case 2:
                     _state.sent();
@@ -1582,7 +1634,7 @@ function _setStorageItemAsync() {
                 case 3:
                     return [
                         4,
-                        SecureStore.setItemAsync(key, value)
+                        SecureStore2.setItemAsync(key, value)
                     ];
                 case 4:
                     _state.sent();
@@ -1608,7 +1660,7 @@ function useStorageState(key) {
                 console.error("Local storage is unavailable:", e);
             }
         } else {
-            SecureStore.getItemAsync(key).then(function(value) {
+            SecureStore2.getItemAsync(key).then(function(value) {
                 setState(value);
             });
         }
