@@ -1522,8 +1522,112 @@ var api = axios.create({
     }
 });
 var baseApi_default = api;
+// src/config/useStorageState.ts
+import { useEffect as useEffect3, useCallback as useCallback3, useReducer } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Platform } from "react-native";
+function useAsyncState() {
+    var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
+        true,
+        null
+    ];
+    return useReducer(function(state) {
+        var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
+        return [
+            false,
+            action
+        ];
+    }, initialValue);
+}
+function setStorageItemAsync(key, value) {
+    return _setStorageItemAsync.apply(this, arguments);
+}
+function _setStorageItemAsync() {
+    _setStorageItemAsync = _async_to_generator(function(key, value) {
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    if (!(Platform.OS === "web")) return [
+                        3,
+                        1
+                    ];
+                    try {
+                        if (value === null) {
+                            localStorage.removeItem(key);
+                        } else {
+                            localStorage.setItem(key, value);
+                        }
+                    } catch (e) {
+                        console.error("Local storage is unavailable:", e);
+                    }
+                    return [
+                        3,
+                        5
+                    ];
+                case 1:
+                    if (!(value == null)) return [
+                        3,
+                        3
+                    ];
+                    return [
+                        4,
+                        SecureStore.deleteItemAsync(key)
+                    ];
+                case 2:
+                    _state.sent();
+                    return [
+                        3,
+                        5
+                    ];
+                case 3:
+                    return [
+                        4,
+                        SecureStore.setItemAsync(key, value)
+                    ];
+                case 4:
+                    _state.sent();
+                    _state.label = 5;
+                case 5:
+                    return [
+                        2
+                    ];
+            }
+        });
+    });
+    return _setStorageItemAsync.apply(this, arguments);
+}
+function useStorageState(key) {
+    var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
+    useEffect3(function() {
+        if (Platform.OS === "web") {
+            try {
+                if (typeof localStorage !== "undefined") {
+                    setState(localStorage.getItem(key));
+                }
+            } catch (e) {
+                console.error("Local storage is unavailable:", e);
+            }
+        } else {
+            SecureStore.getItemAsync(key).then(function(value) {
+                setState(value);
+            });
+        }
+    }, [
+        key
+    ]);
+    var setValue = useCallback3(function(value) {
+        setState(value);
+        setStorageItemAsync(key, value);
+    }, [
+        key
+    ]);
+    return [
+        state,
+        setValue
+    ];
+}
 // src/context/socket.tsx
-import React17, { createContext, useContext, useEffect as useEffect3, useState as useState5 } from "react";
+import React17, { createContext, useContext, useEffect as useEffect4, useState as useState5 } from "react";
 // src/config/socket.ts
 import { io } from "socket.io-client";
 var socket = null;
@@ -1575,7 +1679,7 @@ var SocketContext = createContext({
 var SocketProvider = function(param) {
     var children = param.children;
     var _useState5 = _sliced_to_array(useState5(null), 2), socket2 = _useState5[0], setSocket = _useState5[1];
-    useEffect3(function() {
+    useEffect4(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -1998,5 +2102,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, modalEnum, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, modalEnum, otpChannel, setStorageItemAsync, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useStorageState, useTimer };
 //# sourceMappingURL=index.mjs.map

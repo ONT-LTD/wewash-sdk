@@ -118,7 +118,7 @@ export interface IProfileState {
   countries: [] | any;
   referrals: [] | any;
   referralsConfig: ReferralConfigData[] | [];
-  notifications: [];
+  notifications: [] | any;
   faqs: FAQS[] | [];
   configs: VehicleConfigs | {};
   loading: boolean;

@@ -437,6 +437,9 @@ __export(index_exports, {
     otpChannel: function() {
         return otpChannel;
     },
+    setStorageItemAsync: function() {
+        return setStorageItemAsync;
+    },
     statusBorderColor: function() {
         return statusBorderColor;
     },
@@ -463,6 +466,9 @@ __export(index_exports, {
     },
     useShareLink: function() {
         return useShareLink;
+    },
+    useStorageState: function() {
+        return useStorageState;
     },
     useTimer: function() {
         return useTimer;
@@ -1725,8 +1731,112 @@ var api = import_axios.default.create({
     }
 });
 var baseApi_default = api;
+// src/config/useStorageState.ts
+var import_react16 = require("react");
+var SecureStore = __toESM(require("expo-secure-store"));
+var import_react_native14 = require("react-native");
+function useAsyncState() {
+    var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
+        true,
+        null
+    ];
+    return (0, import_react16.useReducer)(function(state) {
+        var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
+        return [
+            false,
+            action
+        ];
+    }, initialValue);
+}
+function setStorageItemAsync(key, value) {
+    return _setStorageItemAsync.apply(this, arguments);
+}
+function _setStorageItemAsync() {
+    _setStorageItemAsync = _async_to_generator(function(key, value) {
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    if (!(import_react_native14.Platform.OS === "web")) return [
+                        3,
+                        1
+                    ];
+                    try {
+                        if (value === null) {
+                            localStorage.removeItem(key);
+                        } else {
+                            localStorage.setItem(key, value);
+                        }
+                    } catch (e) {
+                        console.error("Local storage is unavailable:", e);
+                    }
+                    return [
+                        3,
+                        5
+                    ];
+                case 1:
+                    if (!(value == null)) return [
+                        3,
+                        3
+                    ];
+                    return [
+                        4,
+                        SecureStore.deleteItemAsync(key)
+                    ];
+                case 2:
+                    _state.sent();
+                    return [
+                        3,
+                        5
+                    ];
+                case 3:
+                    return [
+                        4,
+                        SecureStore.setItemAsync(key, value)
+                    ];
+                case 4:
+                    _state.sent();
+                    _state.label = 5;
+                case 5:
+                    return [
+                        2
+                    ];
+            }
+        });
+    });
+    return _setStorageItemAsync.apply(this, arguments);
+}
+function useStorageState(key) {
+    var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
+    (0, import_react16.useEffect)(function() {
+        if (import_react_native14.Platform.OS === "web") {
+            try {
+                if (typeof localStorage !== "undefined") {
+                    setState(localStorage.getItem(key));
+                }
+            } catch (e) {
+                console.error("Local storage is unavailable:", e);
+            }
+        } else {
+            SecureStore.getItemAsync(key).then(function(value) {
+                setState(value);
+            });
+        }
+    }, [
+        key
+    ]);
+    var setValue = (0, import_react16.useCallback)(function(value) {
+        setState(value);
+        setStorageItemAsync(key, value);
+    }, [
+        key
+    ]);
+    return [
+        state,
+        setValue
+    ];
+}
 // src/context/socket.tsx
-var import_react16 = __toESM(require("react"));
+var import_react17 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -1772,13 +1882,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react16.createContext)({
+var SocketContext = (0, import_react17.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react16.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react16.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react17.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react17.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -1825,7 +1935,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react16.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react17.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -2234,6 +2344,7 @@ var ChatServices = new ChatService();
     customStyles: customStyles,
     modalEnum: modalEnum,
     otpChannel: otpChannel,
+    setStorageItemAsync: setStorageItemAsync,
     statusBorderColor: statusBorderColor,
     statusColor: statusColor,
     truncateText: truncateText,
@@ -2243,6 +2354,7 @@ var ChatServices = new ChatService();
     useCountdown: useCountdown,
     useModal: useModal,
     useShareLink: useShareLink,
+    useStorageState: useStorageState,
     useTimer: useTimer
 });
 //# sourceMappingURL=index.js.map
