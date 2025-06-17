@@ -1041,6 +1041,132 @@ function truncateTextWithEmail(text) {
     var lastEight = text.slice(-8);
     return "".concat(firstTwo, "***").concat(lastEight);
 }
+var generateKeyPair = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function() {
+        var keys, privateKey, publicKey;
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    return [
+                        4,
+                        RNSimpleCrypto.RSA.generateKeys(2048)
+                    ];
+                case 1:
+                    keys = _state.sent();
+                    privateKey = keys.private, publicKey = keys.public;
+                    return [
+                        4,
+                        SecureStore.setItemAsync("biometricPrivateKey", privateKey)
+                    ];
+                case 2:
+                    _state.sent();
+                    return [
+                        4,
+                        SecureStore.setItemAsync("biometricPublicKey", publicKey)
+                    ];
+                case 3:
+                    _state.sent();
+                    return [
+                        2,
+                        {
+                            privateKey: privateKey,
+                            publicKey: publicKey
+                        }
+                    ];
+            }
+        });
+    });
+    return function generateKeyPair() {
+        return _ref.apply(this, arguments);
+    };
+}();
+var storeEmail = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function(email) {
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    return [
+                        4,
+                        SecureStore.setItemAsync("email", email)
+                    ];
+                case 1:
+                    _state.sent();
+                    return [
+                        2
+                    ];
+            }
+        });
+    });
+    return function storeEmail(email) {
+        return _ref.apply(this, arguments);
+    };
+}();
+var getStoredEmail = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function() {
+        var email;
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    return [
+                        4,
+                        SecureStore.getItemAsync("email")
+                    ];
+                case 1:
+                    email = _state.sent();
+                    return [
+                        2,
+                        {
+                            email: email
+                        }
+                    ];
+            }
+        });
+    });
+    return function getStoredEmail() {
+        return _ref.apply(this, arguments);
+    };
+}();
+var signBiometricToken = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function(token) {
+        var privateKey, publicKey, signature;
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    return [
+                        4,
+                        SecureStore.getItemAsync("biometricPrivateKey")
+                    ];
+                case 1:
+                    privateKey = _state.sent();
+                    return [
+                        4,
+                        SecureStore.getItemAsync("biometricPublicKey")
+                    ];
+                case 2:
+                    publicKey = _state.sent();
+                    if (!privateKey || !publicKey) {
+                        throw new Error("Biometric keypair not found");
+                    }
+                    return [
+                        4,
+                        RNSimpleCrypto.RSA.sign(token, privateKey, "SHA256")
+                    ];
+                case 3:
+                    signature = _state.sent();
+                    return [
+                        2,
+                        {
+                            publicKey: publicKey,
+                            signature: signature
+                        }
+                    ];
+            }
+        });
+    });
+    return function signBiometricToken(token) {
+        return _ref.apply(this, arguments);
+    };
+}();
 function truncateTextSubtitle(text, size) {
     if (typeof text !== "string" || (text === null || text === void 0 ? void 0 : text.length) <= size) {
         return text;
@@ -1101,6 +1227,217 @@ var loginValidationSchema = Yup.object().shape({
 var phoneValidationSchema = Yup.object().shape({
     phone: Yup.string().matches(/^0\d{10}$/, 'Phone number must start with "0" and be 11 digits long').required("Phone number is required")
 });
+function formatPhoneNumber(phoneNumber) {
+    if (phoneNumber.startsWith("234")) {
+        return phoneNumber;
+    }
+    return "234" + phoneNumber.slice(1);
+}
+function getYearsArray() {
+    var startYear = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 2024, endYear = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1990;
+    return Array.from({
+        length: startYear - endYear + 1
+    }, function(_, i) {
+        return startYear - i;
+    });
+}
+var getOrCreateDeviceId = /*#__PURE__*/ function() {
+    var _ref = _async_to_generator(function() {
+        var deviceId, _Device_osInternalBuildId, _ref;
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    return [
+                        4,
+                        SecureStore.getItemAsync("deviceId")
+                    ];
+                case 1:
+                    deviceId = _state.sent();
+                    if (!!deviceId) return [
+                        3,
+                        3
+                    ];
+                    deviceId = (_ref = (_Device_osInternalBuildId = Device.osInternalBuildId) !== null && _Device_osInternalBuildId !== void 0 ? _Device_osInternalBuildId : Device.deviceName) !== null && _ref !== void 0 ? _ref : "unknown_device";
+                    return [
+                        4,
+                        SecureStore.setItemAsync("deviceId", deviceId)
+                    ];
+                case 2:
+                    _state.sent();
+                    _state.label = 3;
+                case 3:
+                    return [
+                        2,
+                        deviceId
+                    ];
+            }
+        });
+    });
+    return function getOrCreateDeviceId() {
+        return _ref.apply(this, arguments);
+    };
+}();
+var generateSignature = function() {
+    return uuidv4();
+};
+var blurhash = "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+var getVehicleIds = function(vehicles) {
+    return vehicles.map(function(vehicle) {
+        return vehicle === null || vehicle === void 0 ? void 0 : vehicle.id;
+    });
+};
+var formatFileSize = function(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    var k = 1024;
+    var sizes = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return "".concat(parseFloat((bytes / Math.pow(k, i)).toFixed(2)), " ").concat(sizes[i]);
+};
+var formatFileType = function(fileType) {
+    if (!fileType) return "Unknown";
+    var type = "";
+    if (fileType.startsWith("http")) {
+        var urlParts = fileType.split("?")[0].split("/");
+        var fileName = urlParts[urlParts.length - 1];
+        var extMatch = fileName.match(/\.([a-zA-Z0-9]+)$/);
+        type = extMatch ? extMatch[1].toUpperCase() : "Unknown";
+    } else {
+        var _fileType_split_pop;
+        type = ((_fileType_split_pop = fileType.split("/").pop()) === null || _fileType_split_pop === void 0 ? void 0 : _fileType_split_pop.toUpperCase()) || "Unknown";
+    }
+    switch(type){
+        case "JPEG":
+        case "JPG":
+            return "JPG";
+        case "PNG":
+            return "PNG";
+        case "PDF":
+            return "PDF";
+        case "HEIC":
+            return "HEIC";
+        default:
+            return type;
+    }
+};
+var getComponent = function(addressComponents, type) {
+    var _addressComponents_find;
+    return ((_addressComponents_find = addressComponents.find(function(comp) {
+        return comp.types.includes(type);
+    })) === null || _addressComponents_find === void 0 ? void 0 : _addressComponents_find.long_name) || "";
+};
+var transformWashDetails = function(washDetails) {
+    return washDetails.map(function(item) {
+        var _item_vehicle;
+        return {
+            vehicleId: ((_item_vehicle = item.vehicle) === null || _item_vehicle === void 0 ? void 0 : _item_vehicle.id) || "",
+            addonIds: (item.addons || []).map(function(addon) {
+                return addon.id;
+            })
+        };
+    });
+};
+var transformWashAddOns = function(washDetails) {
+    return washDetails.map(function(item) {
+        return {
+            vehicles: item.vehicle || "",
+            addOns: (item.addons || []).map(function(addon) {
+                return addon;
+            })
+        };
+    });
+};
+var getAddonAndVehicleIds = function(washDetails) {
+    var vehicleIds = [];
+    var addonIds = [];
+    washDetails.forEach(function(detail) {
+        var _detail_vehicle;
+        if ((_detail_vehicle = detail.vehicle) === null || _detail_vehicle === void 0 ? void 0 : _detail_vehicle.id) {
+            vehicleIds.push(detail.vehicle.id);
+        }
+        if (Array.isArray(detail.addons)) {
+            detail.addons.forEach(function(addon) {
+                if (addon === null || addon === void 0 ? void 0 : addon.id) {
+                    addonIds.push(addon.id);
+                }
+            });
+        }
+    });
+    return [
+        vehicleIds,
+        addonIds
+    ];
+};
+var showToastNotification = function(param) {
+    var type = param.type, title = param.title, message = param.message;
+    Toast.show({
+        type: type,
+        text1: title,
+        text2: message
+    });
+};
+var formatToISOString = function(scheduledDate, scheduledTime) {
+    try {
+        var date = new Date(scheduledDate);
+        if (isNaN(date.getTime())) throw new Error("Invalid date format");
+        var year = date.getFullYear();
+        var month = String(date.getMonth() + 1).padStart(2, "0");
+        var day = String(date.getDate()).padStart(2, "0");
+        var formattedDate = "".concat(year, "-").concat(month, "-").concat(day);
+        var timeParts = scheduledTime.match(/(\d+):(\d+)\s?(AM|PM)/i);
+        if (!timeParts) throw new Error("Invalid time format");
+        var _timeParts = _sliced_to_array(timeParts, 4), _ = _timeParts[0], hour = _timeParts[1], minute = _timeParts[2], period = _timeParts[3];
+        var hourNum = parseInt(hour, 10);
+        if (period.toUpperCase() === "PM" && hourNum !== 12) hourNum += 12;
+        if (period.toUpperCase() === "AM" && hourNum === 12) hourNum = 0;
+        var formattedTime = "".concat(String(hourNum).padStart(2, "0"), ":").concat(minute, ":00");
+        var combined = "".concat(formattedDate, "T").concat(formattedTime);
+        var isoString = new Date(combined).toISOString();
+        return isoString;
+    } catch (err) {
+        console.error("Error formatting datetime:", err);
+        return "";
+    }
+};
+var filterOrders = function(orders) {
+    return orders === null || orders === void 0 ? void 0 : orders.filter(function(order) {
+        return (order === null || order === void 0 ? void 0 : order.isScheduled) === false || !(order === null || order === void 0 ? void 0 : order.isScheduled);
+    });
+};
+var getTimeDifference = function(scheduleTime) {
+    var now = /* @__PURE__ */ new Date();
+    var schedule = new Date(scheduleTime);
+    var diff = schedule.getTime() - now.getTime();
+    if (diff <= 0) return "0m";
+    var minutes = Math.floor(diff / (1e3 * 60)) % 60;
+    var hours = Math.floor(diff / (1e3 * 60 * 60)) % 24;
+    var days = Math.floor(diff / (1e3 * 60 * 60 * 24));
+    var parts = [];
+    if (days > 0) parts.push("".concat(days, "d"));
+    if (hours > 0) parts.push("".concat(hours, "h"));
+    if (minutes > 0) parts.push("".concat(minutes, "m"));
+    return parts.join(" ");
+};
+function formatDateTime(isoString) {
+    var dateObj = new Date(isoString);
+    var date = dateObj.toLocaleDateString(void 0, {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+    });
+    var time = dateObj.toLocaleTimeString(void 0, {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+    return {
+        date: date,
+        time: time
+    };
+}
 // src/assets/svg/MasterCardSmall.tsx
 import * as React13 from "react";
 import Svg5, { Path as Path5 } from "react-native-svg";
@@ -2154,5 +2491,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, modalEnum, otpChannel, setStorageItemAsync, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useStorageState, useTimer };
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useStorageState, useTimer, validationSchema };
 //# sourceMappingURL=index.mjs.map

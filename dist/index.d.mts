@@ -1,6 +1,8 @@
 import * as react_native from 'react-native';
 import { Text, TextInputProps, ShareContent, ShareOptions } from 'react-native';
 import React$1, { FC, ReactNode } from 'react';
+import * as Yup from 'yup';
+import { ToastType } from 'react-native-toast-message';
 import * as axios from 'axios';
 
 type ButtonProps = {
@@ -946,8 +948,107 @@ declare const EmptyList: FC<Props>;
 
 declare function truncateText(text: string): string;
 declare function truncateTextWithEmail(text: string): string;
+declare const generateKeyPair: () => Promise<{
+    privateKey: string;
+    publicKey: string;
+}>;
+declare const storeEmail: (email: string) => Promise<void>;
+declare const getStoredEmail: () => Promise<{
+    email: string | null;
+}>;
+declare const signBiometricToken: (token: string) => Promise<{
+    publicKey: string;
+    signature: string;
+}>;
 declare function truncateTextSubtitle(text: string, size: number): string;
 declare function truncateTextLast4(text: string, size: number): string;
+declare const validationSchema: Yup.ObjectSchema<{
+    oldPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+}, Yup.AnyObject, {
+    oldPassword: undefined;
+    newPassword: undefined;
+    confirmPassword: undefined;
+}, "">;
+declare const resetValidationSchema: Yup.ObjectSchema<{
+    newPassword: string;
+    confirmPassword: string;
+}, Yup.AnyObject, {
+    newPassword: undefined;
+    confirmPassword: undefined;
+}, "">;
+declare const cardValidationSchema: Yup.ObjectSchema<{
+    card_name: string;
+    card_number: string;
+    expiry_date: string;
+    cvv: string;
+}, Yup.AnyObject, {
+    card_name: undefined;
+    card_number: undefined;
+    expiry_date: undefined;
+    cvv: undefined;
+}, "">;
+declare const profileValidationSchema: Yup.ObjectSchema<{
+    phone: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+}, Yup.AnyObject, {
+    phone: undefined;
+    email: undefined;
+    firstName: undefined;
+    lastName: undefined;
+}, "">;
+declare const ticketValidationSchema: Yup.ObjectSchema<{
+    subject: string;
+    department: string;
+}, Yup.AnyObject, {
+    subject: undefined;
+    department: undefined;
+}, "">;
+declare const loginValidationSchema: Yup.ObjectSchema<{
+    phone: string;
+    password: string;
+}, Yup.AnyObject, {
+    phone: undefined;
+    password: undefined;
+}, "">;
+declare const phoneValidationSchema: Yup.ObjectSchema<{
+    phone: string;
+}, Yup.AnyObject, {
+    phone: undefined;
+}, "">;
+declare function formatPhoneNumber(phoneNumber: string): string;
+declare function getYearsArray(startYear?: number, endYear?: number): number[];
+declare const getOrCreateDeviceId: () => Promise<string>;
+declare const generateSignature: () => string;
+declare const blurhash = "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+declare const getVehicleIds: (vehicles: IVehicle[] | any) => any;
+declare const formatFileSize: (bytes: number) => string;
+declare const formatFileType: (fileType: string) => string;
+declare const getComponent: (addressComponents: any, type: string) => any;
+declare const transformWashDetails: (washDetails: IWashDetails[]) => {
+    vehicleId: any;
+    addonIds: any[];
+}[];
+declare const transformWashAddOns: (washDetails: IWashDetails[]) => {
+    vehicles: any;
+    addOns: any[];
+}[];
+declare const getAddonAndVehicleIds: (washDetails: any[]) => string[][];
+declare const showToastNotification: ({ type, title, message }: {
+    type: ToastType;
+    message: string;
+    title: string;
+}) => void;
+declare const formatToISOString: (scheduledDate: string, scheduledTime: string) => string;
+declare const filterOrders: (orders: IWash[]) => IWash[];
+declare const getTimeDifference: (scheduleTime: string) => string;
+declare function formatDateTime(isoString: string): {
+    date: string;
+    time: string;
+};
 
 declare const COLORS: {
     black: string;
@@ -1186,4 +1287,4 @@ declare class ChatService {
 }
 declare const ChatServices: ChatService;
 
-export { API_URL, type Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, type SocketOrderDetailsPayload, SocketProvider, type TabType, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, modalEnum, type notificationDataType, otpChannel, setStorageItemAsync, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useStorageState, useTimer };
+export { API_URL, type Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, type SocketOrderDetailsPayload, SocketProvider, type TabType, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, type notificationDataType, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useStorageState, useTimer, validationSchema };
