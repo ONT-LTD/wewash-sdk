@@ -1258,6 +1258,31 @@ var styles10 = StyleSheet11.create({
         alignItems: "center"
     }
 });
+// src/types/others.ts
+var EResult = /* @__PURE__ */ function(EResult2) {
+    EResult2["CANCELLED"] = "CANCELLED";
+    EResult2["DISABLED"] = "DISABLED";
+    EResult2["ERROR"] = "ERROR";
+    EResult2["SUCCESS"] = "SUCCESS";
+    return EResult2;
+}(EResult || {});
+var ETab = /* @__PURE__ */ function(ETab2) {
+    ETab2[ETab2["TAB_ONE"] = 1] = "TAB_ONE";
+    ETab2[ETab2["TAB_TWO"] = 2] = "TAB_TWO";
+    ETab2[ETab2["TAB_THREE"] = 3] = "TAB_THREE";
+    return ETab2;
+}(ETab || {});
+var modalEnum = /* @__PURE__ */ function(modalEnum2) {
+    modalEnum2["SEARCHING"] = "searching";
+    modalEnum2["CANCEL"] = "cancel";
+    modalEnum2["ARRIVAL"] = "arrival";
+    modalEnum2["ACCEPT_FINAL_OFFER"] = "acceptFinalOrder";
+    modalEnum2["RETRY"] = "retry";
+    modalEnum2["ARRIVING"] = "arriving";
+    modalEnum2["PAYMENT"] = "payment";
+    modalEnum2["FAILED_PAYMENT"] = "failed_payment";
+    return modalEnum2;
+}(modalEnum || {});
 // src/services/authServices/types.ts
 var otpChannel = /* @__PURE__ */ function(otpChannel2) {
     otpChannel2["SMS"] = "sms";
@@ -1973,5 +1998,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, customStyles, modalEnum, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
 //# sourceMappingURL=index.mjs.map

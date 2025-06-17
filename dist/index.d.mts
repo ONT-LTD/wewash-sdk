@@ -30,130 +30,6 @@ type ButtonProps = {
 
 type TextProps = ThemeProps & Text['props'];
 
-type IVehicle = {
-  id: string;
-  userId: string;
-  type: string;
-  make: string;
-  model: string;
-  year: `${number}`; // Ensures it's a stringified number
-  category: string;
-  createdAt: string; // Use Date if parsing dates
-  updatedAt: string;
-};
-
-type IChatMessages = {
-  conversationId: string;
-  content: string;
-  mediaUrl: string;
-  senderId: string;
-  id: string;
-  createdAt: Date | string;
-};
-
-type FAQS = {
-  id: string;
-  question: string;
-  answer: string;
-};
-
-type PromoCodes = {
-  id: string;
-  title: string;
-  description: string;
-  buttonText: string;
-  buttonAction: string;
-  icon: string;
-  backgroundStyle: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type ICategories = {
-  id: string;
-  name: string;
-  slug: string;
-  desc: string;
-  estimatedPrice: string;
-  image: {
-    icon: {
-      primary: string;
-      secondary: string;
-    };
-    background: string;
-  };
-  features: Feature[];
-  createdAt: string;
-  updatedAt: string;
-  addons: Addon[];
-};
-
-interface ISignInType {
-    id: string;
-    password: string;
-    authenticateBy: 'phone-number' | 'email';
-    context: string;
-}
-interface ISignInWithBiometricsType {
-    deviceId: string;
-    signature: string;
-}
-interface IResetPassword {
-    otp: string;
-    newPassword: string;
-}
-declare enum otpChannel {
-    SMS = "sms",
-    EMAIL = "email"
-}
-declare enum apiContext {
-    reset = "reset-password",
-    signIn = "signin",
-    signUp = "signup",
-    updatePassword = "update-password"
-}
-interface IRequestOTP {
-    recipient: string;
-    otpChannel: 'sms' | 'email';
-    context?: string;
-}
-interface IVerifyOTP {
-    recipient: string;
-    otp: string;
-    otpChannel: 'sms' | 'email';
-    context?: string;
-}
-interface ISignInResponse {
-    statusCode: number;
-    message: string;
-    data: {
-        user: {
-            id: string;
-            email: string;
-            phone: string;
-            profile: any;
-        };
-    };
-}
-interface IGoogleAuthResponse {
-    statusCode: number;
-    message: string;
-    data: {
-        link: string;
-    };
-}
-interface IRequestError {
-    message: string;
-    statusCode?: number;
-    error?: {
-        code: string;
-        data?: any[];
-        message: string;
-        recommendedActions?: string[];
-        statusCode: number;
-    };
-}
-
 type ApiResponse<T> = {
     statusCode: number;
     message: string;
@@ -363,12 +239,12 @@ interface Image {
     icon: ImageIcons;
     background: string;
 }
-interface Feature$1 {
+interface Feature {
     name: string;
     desc: string;
     icon: string;
 }
-interface Addon$1 {
+interface Addon {
     id: string;
     categoryId: string;
     name: string;
@@ -433,7 +309,7 @@ interface Category {
     desc: string;
     estimatedPrice: string;
     image: Image;
-    features: Feature$1[];
+    features: Feature[];
     createdAt: string;
     updatedAt: string;
 }
@@ -459,7 +335,7 @@ interface IWash {
     callback: string | null;
     category: Category;
     vehicles: Vehicle[];
-    addons: Addon$1[];
+    addons: Addon[];
     location: Location;
     paymentMethod: string;
     code: string;
@@ -614,6 +490,347 @@ type TicketConversationResponse = ApiResponse<{
         order: IWash;
     };
 }>;
+
+type IVehicle = {
+    id: string;
+    userId: string;
+    type: string;
+    make: string;
+    model: string;
+    year: `${number}`;
+    category: string;
+    createdAt: string;
+    updatedAt: string;
+};
+declare enum EResult {
+    CANCELLED = "CANCELLED",
+    DISABLED = "DISABLED",
+    ERROR = "ERROR",
+    SUCCESS = "SUCCESS"
+}
+declare enum ETab {
+    TAB_ONE = 1,
+    TAB_TWO = 2,
+    TAB_THREE = 3
+}
+type TabType = {
+    id: number;
+    name: string;
+};
+type DataItem = {
+    id: number;
+    value: string;
+};
+type notificationDataType = {
+    id: number;
+    tag: string;
+    data: {
+        id: number;
+        title: string;
+        description: string;
+    }[];
+};
+interface IMessage {
+    _id: string | number;
+    text: string;
+    createdAt: Date | number;
+    user: any;
+    image?: string;
+    video?: string;
+    audio?: string;
+    system?: boolean;
+    sent?: boolean;
+    received?: boolean;
+    pending?: boolean;
+    quickReplies?: any;
+}
+interface IUser {
+    id: string;
+    name: string;
+    email: string;
+}
+type IChatMessages = {
+    conversationId: string;
+    content: string;
+    mediaUrl: string;
+    senderId: string;
+    id: string;
+    createdAt: Date | string;
+};
+interface IAuthState {
+    user: IUser | {};
+    isAuthenticated: boolean;
+    loading: boolean;
+    error: any;
+}
+type FAQS = {
+    id: string;
+    question: string;
+    answer: string;
+};
+interface IProfileState {
+    userProfile: User | {};
+    addresses: Address[] | [];
+    vehicles: IVehicle[] | [];
+    countries: [] | any;
+    referrals: [] | any;
+    referralsConfig: ReferralConfigData[] | [];
+    notifications: [];
+    faqs: FAQS[] | [];
+    configs: VehicleConfigs | {};
+    loading: boolean;
+    error: any;
+}
+interface ITickets {
+    tickets: {
+        data: ICreateTicket[];
+        meta: Meta;
+    };
+}
+interface ITicketConversations {
+    messages: {
+        ticket: ICreateTicket;
+        conversation: ITicketConversation;
+        messages: ITicketMessages[];
+        order: IWash;
+    };
+}
+interface IChatState {
+    loading: boolean;
+    conversations: IConversations[] | any;
+    tickets: ITickets | {};
+    messages: IChatMessages[] | any;
+    supportMessages: IChatMessages[] | any;
+    ticketConversations: ITicketConversations | {};
+    conversationMembers: User[];
+    error: any;
+}
+type PromoCodes = {
+    id: string;
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonAction: string;
+    icon: string;
+    backgroundStyle: string;
+    createdAt: string;
+    updatedAt: string;
+};
+type ICategories = {
+    id: string;
+    name: string;
+    slug: string;
+    desc: string;
+    estimatedPrice: string;
+    image: {
+        icon: {
+            primary: string;
+            secondary: string;
+        };
+        background: string;
+    };
+    features: Feature[];
+    createdAt: string;
+    updatedAt: string;
+    addons: Addon[];
+};
+interface IOrder {
+    order: {
+        code: string;
+        customerId: string;
+        discount: number;
+        netPrice: number;
+        vat: number;
+        paymentMethod: string;
+        schedule: string;
+        location: ILocation;
+        category: ICategory;
+        washDetails: IWashDetails[];
+    };
+}
+interface ICategory {
+    id: string;
+    name: string;
+    slug: string;
+    desc: string;
+    estimatedPrice: string;
+    image: any;
+    features: any[];
+    createdAt: string;
+    updatedAt: string;
+}
+type ICreateWash = {
+    order: IOrder;
+};
+interface IWashState {
+    promoCards: PromoCodes[] | any;
+    categories: ICategories[] | any;
+    selectedAddress: Address | {};
+    selectedFeatures: Feature[];
+    washDetails: IWashDetails[];
+    totalPrice: number;
+    totalWithVAT: number;
+    createWash: IOrder | {};
+    discount: number;
+    categoryId: string;
+    washes: IWashHistory | {};
+    wash: ISingleWashHistory | {};
+    washesStatus: IWashHistory | {};
+    scheduledWashes: IWashHistory | {};
+    loading: boolean;
+    error: any | {};
+}
+declare enum modalEnum {
+    SEARCHING = "searching",
+    CANCEL = "cancel",
+    ARRIVAL = "arrival",
+    ACCEPT_FINAL_OFFER = "acceptFinalOrder",
+    RETRY = "retry",
+    ARRIVING = "arriving",
+    PAYMENT = "payment",
+    FAILED_PAYMENT = "failed_payment"
+}
+type OrderDetails = {
+    orderRequest: {
+        callback: string | null;
+        canceledBy: string | null;
+        category: Record<string, any>;
+        code: string;
+        coupon: string | null;
+        createdAt: string;
+        customerId: string;
+        discount: string;
+        id: string;
+        isScheduled: boolean;
+        location: Record<string, any>;
+        netPrice: string;
+        paymentMethod: string;
+        paymentReference: string | null;
+        schedule: string | null;
+        status: string;
+        updatedAt: string;
+        vat: string;
+        washDetails: any[];
+        washerId: string;
+    };
+    paymentInformation: {
+        accessCode: string;
+        authorizationUrl: string;
+        reference: string;
+    };
+    paymentMethod: string;
+    priceDetails: {
+        estimatedDistanceInKm: number;
+        estimatedTimeInMins: number;
+        extraPrice: number;
+        perKmRate: string;
+        perMinuteRate: string;
+    };
+};
+type IWasherLiveLocation = {
+    accuracy: string;
+    altitude: string;
+    createdAt: string;
+    heading: string;
+    id: string;
+    location: string;
+    score: number;
+    speed: string;
+    updatedAt: string;
+    userId: string;
+};
+type IWasherInfo = {
+    name: string;
+    profile: IProfileType;
+};
+type SocketOrderDetailsPayload = {
+    order: OrderDetails;
+    washerLiveLocation: IWasherLiveLocation;
+    washerInfo: IWasherInfo;
+    rating: number;
+    totalSuccessfulWashes: number;
+};
+type IWasherStats = {
+    rating: number;
+    totalSuccessfulWashes: number;
+};
+type PaymentConfirmationPayload = {
+    message: string;
+    order: {
+        customerId: string;
+        id: string;
+        netPrice: string;
+        status: string;
+        vat: string;
+        washerId: string;
+    };
+};
+
+interface ISignInType {
+    id: string;
+    password: string;
+    authenticateBy: 'phone-number' | 'email';
+    context: string;
+}
+interface ISignInWithBiometricsType {
+    deviceId: string;
+    signature: string;
+}
+interface IResetPassword {
+    otp: string;
+    newPassword: string;
+}
+declare enum otpChannel {
+    SMS = "sms",
+    EMAIL = "email"
+}
+declare enum apiContext {
+    reset = "reset-password",
+    signIn = "signin",
+    signUp = "signup",
+    updatePassword = "update-password"
+}
+interface IRequestOTP {
+    recipient: string;
+    otpChannel: 'sms' | 'email';
+    context?: string;
+}
+interface IVerifyOTP {
+    recipient: string;
+    otp: string;
+    otpChannel: 'sms' | 'email';
+    context?: string;
+}
+interface ISignInResponse {
+    statusCode: number;
+    message: string;
+    data: {
+        user: {
+            id: string;
+            email: string;
+            phone: string;
+            profile: any;
+        };
+    };
+}
+interface IGoogleAuthResponse {
+    statusCode: number;
+    message: string;
+    data: {
+        link: string;
+    };
+}
+interface IRequestError {
+    message: string;
+    statusCode?: number;
+    error?: {
+        code: string;
+        data?: any[];
+        message: string;
+        recommendedActions?: string[];
+        statusCode: number;
+    };
+}
 
 declare const CustomButton: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<React$1.ForwardRefExoticComponent<react_native.TouchableOpacityProps & React$1.RefAttributes<react_native.View>>>>;
 
@@ -960,4 +1177,4 @@ declare class ChatService {
 }
 declare const ChatServices: ChatService;
 
-export { API_URL, type Addon$1 as Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, ENDPOINT, EmptyList, type FAQResponse, type FAQS, type Feature$1 as Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type ICategories, type IChatMessages, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type IDtype, type IGoogleAuthResponse, type ILocation, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketMessages, type IUpdatePasswordData, type IUploadImageBody, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderIdData, type PaginationParams, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SocketProvider, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+export { API_URL, type Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, type SocketOrderDetailsPayload, SocketProvider, type TabType, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, modalEnum, type notificationDataType, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };

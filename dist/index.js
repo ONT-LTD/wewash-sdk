@@ -398,6 +398,12 @@ __export(index_exports, {
     ENDPOINT: function() {
         return ENDPOINT;
     },
+    EResult: function() {
+        return EResult;
+    },
+    ETab: function() {
+        return ETab;
+    },
     EmptyList: function() {
         return EmptyList_default;
     },
@@ -424,6 +430,9 @@ __export(index_exports, {
     },
     customStyles: function() {
         return customStyles;
+    },
+    modalEnum: function() {
+        return modalEnum;
     },
     otpChannel: function() {
         return otpChannel;
@@ -1452,6 +1461,31 @@ var styles10 = import_react_native12.StyleSheet.create({
         alignItems: "center"
     }
 });
+// src/types/others.ts
+var EResult = /* @__PURE__ */ function(EResult2) {
+    EResult2["CANCELLED"] = "CANCELLED";
+    EResult2["DISABLED"] = "DISABLED";
+    EResult2["ERROR"] = "ERROR";
+    EResult2["SUCCESS"] = "SUCCESS";
+    return EResult2;
+}(EResult || {});
+var ETab = /* @__PURE__ */ function(ETab2) {
+    ETab2[ETab2["TAB_ONE"] = 1] = "TAB_ONE";
+    ETab2[ETab2["TAB_TWO"] = 2] = "TAB_TWO";
+    ETab2[ETab2["TAB_THREE"] = 3] = "TAB_THREE";
+    return ETab2;
+}(ETab || {});
+var modalEnum = /* @__PURE__ */ function(modalEnum2) {
+    modalEnum2["SEARCHING"] = "searching";
+    modalEnum2["CANCEL"] = "cancel";
+    modalEnum2["ARRIVAL"] = "arrival";
+    modalEnum2["ACCEPT_FINAL_OFFER"] = "acceptFinalOrder";
+    modalEnum2["RETRY"] = "retry";
+    modalEnum2["ARRIVING"] = "arriving";
+    modalEnum2["PAYMENT"] = "payment";
+    modalEnum2["FAILED_PAYMENT"] = "failed_payment";
+    return modalEnum2;
+}(modalEnum || {});
 // src/services/authServices/types.ts
 var otpChannel = /* @__PURE__ */ function(otpChannel2) {
     otpChannel2["SMS"] = "sms";
@@ -2187,6 +2221,8 @@ var ChatServices = new ChatService();
     CustomUrbanistText: CustomUrbanistText,
     CustomUrbanistTitle: CustomUrbanistTitle,
     ENDPOINT: ENDPOINT,
+    EResult: EResult,
+    ETab: ETab,
     EmptyList: EmptyList,
     ModalContent: ModalContent,
     ProfileServices: ProfileServices,
@@ -2196,6 +2232,7 @@ var ChatServices = new ChatService();
     api: api,
     apiContext: apiContext,
     customStyles: customStyles,
+    modalEnum: modalEnum,
     otpChannel: otpChannel,
     statusBorderColor: statusBorderColor,
     statusColor: statusColor,
