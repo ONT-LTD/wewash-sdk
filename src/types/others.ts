@@ -19,7 +19,6 @@ import {
   IWash,
   IWashHistory,
   Meta,
-  IWashDetails,
   Feature,
   Addon
 } from '../services/washServices/types';
@@ -212,6 +211,12 @@ export interface ICategory {
 
 export type ICreateWash = {
   order: IOrder;
+};
+
+export type IWashDetails = {
+  id?: string;
+  vehicle?: IVehicle | {};
+  addons?: Addon[];
 };
 
 export interface IWashState {

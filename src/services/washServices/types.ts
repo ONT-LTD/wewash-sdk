@@ -9,7 +9,7 @@ export type ILocation = {
   latitude: string;
 };
 
-export type IWashDetails = {
+export type IWashDetailsInfo = {
   vehicleId: string;
   addonIds: string[];
 };
@@ -19,7 +19,7 @@ export type WashData = {
   schedule?: string; // ISO date string, e.g., "2025-04-15T14:00:00Z"
   isPreview?: boolean;
   categoryId: string;
-  washDetails: IWashDetails[];
+  washDetails: IWashDetailsInfo[];
   location: ILocation;
 };
 

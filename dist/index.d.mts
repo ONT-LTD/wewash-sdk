@@ -214,7 +214,7 @@ type ILocation = {
     longitude: string;
     latitude: string;
 };
-type IWashDetails = {
+type IWashDetailsInfo = {
     vehicleId: string;
     addonIds: string[];
 };
@@ -223,7 +223,7 @@ type WashData = {
     schedule?: string;
     isPreview?: boolean;
     categoryId: string;
-    washDetails: IWashDetails[];
+    washDetails: IWashDetailsInfo[];
     location: ILocation;
 };
 type PaginationParams = {
@@ -661,6 +661,11 @@ interface ICategory {
 }
 type ICreateWash = {
     order: IOrder;
+};
+type IWashDetails = {
+    id?: string;
+    vehicle?: IVehicle | {};
+    addons?: Addon[];
 };
 interface IWashState {
     promoCards: PromoCodes[] | any;
@@ -1177,4 +1182,4 @@ declare class ChatService {
 }
 declare const ChatServices: ChatService;
 
-export { API_URL, type Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, type SocketOrderDetailsPayload, SocketProvider, type TabType, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, modalEnum, type notificationDataType, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
+export { API_URL, type Addon, type Address, type ApiResponse, AuthServices, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, type GetWashResponse, type GoogleMapResponse, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, type PriceBreakdown, type Profile, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, type SocketOrderDetailsPayload, SocketProvider, type TabType, type TextProps, type TicketConversationResponse, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, customStyles, modalEnum, type notificationDataType, otpChannel, statusBorderColor, statusColor, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useCountdown, useModal, useShareLink, useTimer };
