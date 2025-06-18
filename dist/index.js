@@ -373,6 +373,13 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __commonJS = function(cb, mod) {
+    return function __require() {
+        return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = {
+            exports: {}
+        }).exports, mod), mod.exports;
+    };
+};
 var __export = function(target, all) {
     for(var name2 in all)__defProp(target, name2, {
         get: all[name2],
@@ -425,6 +432,12 @@ var __toCommonJS = function(mod) {
         value: true
     }), mod);
 };
+// src/assets/png/notificationLogo.png
+var require_notificationLogo = __commonJS({
+    "src/assets/png/notificationLogo.png": function(exports2, module2) {
+        module2.exports = "./notificationLogo-43K2XXD4.png";
+    }
+});
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
@@ -503,8 +516,20 @@ __export(index_exports, {
     EmptyList: function() {
         return EmptyList_default;
     },
+    Header: function() {
+        return Header;
+    },
+    LineIndicator: function() {
+        return LineIndicator_default;
+    },
     ModalContent: function() {
         return ModalContent_default;
+    },
+    NotificationItem: function() {
+        return NotificationItem_default;
+    },
+    OTPInput: function() {
+        return OTPInput_default;
     },
     PaymentModal: function() {
         return PaymentModal_default;
@@ -517,6 +542,12 @@ __export(index_exports, {
     },
     SocketProvider: function() {
         return SocketProvider;
+    },
+    Tab: function() {
+        return Tab_default;
+    },
+    TicketItem: function() {
+        return TicketItem_default;
     },
     WashServices: function() {
         return WashServices;
@@ -2465,6 +2496,446 @@ var styles11 = import_react_native16.StyleSheet.create({
         fontFamily: "UrbanistSemiBold"
     }
 });
+// src/components/Header/Header.tsx
+var import_react_native17 = require("react-native");
+var import_react13 = __toESM(require("react"));
+var import_expo_router = require("expo-router");
+// src/assets/svg/ChevronLeft.tsx
+var React19 = __toESM(require("react"));
+var import_react_native_svg7 = __toESM(require("react-native-svg"));
+var SvgComponent7 = function(props) {
+    return /* @__PURE__ */ React19.createElement(import_react_native_svg7.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 9,
+        height: 14,
+        fill: "none"
+    }, props), /* @__PURE__ */ React19.createElement(import_react_native_svg7.Path, {
+        fill: "#131313",
+        fillRule: "evenodd",
+        d: "m2.845 7 5.488 5.488a.833.833 0 1 1-1.178 1.179L.488 7 7.155.333a.833.833 0 1 1 1.178 1.179L2.845 7Z",
+        clipRule: "evenodd"
+    }));
+};
+var ChevronLeft_default = SvgComponent7;
+// src/components/Header/Header.tsx
+function Header(param) {
+    var title = param.title, goBackLink = param.goBackLink, isNotAuth = param.isNotAuth;
+    var router2 = (0, import_expo_router.useRouter)();
+    return /* @__PURE__ */ import_react13.default.createElement(import_react_native17.View, {
+        style: [
+            styles12.container,
+            {
+                paddingHorizontal: isNotAuth ? 20 : 24
+            }
+        ]
+    }, /* @__PURE__ */ import_react13.default.createElement(import_react_native17.TouchableOpacity, {
+        style: styles12.arrow,
+        onPress: function() {
+            return goBackLink ? router2.push(goBackLink) : router2.back();
+        }
+    }, /* @__PURE__ */ import_react13.default.createElement(ChevronLeft_default, null)), /* @__PURE__ */ import_react13.default.createElement(import_react_native17.Text, {
+        style: styles12.title
+    }, title), /* @__PURE__ */ import_react13.default.createElement(import_react_native17.View, {
+        style: styles12.spacer
+    }));
+}
+var styles12 = import_react_native17.StyleSheet.create({
+    container: {
+        paddingTop: 60,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 5
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: "UrbanistMedium",
+        lineHeight: 16,
+        fontWeight: "500",
+        textAlign: "center",
+        color: COLORS.primary800,
+        flex: 1
+    },
+    spacer: {
+        width: 24
+    },
+    arrow: {
+        height: 22,
+        width: 22,
+        alignItems: "center",
+        justifyContent: "center"
+    }
+});
+// src/components/Tab/Tab.tsx
+var import_react_native18 = require("react-native");
+var import_react14 = __toESM(require("react"));
+var Tab = function(param) {
+    var tabList = param.tabList, setActiveTab = param.setActiveTab, activeTab = param.activeTab, ticketCount = param.ticketCount;
+    var handleTab = function(value) {
+        return setActiveTab(value);
+    };
+    return /* @__PURE__ */ import_react14.default.createElement(import_react_native18.View, {
+        style: styles13.container
+    }, tabList.map(function(tab, i) {
+        return /* @__PURE__ */ import_react14.default.createElement(import_react_native18.TouchableOpacity, {
+            style: [
+                styles13.tab,
+                activeTab === tab.id && styles13.tabActive
+            ],
+            key: i,
+            onPress: function() {
+                return handleTab(tab.id);
+            }
+        }, /* @__PURE__ */ import_react14.default.createElement(import_react_native18.Text, {
+            style: [
+                styles13.tabText,
+                activeTab === tab.id && styles13.tabTextActive
+            ]
+        }, tab.name), tab.id === 2 && ticketCount && ticketCount > 0 ? /* @__PURE__ */ import_react14.default.createElement(import_react_native18.View, {
+            style: styles13.badge
+        }, /* @__PURE__ */ import_react14.default.createElement(CustomTextNeutral, {
+            style: styles13.badgeText
+        }, ticketCount)) : null);
+    }));
+};
+var Tab_default = Tab;
+var styles13 = import_react_native18.StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: COLORS.primary50,
+        padding: 4,
+        borderRadius: 28
+    },
+    tab: {
+        paddingVertical: 4,
+        borderRadius: 30,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        width: "48%",
+        backgroundColor: COLORS.white
+    },
+    tabActive: {
+        borderColor: COLORS.primary500,
+        borderWidth: 1,
+        backgroundColor: COLORS.primary50
+    },
+    tabText: {
+        fontFamily: "UrbanistMedium",
+        fontSize: 14,
+        lineHeight: 21,
+        textTransform: "capitalize",
+        color: COLORS.grey400
+    },
+    tabTextActive: {
+        fontSize: 14,
+        lineHeight: 21,
+        textTransform: "capitalize",
+        color: COLORS.primary500
+    },
+    badge: {
+        width: 23,
+        height: 23,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 100,
+        backgroundColor: "#F1F1F1"
+    },
+    badgeText: {
+        fontSize: 13,
+        fontFamily: "Urbanist",
+        lineHeight: 18,
+        color: COLORS.grey200
+    }
+});
+// src/components/TicketItem/TicketItem.tsx
+var import_react_native19 = require("react-native");
+var import_react15 = __toESM(require("react"));
+var import_expo_router2 = require("expo-router");
+var import_moment = __toESM(require("moment"));
+var TicketItem = function(param) {
+    var item = param.item;
+    var statusText = {
+        fontFamily: "UrbanistBold",
+        color: COLORS.error200
+    };
+    var handlePress = function() {
+        return import_expo_router2.router.push({
+            pathname: "/viewTicket",
+            params: {
+                ticketNumber: item === null || item === void 0 ? void 0 : item.ticketNumber,
+                ticketId: item === null || item === void 0 ? void 0 : item.id,
+                conversationId: item === null || item === void 0 ? void 0 : item.conversationId,
+                subject: item === null || item === void 0 ? void 0 : item.subject
+            }
+        });
+    };
+    return /* @__PURE__ */ import_react15.default.createElement(import_react_native19.TouchableOpacity, {
+        style: styles14.container,
+        onPress: handlePress
+    }, /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.ticketNumber), /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: [
+            styles14.bigText,
+            statusText,
+            {
+                fontWeight: "700"
+            }
+        ]
+    }, item === null || item === void 0 ? void 0 : item.status)), /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.smallText
+    }, "Ticket number"), /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.smallText
+    }, (0, import_moment.default)(item.createdAt).format("Do MMMM YYYY | hh:mm A"))), /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.department), /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.subject)), /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.smallText
+    }, "Subject"), /* @__PURE__ */ import_react15.default.createElement(CustomText, {
+        style: styles14.smallText
+    }, item === null || item === void 0 ? void 0 : item.department)));
+};
+var TicketItem_default = TicketItem;
+var styles14 = import_react_native19.StyleSheet.create({
+    container: {
+        backgroundColor: COLORS.white,
+        borderRadius: 10,
+        borderWidth: 1,
+        marginBottom: 8,
+        padding: 12,
+        borderColor: COLORS.primary50
+    },
+    bigText: {
+        color: COLORS.primary500,
+        lineHeight: 24,
+        textTransform: "capitalize",
+        fontSize: 14,
+        fontFamily: "Urbanist"
+    },
+    smallText: {
+        color: COLORS.neutral90,
+        fontSize: 10,
+        lineHeight: 16,
+        fontFamily: "Urbanist",
+        textTransform: "capitalize"
+    }
+});
+// src/components/OTPInput/OTPInput.tsx
+var import_react_native20 = require("react-native");
+var import_react16 = __toESM(require("react"));
+var OTPInput = function(param) {
+    var code = param.code, setCode = param.setCode, setPinReady = param.setPinReady, maxLength = param.maxLength, onCodeFilled = param.onCodeFilled;
+    var codeDigitsArray = new Array(maxLength).fill(0);
+    var textInputRef = (0, import_react16.useRef)(null);
+    var _ref = _sliced_to_array((0, import_react16.useState)(false), 2), inputContainerIsFocused = _ref[0], setInputContainerIsFocused = _ref[1];
+    var handleOnPress = function() {
+        var _textInputRef_current;
+        setInputContainerIsFocused(true);
+        (_textInputRef_current = textInputRef.current) === null || _textInputRef_current === void 0 ? void 0 : _textInputRef_current.focus();
+    };
+    var handleOnBlur = function() {
+        setInputContainerIsFocused(false);
+    };
+    (0, import_react16.useEffect)(function() {
+        setPinReady(code.length === maxLength);
+        if (code.length === maxLength) {
+            onCodeFilled(code);
+        }
+        return function() {
+            return setPinReady(false);
+        };
+    }, [
+        code
+    ]);
+    var toCodeDigitInput = function(_value, index) {
+        var digit = code[index] || "_";
+        return /* @__PURE__ */ import_react16.default.createElement(import_react_native20.View, {
+            style: [
+                styles15.OTPInput,
+                inputContainerIsFocused && index === code.length && styles15.OTPInputFocused
+            ],
+            key: index
+        }, /* @__PURE__ */ import_react16.default.createElement(CustomText, {
+            style: styles15.OTPInputText
+        }, digit));
+    };
+    return /* @__PURE__ */ import_react16.default.createElement(import_react_native20.View, {
+        style: styles15.OTPInputSection
+    }, /* @__PURE__ */ import_react16.default.createElement(import_react_native20.Pressable, {
+        style: styles15.OTPInputContainer,
+        onPress: handleOnPress
+    }, codeDigitsArray.map(toCodeDigitInput)), /* @__PURE__ */ import_react16.default.createElement(import_react_native20.TextInput, {
+        value: code,
+        onChangeText: function(text) {
+            if (text.length <= maxLength) {
+                setCode(text);
+            }
+        },
+        maxLength: maxLength,
+        onBlur: handleOnBlur,
+        ref: textInputRef,
+        keyboardType: "number-pad",
+        returnKeyType: "done",
+        textContentType: "oneTimeCode",
+        style: styles15.HiddenTextInput
+    }));
+};
+var OTPInput_default = OTPInput;
+var styles15 = import_react_native20.StyleSheet.create({
+    OTPInputSection: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 30
+    },
+    HiddenTextInput: {
+        position: "absolute",
+        width: 1,
+        height: 1,
+        opacity: 0
+    },
+    OTPInputContainer: {
+        width: "80%",
+        flexDirection: "row",
+        justifyContent: "space-around"
+    },
+    OTPInput: {
+        borderColor: COLORS.neutral40,
+        width: 61,
+        height: 61,
+        borderWidth: 1,
+        borderRadius: 24,
+        justifyContent: "center",
+        backgroundColor: COLORS.white,
+        fontFamily: "UrbanistBold"
+    },
+    OTPInputText: {
+        fontSize: 16,
+        fontWeight: "700",
+        textAlign: "center",
+        color: COLORS.black
+    },
+    OTPInputFocused: {
+    }
+});
+// src/components/NotificationItem/NotificationItem.tsx
+var import_react_native21 = require("react-native");
+var import_react17 = __toESM(require("react"));
+var import_moment2 = __toESM(require("moment"));
+var NotificationItem = function(param) {
+    var item = param.item;
+    return /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
+        style: styles16.tabContainer
+    }, /* @__PURE__ */ import_react17.default.createElement(import_react_native21.Image, {
+        source: require_notificationLogo()
+    }), /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, null, /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
+        style: {
+            maxWidth: 300
+        }
+    }, /* @__PURE__ */ import_react17.default.createElement(CustomText, {
+        style: styles16.description
+    }, item.message)), /* @__PURE__ */ import_react17.default.createElement(CustomText, {
+        style: styles16.date
+    }, (0, import_moment2.default)(item.createdAt).format("hh:mm A")), /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
+        style: styles16.line
+    })));
+};
+var NotificationItem_default = NotificationItem;
+var styles16 = import_react_native21.StyleSheet.create({
+    tabContainer: {
+        padding: 8,
+        flexDirection: "row",
+        gap: 12
+    },
+    description: {
+        color: COLORS.neutral400,
+        fontFamily: "Urbanist",
+        fontSize: 16,
+        lineHeight: 24
+    },
+    line: {
+        borderWidth: 0.5,
+        borderColor: COLORS.primary100
+    },
+    date: {
+        fontFamily: "Urbanist",
+        color: COLORS.neutral400,
+        fontSize: 10,
+        marginTop: 4,
+        marginBottom: 8
+    }
+});
+// src/components/LineIndicator/LineIndicator.tsx
+var import_react18 = __toESM(require("react"));
+var import_react_native22 = require("react-native");
+var LineLoadingIndicator = function() {
+    var translateX = (0, import_react18.useRef)(new import_react_native22.Animated.Value(-200)).current;
+    (0, import_react18.useEffect)(function() {
+        var animation = import_react_native22.Animated.loop(import_react_native22.Animated.timing(translateX, {
+            toValue: 200,
+            duration: 1e3,
+            useNativeDriver: true
+        }));
+        animation.start();
+        return function() {
+            animation.stop();
+        };
+    }, [
+        translateX
+    ]);
+    return /* @__PURE__ */ import_react18.default.createElement(import_react_native22.View, {
+        style: styles17.container
+    }, /* @__PURE__ */ import_react18.default.createElement(import_react_native22.View, {
+        style: styles17.lineContainer
+    }, /* @__PURE__ */ import_react18.default.createElement(import_react_native22.Animated.View, {
+        style: [
+            styles17.animatedLine,
+            {
+                transform: [
+                    {
+                        translateX: translateX
+                    }
+                ]
+            }
+        ]
+    })));
+};
+var styles17 = import_react_native22.StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F3F3F3",
+        marginVertical: 20
+    },
+    lineContainer: {
+        width: "100%",
+        height: 3,
+        backgroundColor: "#F3F3F3",
+        overflow: "hidden",
+        borderRadius: 2,
+        position: "relative"
+    },
+    animatedLine: {
+        width: "40%",
+        height: "100%",
+        backgroundColor: COLORS.primary500,
+        borderRadius: 2,
+        position: "absolute"
+    }
+});
+var LineIndicator_default = LineLoadingIndicator;
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -2504,13 +2975,13 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-var import_react13 = require("react");
+var import_react19 = require("react");
 var useModal = function() {
-    var _ref = _sliced_to_array((0, import_react13.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
-    var onOpen = (0, import_react13.useCallback)(function() {
+    var _ref = _sliced_to_array((0, import_react19.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
+    var onOpen = (0, import_react19.useCallback)(function() {
         setVisible(true);
     }, []);
-    var onClose = (0, import_react13.useCallback)(function() {
+    var onClose = (0, import_react19.useCallback)(function() {
         setVisible(false);
     }, []);
     return {
@@ -2520,10 +2991,10 @@ var useModal = function() {
     };
 };
 // src/hooks/useShareLink/useShareLink.tsx
-var import_react14 = require("react");
-var import_react_native17 = require("react-native");
+var import_react20 = require("react");
+var import_react_native23 = require("react-native");
 var useShareLink = function() {
-    var shareLink = (0, import_react14.useCallback)(/*#__PURE__*/ function() {
+    var shareLink = (0, import_react20.useCallback)(/*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(content, options) {
             var result, error;
             return _ts_generator(this, function(_state) {
@@ -2537,17 +3008,17 @@ var useShareLink = function() {
                         ]);
                         return [
                             4,
-                            import_react_native17.Share.share(content, options)
+                            import_react_native23.Share.share(content, options)
                         ];
                     case 1:
                         result = _state.sent();
-                        if (result.action === import_react_native17.Share.sharedAction) {
+                        if (result.action === import_react_native23.Share.sharedAction) {
                             if (result.activityType) {
                                 console.log("Shared with activity type: ".concat(result.activityType));
                             } else {
                                 console.log("Link shared successfully");
                             }
-                        } else if (result.action === import_react_native17.Share.dismissedAction) {
+                        } else if (result.action === import_react_native23.Share.dismissedAction) {
                             console.log("Share dismissed");
                         }
                         return [
@@ -2577,11 +3048,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-var import_react15 = require("react");
+var import_react21 = require("react");
 var useTimer = function(initialSeconds) {
-    var _ref = _sliced_to_array((0, import_react15.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react15.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
-    (0, import_react15.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react21.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react21.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
+    (0, import_react21.useEffect)(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -2608,14 +3079,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-var import_react16 = require("react");
+var import_react22 = require("react");
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _ref1 = _sliced_to_array((0, import_react16.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
-    var intervalRef = (0, import_react16.useRef)(null);
-    var hasStarted = (0, import_react16.useRef)(false);
-    var hasCompleted = (0, import_react16.useRef)(false);
-    (0, import_react16.useEffect)(function() {
+    var _ref1 = _sliced_to_array((0, import_react22.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
+    var intervalRef = (0, import_react22.useRef)(null);
+    var hasStarted = (0, import_react22.useRef)(false);
+    var hasCompleted = (0, import_react22.useRef)(false);
+    (0, import_react22.useEffect)(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -2624,7 +3095,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    (0, import_react16.useEffect)(function() {
+    (0, import_react22.useEffect)(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -2666,13 +3137,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 var LocalAuthentication = __toESM(require("expo-local-authentication"));
-var import_react17 = require("react");
+var import_react23 = require("react");
 var useBiometrics = function() {
-    var _ref = _sliced_to_array((0, import_react17.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react17.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react17.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react17.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react17.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react23.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react23.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react23.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react23.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react23.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -2758,7 +3229,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    (0, import_react17.useEffect)(function() {
+    (0, import_react23.useEffect)(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -2788,11 +3259,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-var import_react18 = require("react");
+var import_react24 = require("react");
 var useDateTimePicker = function() {
-    var _ref = _sliced_to_array((0, import_react18.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react18.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react18.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var _ref = _sliced_to_array((0, import_react24.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react24.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react24.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -2822,18 +3293,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-var import_react19 = require("react");
+var import_react25 = require("react");
 var import_axios = __toESM(require("axios"));
 var Location = __toESM(require("expo-location"));
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _ref = _sliced_to_array((0, import_react19.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react19.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react19.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react19.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react19.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react25.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react25.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react25.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react25.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react25.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -3156,15 +3627,15 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react20 = require("react");
+var import_react26 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native18 = require("react-native");
+var import_react_native24 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react20.useReducer)(function(state) {
+    return (0, import_react26.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -3180,7 +3651,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native18.Platform.OS === "web")) return [
+                    if (!(import_react_native24.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -3231,8 +3702,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react20.useEffect)(function() {
-        if (import_react_native18.Platform.OS === "web") {
+    (0, import_react26.useEffect)(function() {
+        if (import_react_native24.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -3248,7 +3719,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react20.useCallback)(function(value) {
+    var setValue = (0, import_react26.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -3260,7 +3731,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react21 = __toESM(require("react"));
+var import_react27 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -3306,13 +3777,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react21.createContext)({
+var SocketContext = (0, import_react27.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react21.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react21.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react27.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react27.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -3359,7 +3830,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react21.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react27.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -3758,11 +4229,17 @@ var ChatServices = new ChatService();
     EResult: EResult,
     ETab: ETab,
     EmptyList: EmptyList,
+    Header: Header,
+    LineIndicator: LineIndicator,
     ModalContent: ModalContent,
+    NotificationItem: NotificationItem,
+    OTPInput: OTPInput,
     PaymentModal: PaymentModal,
     ProfileServices: ProfileServices,
     SOCKET_URL: SOCKET_URL,
     SocketProvider: SocketProvider,
+    Tab: Tab,
+    TicketItem: TicketItem,
     WashServices: WashServices,
     api: api,
     apiContext: apiContext,

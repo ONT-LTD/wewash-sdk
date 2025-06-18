@@ -12,7 +12,7 @@ type Props = {
 const NotificationItem: FC<Props> = ({ item }) => {
   return (
     <View style={styles.tabContainer}>
-      <Image source={require('@/assets/images/png/notificationLogo.png')} />
+      <Image source={require('../../assets/png/notificationLogo.png')} />
       <View>
         <View style={{ maxWidth: 300 }}>
           <CustomText style={styles.description}>{item.message}</CustomText>

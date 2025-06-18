@@ -1,4 +1,3 @@
-// src/components/CustomButton/CustomButton.tsx
 function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -367,6 +366,21 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __commonJS = function(cb, mod) {
+    return function __require() {
+        return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = {
+            exports: {}
+        }).exports, mod), mod.exports;
+    };
+};
+// src/assets/png/notificationLogo.png
+var require_notificationLogo = __commonJS({
+    "src/assets/png/notificationLogo.png": function(exports, module) {
+        module.exports = "./notificationLogo-43K2XXD4.png";
+    }
+});
+// src/components/CustomButton/CustomButton.tsx
 import React, { forwardRef } from "react";
 import { ActivityIndicator, StyleSheet as StyleSheet2, Text, TouchableOpacity } from "react-native";
 // src/constant/Colors.ts
@@ -2165,6 +2179,446 @@ var styles11 = StyleSheet12.create({
         fontFamily: "UrbanistSemiBold"
     }
 });
+// src/components/Header/Header.tsx
+import { StyleSheet as StyleSheet13, Text as Text7, TouchableOpacity as TouchableOpacity8, View as View10 } from "react-native";
+import React20 from "react";
+import { useRouter } from "expo-router";
+// src/assets/svg/ChevronLeft.tsx
+import * as React19 from "react";
+import Svg7, { Path as Path7 } from "react-native-svg";
+var SvgComponent7 = function(props) {
+    return /* @__PURE__ */ React19.createElement(Svg7, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 9,
+        height: 14,
+        fill: "none"
+    }, props), /* @__PURE__ */ React19.createElement(Path7, {
+        fill: "#131313",
+        fillRule: "evenodd",
+        d: "m2.845 7 5.488 5.488a.833.833 0 1 1-1.178 1.179L.488 7 7.155.333a.833.833 0 1 1 1.178 1.179L2.845 7Z",
+        clipRule: "evenodd"
+    }));
+};
+var ChevronLeft_default = SvgComponent7;
+// src/components/Header/Header.tsx
+function Header(param) {
+    var title = param.title, goBackLink = param.goBackLink, isNotAuth = param.isNotAuth;
+    var router2 = useRouter();
+    return /* @__PURE__ */ React20.createElement(View10, {
+        style: [
+            styles12.container,
+            {
+                paddingHorizontal: isNotAuth ? 20 : 24
+            }
+        ]
+    }, /* @__PURE__ */ React20.createElement(TouchableOpacity8, {
+        style: styles12.arrow,
+        onPress: function() {
+            return goBackLink ? router2.push(goBackLink) : router2.back();
+        }
+    }, /* @__PURE__ */ React20.createElement(ChevronLeft_default, null)), /* @__PURE__ */ React20.createElement(Text7, {
+        style: styles12.title
+    }, title), /* @__PURE__ */ React20.createElement(View10, {
+        style: styles12.spacer
+    }));
+}
+var styles12 = StyleSheet13.create({
+    container: {
+        paddingTop: 60,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 5
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: "UrbanistMedium",
+        lineHeight: 16,
+        fontWeight: "500",
+        textAlign: "center",
+        color: COLORS.primary800,
+        flex: 1
+    },
+    spacer: {
+        width: 24
+    },
+    arrow: {
+        height: 22,
+        width: 22,
+        alignItems: "center",
+        justifyContent: "center"
+    }
+});
+// src/components/Tab/Tab.tsx
+import { StyleSheet as StyleSheet14, Text as Text8, TouchableOpacity as TouchableOpacity9, View as View11 } from "react-native";
+import React21 from "react";
+var Tab = function(param) {
+    var tabList = param.tabList, setActiveTab = param.setActiveTab, activeTab = param.activeTab, ticketCount = param.ticketCount;
+    var handleTab = function(value) {
+        return setActiveTab(value);
+    };
+    return /* @__PURE__ */ React21.createElement(View11, {
+        style: styles13.container
+    }, tabList.map(function(tab, i) {
+        return /* @__PURE__ */ React21.createElement(TouchableOpacity9, {
+            style: [
+                styles13.tab,
+                activeTab === tab.id && styles13.tabActive
+            ],
+            key: i,
+            onPress: function() {
+                return handleTab(tab.id);
+            }
+        }, /* @__PURE__ */ React21.createElement(Text8, {
+            style: [
+                styles13.tabText,
+                activeTab === tab.id && styles13.tabTextActive
+            ]
+        }, tab.name), tab.id === 2 && ticketCount && ticketCount > 0 ? /* @__PURE__ */ React21.createElement(View11, {
+            style: styles13.badge
+        }, /* @__PURE__ */ React21.createElement(CustomTextNeutral, {
+            style: styles13.badgeText
+        }, ticketCount)) : null);
+    }));
+};
+var Tab_default = Tab;
+var styles13 = StyleSheet14.create({
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: COLORS.primary50,
+        padding: 4,
+        borderRadius: 28
+    },
+    tab: {
+        paddingVertical: 4,
+        borderRadius: 30,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        width: "48%",
+        backgroundColor: COLORS.white
+    },
+    tabActive: {
+        borderColor: COLORS.primary500,
+        borderWidth: 1,
+        backgroundColor: COLORS.primary50
+    },
+    tabText: {
+        fontFamily: "UrbanistMedium",
+        fontSize: 14,
+        lineHeight: 21,
+        textTransform: "capitalize",
+        color: COLORS.grey400
+    },
+    tabTextActive: {
+        fontSize: 14,
+        lineHeight: 21,
+        textTransform: "capitalize",
+        color: COLORS.primary500
+    },
+    badge: {
+        width: 23,
+        height: 23,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 100,
+        backgroundColor: "#F1F1F1"
+    },
+    badgeText: {
+        fontSize: 13,
+        fontFamily: "Urbanist",
+        lineHeight: 18,
+        color: COLORS.grey200
+    }
+});
+// src/components/TicketItem/TicketItem.tsx
+import { StyleSheet as StyleSheet15, TouchableOpacity as TouchableOpacity10, View as View12 } from "react-native";
+import React22 from "react";
+import { router } from "expo-router";
+import moment from "moment";
+var TicketItem = function(param) {
+    var item = param.item;
+    var statusText = {
+        fontFamily: "UrbanistBold",
+        color: COLORS.error200
+    };
+    var handlePress = function() {
+        return router.push({
+            pathname: "/viewTicket",
+            params: {
+                ticketNumber: item === null || item === void 0 ? void 0 : item.ticketNumber,
+                ticketId: item === null || item === void 0 ? void 0 : item.id,
+                conversationId: item === null || item === void 0 ? void 0 : item.conversationId,
+                subject: item === null || item === void 0 ? void 0 : item.subject
+            }
+        });
+    };
+    return /* @__PURE__ */ React22.createElement(TouchableOpacity10, {
+        style: styles14.container,
+        onPress: handlePress
+    }, /* @__PURE__ */ React22.createElement(View12, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.ticketNumber), /* @__PURE__ */ React22.createElement(CustomText, {
+        style: [
+            styles14.bigText,
+            statusText,
+            {
+                fontWeight: "700"
+            }
+        ]
+    }, item === null || item === void 0 ? void 0 : item.status)), /* @__PURE__ */ React22.createElement(View12, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.smallText
+    }, "Ticket number"), /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.smallText
+    }, moment(item.createdAt).format("Do MMMM YYYY | hh:mm A"))), /* @__PURE__ */ React22.createElement(View12, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.department), /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.bigText
+    }, item === null || item === void 0 ? void 0 : item.subject)), /* @__PURE__ */ React22.createElement(View12, {
+        style: customStyles.groupSpaceBetween
+    }, /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.smallText
+    }, "Subject"), /* @__PURE__ */ React22.createElement(CustomText, {
+        style: styles14.smallText
+    }, item === null || item === void 0 ? void 0 : item.department)));
+};
+var TicketItem_default = TicketItem;
+var styles14 = StyleSheet15.create({
+    container: {
+        backgroundColor: COLORS.white,
+        borderRadius: 10,
+        borderWidth: 1,
+        marginBottom: 8,
+        padding: 12,
+        borderColor: COLORS.primary50
+    },
+    bigText: {
+        color: COLORS.primary500,
+        lineHeight: 24,
+        textTransform: "capitalize",
+        fontSize: 14,
+        fontFamily: "Urbanist"
+    },
+    smallText: {
+        color: COLORS.neutral90,
+        fontSize: 10,
+        lineHeight: 16,
+        fontFamily: "Urbanist",
+        textTransform: "capitalize"
+    }
+});
+// src/components/OTPInput/OTPInput.tsx
+import { Pressable, StyleSheet as StyleSheet16, TextInput as TextInput2, View as View13 } from "react-native";
+import React23, { useRef as useRef2, useState as useState3, useEffect } from "react";
+var OTPInput = function(param) {
+    var code = param.code, setCode = param.setCode, setPinReady = param.setPinReady, maxLength = param.maxLength, onCodeFilled = param.onCodeFilled;
+    var codeDigitsArray = new Array(maxLength).fill(0);
+    var textInputRef = useRef2(null);
+    var _useState3 = _sliced_to_array(useState3(false), 2), inputContainerIsFocused = _useState3[0], setInputContainerIsFocused = _useState3[1];
+    var handleOnPress = function() {
+        var _textInputRef_current;
+        setInputContainerIsFocused(true);
+        (_textInputRef_current = textInputRef.current) === null || _textInputRef_current === void 0 ? void 0 : _textInputRef_current.focus();
+    };
+    var handleOnBlur = function() {
+        setInputContainerIsFocused(false);
+    };
+    useEffect(function() {
+        setPinReady(code.length === maxLength);
+        if (code.length === maxLength) {
+            onCodeFilled(code);
+        }
+        return function() {
+            return setPinReady(false);
+        };
+    }, [
+        code
+    ]);
+    var toCodeDigitInput = function(_value, index) {
+        var digit = code[index] || "_";
+        return /* @__PURE__ */ React23.createElement(View13, {
+            style: [
+                styles15.OTPInput,
+                inputContainerIsFocused && index === code.length && styles15.OTPInputFocused
+            ],
+            key: index
+        }, /* @__PURE__ */ React23.createElement(CustomText, {
+            style: styles15.OTPInputText
+        }, digit));
+    };
+    return /* @__PURE__ */ React23.createElement(View13, {
+        style: styles15.OTPInputSection
+    }, /* @__PURE__ */ React23.createElement(Pressable, {
+        style: styles15.OTPInputContainer,
+        onPress: handleOnPress
+    }, codeDigitsArray.map(toCodeDigitInput)), /* @__PURE__ */ React23.createElement(TextInput2, {
+        value: code,
+        onChangeText: function(text) {
+            if (text.length <= maxLength) {
+                setCode(text);
+            }
+        },
+        maxLength: maxLength,
+        onBlur: handleOnBlur,
+        ref: textInputRef,
+        keyboardType: "number-pad",
+        returnKeyType: "done",
+        textContentType: "oneTimeCode",
+        style: styles15.HiddenTextInput
+    }));
+};
+var OTPInput_default = OTPInput;
+var styles15 = StyleSheet16.create({
+    OTPInputSection: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 30
+    },
+    HiddenTextInput: {
+        position: "absolute",
+        width: 1,
+        height: 1,
+        opacity: 0
+    },
+    OTPInputContainer: {
+        width: "80%",
+        flexDirection: "row",
+        justifyContent: "space-around"
+    },
+    OTPInput: {
+        borderColor: COLORS.neutral40,
+        width: 61,
+        height: 61,
+        borderWidth: 1,
+        borderRadius: 24,
+        justifyContent: "center",
+        backgroundColor: COLORS.white,
+        fontFamily: "UrbanistBold"
+    },
+    OTPInputText: {
+        fontSize: 16,
+        fontWeight: "700",
+        textAlign: "center",
+        color: COLORS.black
+    },
+    OTPInputFocused: {
+    }
+});
+// src/components/NotificationItem/NotificationItem.tsx
+import { StyleSheet as StyleSheet17, Image, View as View14 } from "react-native";
+import React24 from "react";
+import moment2 from "moment";
+var NotificationItem = function(param) {
+    var item = param.item;
+    return /* @__PURE__ */ React24.createElement(View14, {
+        style: styles16.tabContainer
+    }, /* @__PURE__ */ React24.createElement(Image, {
+        source: require_notificationLogo()
+    }), /* @__PURE__ */ React24.createElement(View14, null, /* @__PURE__ */ React24.createElement(View14, {
+        style: {
+            maxWidth: 300
+        }
+    }, /* @__PURE__ */ React24.createElement(CustomText, {
+        style: styles16.description
+    }, item.message)), /* @__PURE__ */ React24.createElement(CustomText, {
+        style: styles16.date
+    }, moment2(item.createdAt).format("hh:mm A")), /* @__PURE__ */ React24.createElement(View14, {
+        style: styles16.line
+    })));
+};
+var NotificationItem_default = NotificationItem;
+var styles16 = StyleSheet17.create({
+    tabContainer: {
+        padding: 8,
+        flexDirection: "row",
+        gap: 12
+    },
+    description: {
+        color: COLORS.neutral400,
+        fontFamily: "Urbanist",
+        fontSize: 16,
+        lineHeight: 24
+    },
+    line: {
+        borderWidth: 0.5,
+        borderColor: COLORS.primary100
+    },
+    date: {
+        fontFamily: "Urbanist",
+        color: COLORS.neutral400,
+        fontSize: 10,
+        marginTop: 4,
+        marginBottom: 8
+    }
+});
+// src/components/LineIndicator/LineIndicator.tsx
+import React25, { useEffect as useEffect2, useRef as useRef3 } from "react";
+import { View as View15, Animated, StyleSheet as StyleSheet18 } from "react-native";
+var LineLoadingIndicator = function() {
+    var translateX = useRef3(new Animated.Value(-200)).current;
+    useEffect2(function() {
+        var animation = Animated.loop(Animated.timing(translateX, {
+            toValue: 200,
+            duration: 1e3,
+            useNativeDriver: true
+        }));
+        animation.start();
+        return function() {
+            animation.stop();
+        };
+    }, [
+        translateX
+    ]);
+    return /* @__PURE__ */ React25.createElement(View15, {
+        style: styles17.container
+    }, /* @__PURE__ */ React25.createElement(View15, {
+        style: styles17.lineContainer
+    }, /* @__PURE__ */ React25.createElement(Animated.View, {
+        style: [
+            styles17.animatedLine,
+            {
+                transform: [
+                    {
+                        translateX: translateX
+                    }
+                ]
+            }
+        ]
+    })));
+};
+var styles17 = StyleSheet18.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F3F3F3",
+        marginVertical: 20
+    },
+    lineContainer: {
+        width: "100%",
+        height: 3,
+        backgroundColor: "#F3F3F3",
+        overflow: "hidden",
+        borderRadius: 2,
+        position: "relative"
+    },
+    animatedLine: {
+        width: "40%",
+        height: "100%",
+        backgroundColor: COLORS.primary500,
+        borderRadius: 2,
+        position: "absolute"
+    }
+});
+var LineIndicator_default = LineLoadingIndicator;
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -2204,9 +2658,9 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-import { useState as useState3, useCallback } from "react";
+import { useState as useState4, useCallback } from "react";
 var useModal = function() {
-    var _useState3 = _sliced_to_array(useState3(false), 2), visible = _useState3[0], setVisible = _useState3[1];
+    var _useState4 = _sliced_to_array(useState4(false), 2), visible = _useState4[0], setVisible = _useState4[1];
     var onOpen = useCallback(function() {
         setVisible(true);
     }, []);
@@ -2277,11 +2731,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-import { useState as useState4, useEffect } from "react";
+import { useState as useState5, useEffect as useEffect3 } from "react";
 var useTimer = function(initialSeconds) {
-    var _useState4 = _sliced_to_array(useState4(initialSeconds), 2), seconds = _useState4[0], setSeconds = _useState4[1];
-    var _useState41 = _sliced_to_array(useState4(false), 2), isFinished = _useState41[0], setIsFinished = _useState41[1];
-    useEffect(function() {
+    var _useState5 = _sliced_to_array(useState5(initialSeconds), 2), seconds = _useState5[0], setSeconds = _useState5[1];
+    var _useState51 = _sliced_to_array(useState5(false), 2), isFinished = _useState51[0], setIsFinished = _useState51[1];
+    useEffect3(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -2308,14 +2762,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-import { useEffect as useEffect2, useRef as useRef2, useState as useState5 } from "react";
+import { useEffect as useEffect4, useRef as useRef4, useState as useState6 } from "react";
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _useState5 = _sliced_to_array(useState5(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState5[0], setTimeLeft = _useState5[1];
-    var intervalRef = useRef2(null);
-    var hasStarted = useRef2(false);
-    var hasCompleted = useRef2(false);
-    useEffect2(function() {
+    var _useState6 = _sliced_to_array(useState6(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState6[0], setTimeLeft = _useState6[1];
+    var intervalRef = useRef4(null);
+    var hasStarted = useRef4(false);
+    var hasCompleted = useRef4(false);
+    useEffect4(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -2324,7 +2778,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    useEffect2(function() {
+    useEffect4(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -2366,13 +2820,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 import * as LocalAuthentication from "expo-local-authentication";
-import { useEffect as useEffect3, useState as useState6 } from "react";
+import { useEffect as useEffect5, useState as useState7 } from "react";
 var useBiometrics = function() {
-    var _useState6 = _sliced_to_array(useState6(false), 2), facialRecognitionAvailable = _useState6[0], setFacialRecognitionAvailable = _useState6[1];
-    var _useState61 = _sliced_to_array(useState6(false), 2), fingerprintAvailable = _useState61[0], setFingerprintAvailable = _useState61[1];
-    var _useState62 = _sliced_to_array(useState6(false), 2), irisAvailable = _useState62[0], setIrisAvailable = _useState62[1];
-    var _useState63 = _sliced_to_array(useState6(false), 2), loading = _useState63[0], setLoading = _useState63[1];
-    var _useState64 = _sliced_to_array(useState6(), 2), result = _useState64[0], setResult = _useState64[1];
+    var _useState7 = _sliced_to_array(useState7(false), 2), facialRecognitionAvailable = _useState7[0], setFacialRecognitionAvailable = _useState7[1];
+    var _useState71 = _sliced_to_array(useState7(false), 2), fingerprintAvailable = _useState71[0], setFingerprintAvailable = _useState71[1];
+    var _useState72 = _sliced_to_array(useState7(false), 2), irisAvailable = _useState72[0], setIrisAvailable = _useState72[1];
+    var _useState73 = _sliced_to_array(useState7(false), 2), loading = _useState73[0], setLoading = _useState73[1];
+    var _useState74 = _sliced_to_array(useState7(), 2), result = _useState74[0], setResult = _useState74[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -2458,7 +2912,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    useEffect3(function() {
+    useEffect5(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -2488,11 +2942,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-import { useState as useState7 } from "react";
+import { useState as useState8 } from "react";
 var useDateTimePicker = function() {
-    var _useState7 = _sliced_to_array(useState7(false), 2), isPickerVisible = _useState7[0], setIsPickerVisible = _useState7[1];
-    var _useState71 = _sliced_to_array(useState7("date"), 2), pickerMode = _useState71[0], setPickerMode = _useState71[1];
-    var _useState72 = _sliced_to_array(useState7(null), 2), selectedDateTime = _useState72[0], setSelectedDateTime = _useState72[1];
+    var _useState8 = _sliced_to_array(useState8(false), 2), isPickerVisible = _useState8[0], setIsPickerVisible = _useState8[1];
+    var _useState81 = _sliced_to_array(useState8("date"), 2), pickerMode = _useState81[0], setPickerMode = _useState81[1];
+    var _useState82 = _sliced_to_array(useState8(null), 2), selectedDateTime = _useState82[0], setSelectedDateTime = _useState82[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -2522,18 +2976,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-import { useState as useState8 } from "react";
+import { useState as useState9 } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _useState8 = _sliced_to_array(useState8(""), 2), query = _useState8[0], setQuery = _useState8[1];
-    var _useState81 = _sliced_to_array(useState8([]), 2), predictions = _useState81[0], setPredictions = _useState81[1];
-    var _useState82 = _sliced_to_array(useState8(null), 2), placeDetails = _useState82[0], setPlaceDetails = _useState82[1];
-    var _useState83 = _sliced_to_array(useState8(false), 2), isLoading = _useState83[0], setIsLoading = _useState83[1];
-    var _useState84 = _sliced_to_array(useState8(null), 2), error = _useState84[0], setError = _useState84[1];
+    var _useState9 = _sliced_to_array(useState9(""), 2), query = _useState9[0], setQuery = _useState9[1];
+    var _useState91 = _sliced_to_array(useState9([]), 2), predictions = _useState91[0], setPredictions = _useState91[1];
+    var _useState92 = _sliced_to_array(useState9(null), 2), placeDetails = _useState92[0], setPlaceDetails = _useState92[1];
+    var _useState93 = _sliced_to_array(useState9(false), 2), isLoading = _useState93[0], setIsLoading = _useState93[1];
+    var _useState94 = _sliced_to_array(useState9(null), 2), error = _useState94[0], setError = _useState94[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -2856,7 +3310,7 @@ var api = axios2.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-import { useEffect as useEffect4, useCallback as useCallback3, useReducer } from "react";
+import { useEffect as useEffect6, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
 import { Platform as Platform4 } from "react-native";
 function useAsyncState() {
@@ -2931,7 +3385,7 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    useEffect4(function() {
+    useEffect6(function() {
         if (Platform4.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
@@ -2960,7 +3414,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-import React19, { createContext, useContext, useEffect as useEffect5, useState as useState9 } from "react";
+import React26, { createContext, useContext, useEffect as useEffect7, useState as useState10 } from "react";
 // src/config/socket.ts
 import { io } from "socket.io-client";
 var socket = null;
@@ -3011,8 +3465,8 @@ var SocketContext = createContext({
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _useState9 = _sliced_to_array(useState9(null), 2), socket2 = _useState9[0], setSocket = _useState9[1];
-    useEffect5(function() {
+    var _useState10 = _sliced_to_array(useState10(null), 2), socket2 = _useState10[0], setSocket = _useState10[1];
+    useEffect7(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -3059,7 +3513,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ React19.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ React26.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -3435,5 +3889,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, PaymentModal_default as PaymentModal, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileServices, SOCKET_URL, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
 //# sourceMappingURL=index.mjs.map
