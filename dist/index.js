@@ -539,8 +539,17 @@ __export(index_exports, {
     truncateTextWithEmail: function() {
         return truncateTextWithEmail;
     },
+    useBiometrics: function() {
+        return useBiometrics;
+    },
     useCountdown: function() {
         return useCountdown;
+    },
+    useDateTimePicker: function() {
+        return useDateTimePicker;
+    },
+    useGooglePlaces: function() {
+        return useGooglePlaces;
     },
     useModal: function() {
         return useModal;
@@ -2139,6 +2148,432 @@ var useCountdown = function(minutes) {
     };
     return formatTime(timeLeft);
 };
+// src/hooks/useBiometrics/useBiometrics.tsx
+var LocalAuthentication = __toESM(require("expo-local-authentication"));
+var import_react16 = require("react");
+var useBiometrics = function() {
+    var _ref = _sliced_to_array((0, import_react16.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react16.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react16.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react16.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react16.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var checkSupportedAuthentication = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var types;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        return [
+                            4,
+                            LocalAuthentication.supportedAuthenticationTypesAsync()
+                        ];
+                    case 1:
+                        types = _state.sent();
+                        if (types && types.length) {
+                            setFacialRecognitionAvailable(types.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION));
+                            setFingerprintAvailable(types.includes(LocalAuthentication.AuthenticationType.FINGERPRINT));
+                            setIrisAvailable(types.includes(LocalAuthentication.AuthenticationType.IRIS));
+                        }
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function checkSupportedAuthentication() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    var authenticateWithBiometrics = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(handleSubmit) {
+            var results, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (loading) {
+                            return [
+                                2
+                            ];
+                        }
+                        setLoading(true);
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            ,
+                            4
+                        ]);
+                        return [
+                            4,
+                            LocalAuthentication.authenticateAsync()
+                        ];
+                    case 2:
+                        results = _state.sent();
+                        console.log("\u{1F680} ~ authenticateWithBiometrics ~ results:", results);
+                        if (results.success) {
+                            setResult("SUCCESS" /* SUCCESS */ );
+                            handleSubmit === null || handleSubmit === void 0 ? void 0 : handleSubmit();
+                        } else if (results.error === "unknown") {
+                            setResult("DISABLED" /* DISABLED */ );
+                        } else if (results.error === "user_cancel" || results.error === "system_cancel" || results.error === "app_cancel") {
+                            setResult("CANCELLED" /* CANCELLED */ );
+                        }
+                        return [
+                            3,
+                            4
+                        ];
+                    case 3:
+                        error = _state.sent();
+                        setResult("ERROR" /* ERROR */ );
+                        return [
+                            3,
+                            4
+                        ];
+                    case 4:
+                        setLoading(false);
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function authenticateWithBiometrics(handleSubmit) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    (0, import_react16.useEffect)(function() {
+        checkSupportedAuthentication();
+    }, []);
+    var resultMessage;
+    switch(result){
+        case "CANCELLED" /* CANCELLED */ :
+            resultMessage = "Authentication process has been cancelled";
+            break;
+        case "DISABLED" /* DISABLED */ :
+            resultMessage = "Biometric authentication has been disabled";
+            break;
+        case "ERROR" /* ERROR */ :
+            resultMessage = "There was an error in authentication";
+            break;
+        case "SUCCESS" /* SUCCESS */ :
+            resultMessage = "Successfully authenticated";
+            break;
+        default:
+            resultMessage = "";
+            break;
+    }
+    return {
+        facialRecognitionAvailable: facialRecognitionAvailable,
+        fingerprintAvailable: fingerprintAvailable,
+        irisAvailable: irisAvailable,
+        authenticateWithBiometrics: authenticateWithBiometrics,
+        resultMessage: resultMessage
+    };
+};
+// src/hooks/useDateTimePicker/useDateTimePicker.ts
+var import_react17 = require("react");
+var useDateTimePicker = function() {
+    var _ref = _sliced_to_array((0, import_react17.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react17.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react17.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var showPicker = function(mode) {
+        setPickerMode(mode);
+        setIsPickerVisible(true);
+    };
+    var hidePicker = function() {
+        setIsPickerVisible(false);
+    };
+    var handleConfirm = function(pickedDate) {
+        setSelectedDateTime(function(prevDateTime) {
+            if (pickerMode === "date") {
+                var time = prevDateTime || /* @__PURE__ */ new Date();
+                return new Date(pickedDate.getFullYear(), pickedDate.getMonth(), pickedDate.getDate(), time.getHours(), time.getMinutes(), time.getSeconds());
+            } else {
+                var date = prevDateTime || /* @__PURE__ */ new Date();
+                return new Date(date.getFullYear(), date.getMonth(), date.getDate(), pickedDate.getHours(), pickedDate.getMinutes(), pickedDate.getSeconds());
+            }
+        });
+        hidePicker();
+    };
+    return {
+        isPickerVisible: isPickerVisible,
+        pickerMode: pickerMode,
+        selectedDateTime: selectedDateTime,
+        showPicker: showPicker,
+        hidePicker: hidePicker,
+        handleConfirm: handleConfirm
+    };
+};
+// src/hooks/useGooglePlaces/useGooglePlaces.ts
+var import_react18 = require("react");
+var import_axios = __toESM(require("axios"));
+var Location = __toESM(require("expo-location"));
+var useGooglePlaces = function(apiKey) {
+    if (!apiKey) {
+        console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
+    }
+    var _ref = _sliced_to_array((0, import_react18.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react18.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react18.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react18.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react18.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var fetchPredictions = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(text) {
+            var response, error2;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        setQuery(text);
+                        setError(null);
+                        if (!apiKey) {
+                            setError("Missing API key for fetching place details");
+                            return [
+                                2,
+                                null
+                            ];
+                        }
+                        if (!apiKey || text.length < 3) {
+                            setPredictions([]);
+                            return [
+                                2
+                            ];
+                        }
+                        setIsLoading(true);
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            4,
+                            5
+                        ]);
+                        return [
+                            4,
+                            import_axios.default.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
+                                params: {
+                                    input: text,
+                                    key: apiKey,
+                                    language: "en",
+                                    components: "country:ng"
+                                }
+                            })
+                        ];
+                    case 2:
+                        response = _state.sent();
+                        setPredictions(response.data.predictions);
+                        return [
+                            3,
+                            5
+                        ];
+                    case 3:
+                        error2 = _state.sent();
+                        setError("Failed to fetch location predictions");
+                        console.error("Error fetching predictions:", error2);
+                        return [
+                            3,
+                            5
+                        ];
+                    case 4:
+                        setIsLoading(false);
+                        return [
+                            7
+                        ];
+                    case 5:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function fetchPredictions(text) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    var fetchPlaceDetails = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(placeId) {
+            var response, error2;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        setError(null);
+                        setIsLoading(true);
+                        if (!apiKey) {
+                            setError("Missing API key for fetching place details");
+                            return [
+                                2,
+                                null
+                            ];
+                        }
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            4,
+                            5
+                        ]);
+                        return [
+                            4,
+                            import_axios.default.get("https://maps.googleapis.com/maps/api/place/details/json", {
+                                params: {
+                                    place_id: placeId,
+                                    key: apiKey,
+                                    fields: "address_component,formatted_address,geometry"
+                                }
+                            })
+                        ];
+                    case 2:
+                        response = _state.sent();
+                        if (response.data.status === "OK") {
+                            setPlaceDetails(response.data.result);
+                            return [
+                                2,
+                                response.data.result
+                            ];
+                        } else {
+                            throw new Error("Failed to fetch place details");
+                        }
+                        return [
+                            3,
+                            5
+                        ];
+                    case 3:
+                        error2 = _state.sent();
+                        setError("Failed to fetch place details");
+                        console.error("Error fetching place details:", error2);
+                        return [
+                            2,
+                            null
+                        ];
+                    case 4:
+                        setIsLoading(false);
+                        return [
+                            7
+                        ];
+                    case 5:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function fetchPlaceDetails(placeId) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    var getCurrentLocation = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var status, location, _location_coords, latitude, longitude, response, result, error2;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        setError(null);
+                        setIsLoading(true);
+                        if (!apiKey) {
+                            setError("Missing API key for reverse geocoding");
+                            return [
+                                2,
+                                null
+                            ];
+                        }
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            5,
+                            6,
+                            7
+                        ]);
+                        return [
+                            4,
+                            Location.requestForegroundPermissionsAsync()
+                        ];
+                    case 2:
+                        status = _state.sent().status;
+                        if (status !== "granted") {
+                            setError("Permission to access location was denied");
+                            return [
+                                2,
+                                null
+                            ];
+                        }
+                        return [
+                            4,
+                            Location.getCurrentPositionAsync({
+                                accuracy: Location.Accuracy.High
+                            })
+                        ];
+                    case 3:
+                        location = _state.sent();
+                        _location_coords = location.coords, latitude = _location_coords.latitude, longitude = _location_coords.longitude;
+                        return [
+                            4,
+                            import_axios.default.get("https://maps.googleapis.com/maps/api/geocode/json", {
+                                params: {
+                                    latlng: "".concat(latitude, ",").concat(longitude),
+                                    key: apiKey
+                                }
+                            })
+                        ];
+                    case 4:
+                        response = _state.sent();
+                        if (response.data.status === "OK" && response.data.results.length > 0) {
+                            result = response.data.results[0];
+                            setPlaceDetails({
+                                formatted_address: result.formatted_address,
+                                geometry: {
+                                    location: {
+                                        lat: latitude,
+                                        lng: longitude
+                                    }
+                                },
+                                name: result.formatted_address
+                            });
+                            return [
+                                2,
+                                result
+                            ];
+                        }
+                        return [
+                            2,
+                            null
+                        ];
+                    case 5:
+                        error2 = _state.sent();
+                        setError("Failed to get current location");
+                        console.error("Error getting current location:", error2);
+                        return [
+                            2,
+                            null
+                        ];
+                    case 6:
+                        setIsLoading(false);
+                        return [
+                            7
+                        ];
+                    case 7:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function getCurrentLocation() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    return {
+        query: query,
+        predictions: predictions,
+        placeDetails: placeDetails,
+        isLoading: isLoading,
+        error: error,
+        fetchPredictions: fetchPredictions,
+        fetchPlaceDetails: fetchPlaceDetails,
+        getCurrentLocation: getCurrentLocation
+    };
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -2194,10 +2629,10 @@ var ENDPOINT = {
     SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support")
 };
 // src/config/baseApi.ts
-var import_axios = __toESM(require("axios"));
+var import_axios2 = __toESM(require("axios"));
 var API_URL = "https://gateway-ms-production.up.railway.app";
 var SOCKET_URL = "https://chats-ms-production.up.railway.app";
-var api = import_axios.default.create({
+var api = import_axios2.default.create({
     baseURL: "".concat(API_URL),
     headers: {
         "Content-type": "application/json"
@@ -2205,7 +2640,7 @@ var api = import_axios.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react16 = require("react");
+var import_react19 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
 var import_react_native14 = require("react-native");
 function useAsyncState() {
@@ -2213,7 +2648,7 @@ function useAsyncState() {
         true,
         null
     ];
-    return (0, import_react16.useReducer)(function(state) {
+    return (0, import_react19.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -2280,7 +2715,7 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react16.useEffect)(function() {
+    (0, import_react19.useEffect)(function() {
         if (import_react_native14.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
@@ -2297,7 +2732,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react16.useCallback)(function(value) {
+    var setValue = (0, import_react19.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -2309,7 +2744,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react17 = __toESM(require("react"));
+var import_react20 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -2355,13 +2790,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react17.createContext)({
+var SocketContext = (0, import_react20.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react17.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react17.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react20.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react20.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -2408,7 +2843,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react17.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react20.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -2851,7 +3286,10 @@ var ChatServices = new ChatService();
     truncateTextLast4: truncateTextLast4,
     truncateTextSubtitle: truncateTextSubtitle,
     truncateTextWithEmail: truncateTextWithEmail,
+    useBiometrics: useBiometrics,
     useCountdown: useCountdown,
+    useDateTimePicker: useDateTimePicker,
+    useGooglePlaces: useGooglePlaces,
     useModal: useModal,
     useShareLink: useShareLink,
     useStorageState: useStorageState,

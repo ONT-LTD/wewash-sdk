@@ -2,3 +2,6 @@ export { useModal } from './useModal/useModal';
 export { useShareLink } from './useShareLink/useShareLink';
 export { useTimer } from './useTimer/useTimer';
 export { useCountdown } from './useCountDown/useCountDown';
+export { useBiometrics } from './useBiometrics/useBiometrics';
+export { useDateTimePicker } from './useDateTimePicker/useDateTimePicker';
+export { useGooglePlaces } from './useGooglePlaces/useGooglePlaces';
