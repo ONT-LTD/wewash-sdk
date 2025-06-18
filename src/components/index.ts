@@ -26,3 +26,6 @@ export { default as TicketItem } from './TicketItem/TicketItem';
 export { default as OTPInput } from './OTPInput/OTPInput';
 export { default as NotificationItem } from './NotificationItem/NotificationItem';
 export { default as LineIndicator } from './LineIndicator/LineIndicator';
+export { default as Accordion } from './Accordion/Accordion';
+export { default as ProfileCard } from './ProfileCard/ProfileCard';
+export { default as SearchInput } from './SearchInput/SearchInput';

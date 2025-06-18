@@ -444,6 +444,9 @@ __export(index_exports, {
     API_URL: function() {
         return API_URL;
     },
+    Accordion: function() {
+        return Accordion_default;
+    },
     AuthServices: function() {
         return AuthServices;
     },
@@ -534,11 +537,17 @@ __export(index_exports, {
     PaymentModal: function() {
         return PaymentModal_default;
     },
+    ProfileCard: function() {
+        return ProfileCard_default;
+    },
     ProfileServices: function() {
         return ProfileServices;
     },
     SOCKET_URL: function() {
         return SOCKET_URL;
+    },
+    SearchInput: function() {
+        return SearchInput_default;
     },
     SocketProvider: function() {
         return SocketProvider;
@@ -2936,6 +2945,213 @@ var styles17 = import_react_native22.StyleSheet.create({
     }
 });
 var LineIndicator_default = LineLoadingIndicator;
+// src/components/Accordion/Accordion.tsx
+var import_react19 = __toESM(require("react"));
+var import_react_native23 = require("react-native");
+var import_vector_icons2 = require("@expo/vector-icons");
+if (import_react_native23.Platform.OS === "android" && import_react_native23.UIManager.setLayoutAnimationEnabledExperimental) {
+    import_react_native23.UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+var Accordion = function(param) {
+    var title = param.title, children = param.children, _param_initiallyExpanded = param.initiallyExpanded, initiallyExpanded = _param_initiallyExpanded === void 0 ? false : _param_initiallyExpanded, style = param.style;
+    var _ref = _sliced_to_array((0, import_react19.useState)(initiallyExpanded), 2), expanded = _ref[0], setExpanded = _ref[1];
+    var toggleAccordion = function() {
+        import_react_native23.LayoutAnimation.configureNext(import_react_native23.LayoutAnimation.Presets.easeInEaseOut);
+        setExpanded(!expanded);
+    };
+    return /* @__PURE__ */ import_react19.default.createElement(import_react_native23.View, {
+        style: [
+            styles18.container,
+            style
+        ]
+    }, /* @__PURE__ */ import_react19.default.createElement(import_react_native23.TouchableOpacity, {
+        style: styles18.header,
+        onPress: toggleAccordion
+    }, /* @__PURE__ */ import_react19.default.createElement(import_react_native23.Text, {
+        style: styles18.title
+    }, title), /* @__PURE__ */ import_react19.default.createElement(import_vector_icons2.Ionicons, {
+        name: expanded ? "chevron-up" : "chevron-down",
+        size: 20,
+        color: COLORS.primary500
+    })), expanded && /* @__PURE__ */ import_react19.default.createElement(import_react_native23.View, {
+        style: styles18.content
+    }, children));
+};
+var Accordion_default = Accordion;
+var styles18 = import_react_native23.StyleSheet.create({
+    container: {
+        marginVertical: 8,
+        borderWidth: 1,
+        borderColor: COLORS.neutral40,
+        borderRadius: 8,
+        overflow: "hidden",
+        backgroundColor: COLORS.white,
+        paddingVertical: 9,
+        paddingHorizontal: 12
+    },
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 7
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: "UrbanistSemiBold",
+        lineHeight: 24,
+        color: COLORS.neutral700
+    },
+    content: {
+        paddingVertical: 4,
+        backgroundColor: COLORS.white
+    }
+});
+// src/components/ProfileCard/ProfileCard.tsx
+var import_react_native24 = require("react-native");
+var import_react20 = __toESM(require("react"));
+// src/assets/svg/ChevronRight.tsx
+var React27 = __toESM(require("react"));
+var import_react_native_svg8 = __toESM(require("react-native-svg"));
+var SvgComponent8 = function(props) {
+    return /* @__PURE__ */ React27.createElement(import_react_native_svg8.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 24,
+        height: 24,
+        fill: "none"
+    }, props), /* @__PURE__ */ React27.createElement(import_react_native_svg8.Path, {
+        stroke: "#34519F",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        strokeWidth: 2,
+        d: "m9 18 6-6-6-6"
+    }));
+};
+var ChevronRight_default = SvgComponent8;
+// src/components/ProfileCard/ProfileCard.tsx
+var ProfileCard = function(param) {
+    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch;
+    return /* @__PURE__ */ import_react20.default.createElement(import_react_native24.TouchableOpacity, {
+        style: [
+            styles19.container,
+            {
+                paddingVertical: paddingVertical || 11
+            }
+        ],
+        onPress: onPress
+    }, icon && /* @__PURE__ */ import_react20.default.createElement(import_react_native24.View, {
+        style: styles19.iconWrapper
+    }, icon), /* @__PURE__ */ import_react20.default.createElement(import_react_native24.View, {
+        style: {
+            flex: 1
+        }
+    }, /* @__PURE__ */ import_react20.default.createElement(CustomTextNeutral, {
+        style: styles19.title
+    }, title), subTitle && /* @__PURE__ */ import_react20.default.createElement(CustomTextNeutral, {
+        style: styles19.subTitle
+    }, truncateTextSubtitle(subTitle || "", 35))), isSwitch ? /* @__PURE__ */ import_react20.default.createElement(import_react_native24.Switch, {
+        trackColor: {
+            false: COLORS.white,
+            true: COLORS.primary500
+        },
+        thumbColor: isEnabled ? COLORS.white : "#f4f3f4",
+        ios_backgroundColor: "#BDBDBD",
+        onValueChange: toggleSwitch,
+        value: isEnabled,
+        style: {
+            transform: [
+                {
+                    scaleX: 0.8
+                },
+                {
+                    scaleY: 0.8
+                }
+            ]
+        }
+    }) : !noArrow ? loading ? /* @__PURE__ */ import_react20.default.createElement(import_react_native24.ActivityIndicator, null) : /* @__PURE__ */ import_react20.default.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ import_react20.default.createElement(CustomTextNeutral, {
+        style: styles19.subTitle
+    }, textRight) : null);
+};
+var ProfileCard_default = ProfileCard;
+var styles19 = import_react_native24.StyleSheet.create({
+    container: {
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: COLORS.primary50,
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 8,
+        paddingVertical: 11,
+        backgroundColor: COLORS.white,
+        marginBottom: 4
+    },
+    title: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: COLORS.neutral700,
+        fontFamily: "UrbanistSemiBold",
+        textTransform: "capitalize"
+    },
+    subTitle: {
+        fontSize: 14,
+        lineHeight: 20,
+        color: "#323E4A",
+        fontFamily: "Urbanist"
+    },
+    iconWrapper: {
+        padding: 11,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: COLORS.primary50,
+        marginRight: 8
+    }
+});
+// src/components/SearchInput/SearchInput.tsx
+var import_react_native25 = require("react-native");
+var import_react21 = __toESM(require("react"));
+var SearchInput = function(param) {
+    var setText = param.setText, icon = param.icon, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Search" : _param_placeholder, text = param.text, _param_height = param.height, height = _param_height === void 0 ? 40 : _param_height, _param_borderRadius = param.borderRadius, borderRadius = _param_borderRadius === void 0 ? 24 : _param_borderRadius, iconRight = param.iconRight;
+    return /* @__PURE__ */ import_react21.default.createElement(import_react_native25.View, {
+        style: [
+            styles20.inputContainer,
+            {
+                borderRadius: borderRadius
+            }
+        ]
+    }, icon, /* @__PURE__ */ import_react21.default.createElement(import_react_native25.TextInput, {
+        style: [
+            styles20.input,
+            {
+                height: height
+            }
+        ],
+        value: text,
+        onChangeText: setText,
+        placeholder: placeholder,
+        placeholderTextColor: COLORS.black,
+        keyboardType: "default",
+        autoCapitalize: "none",
+        autoCorrect: false
+    }), iconRight);
+};
+var SearchInput_default = SearchInput;
+var styles20 = import_react_native25.StyleSheet.create({
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: COLORS.primary500,
+        paddingHorizontal: 16,
+        backgroundColor: COLORS.white
+    },
+    input: {
+        flex: 1,
+        fontSize: 14,
+        fontFamily: "Urbanist",
+        color: COLORS.neutral700,
+        lineHeight: 21,
+        marginLeft: 6
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -2975,13 +3191,13 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-var import_react19 = require("react");
+var import_react22 = require("react");
 var useModal = function() {
-    var _ref = _sliced_to_array((0, import_react19.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
-    var onOpen = (0, import_react19.useCallback)(function() {
+    var _ref = _sliced_to_array((0, import_react22.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
+    var onOpen = (0, import_react22.useCallback)(function() {
         setVisible(true);
     }, []);
-    var onClose = (0, import_react19.useCallback)(function() {
+    var onClose = (0, import_react22.useCallback)(function() {
         setVisible(false);
     }, []);
     return {
@@ -2991,10 +3207,10 @@ var useModal = function() {
     };
 };
 // src/hooks/useShareLink/useShareLink.tsx
-var import_react20 = require("react");
-var import_react_native23 = require("react-native");
+var import_react23 = require("react");
+var import_react_native26 = require("react-native");
 var useShareLink = function() {
-    var shareLink = (0, import_react20.useCallback)(/*#__PURE__*/ function() {
+    var shareLink = (0, import_react23.useCallback)(/*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(content, options) {
             var result, error;
             return _ts_generator(this, function(_state) {
@@ -3008,17 +3224,17 @@ var useShareLink = function() {
                         ]);
                         return [
                             4,
-                            import_react_native23.Share.share(content, options)
+                            import_react_native26.Share.share(content, options)
                         ];
                     case 1:
                         result = _state.sent();
-                        if (result.action === import_react_native23.Share.sharedAction) {
+                        if (result.action === import_react_native26.Share.sharedAction) {
                             if (result.activityType) {
                                 console.log("Shared with activity type: ".concat(result.activityType));
                             } else {
                                 console.log("Link shared successfully");
                             }
-                        } else if (result.action === import_react_native23.Share.dismissedAction) {
+                        } else if (result.action === import_react_native26.Share.dismissedAction) {
                             console.log("Share dismissed");
                         }
                         return [
@@ -3048,11 +3264,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-var import_react21 = require("react");
+var import_react24 = require("react");
 var useTimer = function(initialSeconds) {
-    var _ref = _sliced_to_array((0, import_react21.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react21.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
-    (0, import_react21.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react24.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react24.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
+    (0, import_react24.useEffect)(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -3079,14 +3295,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-var import_react22 = require("react");
+var import_react25 = require("react");
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _ref1 = _sliced_to_array((0, import_react22.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
-    var intervalRef = (0, import_react22.useRef)(null);
-    var hasStarted = (0, import_react22.useRef)(false);
-    var hasCompleted = (0, import_react22.useRef)(false);
-    (0, import_react22.useEffect)(function() {
+    var _ref1 = _sliced_to_array((0, import_react25.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
+    var intervalRef = (0, import_react25.useRef)(null);
+    var hasStarted = (0, import_react25.useRef)(false);
+    var hasCompleted = (0, import_react25.useRef)(false);
+    (0, import_react25.useEffect)(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -3095,7 +3311,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    (0, import_react22.useEffect)(function() {
+    (0, import_react25.useEffect)(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -3137,13 +3353,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 var LocalAuthentication = __toESM(require("expo-local-authentication"));
-var import_react23 = require("react");
+var import_react26 = require("react");
 var useBiometrics = function() {
-    var _ref = _sliced_to_array((0, import_react23.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react23.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react23.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react23.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react23.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react26.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react26.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react26.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react26.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react26.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -3229,7 +3445,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    (0, import_react23.useEffect)(function() {
+    (0, import_react26.useEffect)(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -3259,11 +3475,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-var import_react24 = require("react");
+var import_react27 = require("react");
 var useDateTimePicker = function() {
-    var _ref = _sliced_to_array((0, import_react24.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react24.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react24.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var _ref = _sliced_to_array((0, import_react27.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react27.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react27.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -3293,18 +3509,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-var import_react25 = require("react");
+var import_react28 = require("react");
 var import_axios = __toESM(require("axios"));
 var Location = __toESM(require("expo-location"));
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _ref = _sliced_to_array((0, import_react25.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react25.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react25.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react25.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react25.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react28.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react28.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react28.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react28.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react28.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -3627,15 +3843,15 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react26 = require("react");
+var import_react29 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native24 = require("react-native");
+var import_react_native27 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react26.useReducer)(function(state) {
+    return (0, import_react29.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -3651,7 +3867,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native24.Platform.OS === "web")) return [
+                    if (!(import_react_native27.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -3702,8 +3918,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react26.useEffect)(function() {
-        if (import_react_native24.Platform.OS === "web") {
+    (0, import_react29.useEffect)(function() {
+        if (import_react_native27.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -3719,7 +3935,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react26.useCallback)(function(value) {
+    var setValue = (0, import_react29.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -3731,7 +3947,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react27 = __toESM(require("react"));
+var import_react30 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -3777,13 +3993,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react27.createContext)({
+var SocketContext = (0, import_react30.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react27.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react27.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react30.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react30.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -3830,7 +4046,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react27.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react30.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -4205,6 +4421,7 @@ var ChatServices = new ChatService();
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
     API_URL: API_URL,
+    Accordion: Accordion,
     AuthServices: AuthServices,
     COLORS: COLORS,
     ChatServices: ChatServices,
@@ -4235,8 +4452,10 @@ var ChatServices = new ChatService();
     NotificationItem: NotificationItem,
     OTPInput: OTPInput,
     PaymentModal: PaymentModal,
+    ProfileCard: ProfileCard,
     ProfileServices: ProfileServices,
     SOCKET_URL: SOCKET_URL,
+    SearchInput: SearchInput,
     SocketProvider: SocketProvider,
     Tab: Tab,
     TicketItem: TicketItem,

@@ -2619,6 +2619,213 @@ var styles17 = StyleSheet18.create({
     }
 });
 var LineIndicator_default = LineLoadingIndicator;
+// src/components/Accordion/Accordion.tsx
+import React26, { useState as useState4 } from "react";
+import { StyleSheet as StyleSheet19, Text as Text9, TouchableOpacity as TouchableOpacity11, View as View16, LayoutAnimation, Platform as Platform4, UIManager } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+if (Platform4.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+var Accordion = function(param) {
+    var title = param.title, children = param.children, _param_initiallyExpanded = param.initiallyExpanded, initiallyExpanded = _param_initiallyExpanded === void 0 ? false : _param_initiallyExpanded, style = param.style;
+    var _useState4 = _sliced_to_array(useState4(initiallyExpanded), 2), expanded = _useState4[0], setExpanded = _useState4[1];
+    var toggleAccordion = function() {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setExpanded(!expanded);
+    };
+    return /* @__PURE__ */ React26.createElement(View16, {
+        style: [
+            styles18.container,
+            style
+        ]
+    }, /* @__PURE__ */ React26.createElement(TouchableOpacity11, {
+        style: styles18.header,
+        onPress: toggleAccordion
+    }, /* @__PURE__ */ React26.createElement(Text9, {
+        style: styles18.title
+    }, title), /* @__PURE__ */ React26.createElement(Ionicons, {
+        name: expanded ? "chevron-up" : "chevron-down",
+        size: 20,
+        color: COLORS.primary500
+    })), expanded && /* @__PURE__ */ React26.createElement(View16, {
+        style: styles18.content
+    }, children));
+};
+var Accordion_default = Accordion;
+var styles18 = StyleSheet19.create({
+    container: {
+        marginVertical: 8,
+        borderWidth: 1,
+        borderColor: COLORS.neutral40,
+        borderRadius: 8,
+        overflow: "hidden",
+        backgroundColor: COLORS.white,
+        paddingVertical: 9,
+        paddingHorizontal: 12
+    },
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 7
+    },
+    title: {
+        fontSize: 14,
+        fontFamily: "UrbanistSemiBold",
+        lineHeight: 24,
+        color: COLORS.neutral700
+    },
+    content: {
+        paddingVertical: 4,
+        backgroundColor: COLORS.white
+    }
+});
+// src/components/ProfileCard/ProfileCard.tsx
+import { ActivityIndicator as ActivityIndicator3, StyleSheet as StyleSheet20, Switch, TouchableOpacity as TouchableOpacity12, View as View17 } from "react-native";
+import React28 from "react";
+// src/assets/svg/ChevronRight.tsx
+import * as React27 from "react";
+import Svg8, { Path as Path8 } from "react-native-svg";
+var SvgComponent8 = function(props) {
+    return /* @__PURE__ */ React27.createElement(Svg8, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 24,
+        height: 24,
+        fill: "none"
+    }, props), /* @__PURE__ */ React27.createElement(Path8, {
+        stroke: "#34519F",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        strokeWidth: 2,
+        d: "m9 18 6-6-6-6"
+    }));
+};
+var ChevronRight_default = SvgComponent8;
+// src/components/ProfileCard/ProfileCard.tsx
+var ProfileCard = function(param) {
+    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch;
+    return /* @__PURE__ */ React28.createElement(TouchableOpacity12, {
+        style: [
+            styles19.container,
+            {
+                paddingVertical: paddingVertical || 11
+            }
+        ],
+        onPress: onPress
+    }, icon && /* @__PURE__ */ React28.createElement(View17, {
+        style: styles19.iconWrapper
+    }, icon), /* @__PURE__ */ React28.createElement(View17, {
+        style: {
+            flex: 1
+        }
+    }, /* @__PURE__ */ React28.createElement(CustomTextNeutral, {
+        style: styles19.title
+    }, title), subTitle && /* @__PURE__ */ React28.createElement(CustomTextNeutral, {
+        style: styles19.subTitle
+    }, truncateTextSubtitle(subTitle || "", 35))), isSwitch ? /* @__PURE__ */ React28.createElement(Switch, {
+        trackColor: {
+            false: COLORS.white,
+            true: COLORS.primary500
+        },
+        thumbColor: isEnabled ? COLORS.white : "#f4f3f4",
+        ios_backgroundColor: "#BDBDBD",
+        onValueChange: toggleSwitch,
+        value: isEnabled,
+        style: {
+            transform: [
+                {
+                    scaleX: 0.8
+                },
+                {
+                    scaleY: 0.8
+                }
+            ]
+        }
+    }) : !noArrow ? loading ? /* @__PURE__ */ React28.createElement(ActivityIndicator3, null) : /* @__PURE__ */ React28.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ React28.createElement(CustomTextNeutral, {
+        style: styles19.subTitle
+    }, textRight) : null);
+};
+var ProfileCard_default = ProfileCard;
+var styles19 = StyleSheet20.create({
+    container: {
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: COLORS.primary50,
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 8,
+        paddingVertical: 11,
+        backgroundColor: COLORS.white,
+        marginBottom: 4
+    },
+    title: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: COLORS.neutral700,
+        fontFamily: "UrbanistSemiBold",
+        textTransform: "capitalize"
+    },
+    subTitle: {
+        fontSize: 14,
+        lineHeight: 20,
+        color: "#323E4A",
+        fontFamily: "Urbanist"
+    },
+    iconWrapper: {
+        padding: 11,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: COLORS.primary50,
+        marginRight: 8
+    }
+});
+// src/components/SearchInput/SearchInput.tsx
+import { StyleSheet as StyleSheet21, TextInput as TextInput3, View as View18 } from "react-native";
+import React29 from "react";
+var SearchInput = function(param) {
+    var setText = param.setText, icon = param.icon, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Search" : _param_placeholder, text = param.text, _param_height = param.height, height = _param_height === void 0 ? 40 : _param_height, _param_borderRadius = param.borderRadius, borderRadius = _param_borderRadius === void 0 ? 24 : _param_borderRadius, iconRight = param.iconRight;
+    return /* @__PURE__ */ React29.createElement(View18, {
+        style: [
+            styles20.inputContainer,
+            {
+                borderRadius: borderRadius
+            }
+        ]
+    }, icon, /* @__PURE__ */ React29.createElement(TextInput3, {
+        style: [
+            styles20.input,
+            {
+                height: height
+            }
+        ],
+        value: text,
+        onChangeText: setText,
+        placeholder: placeholder,
+        placeholderTextColor: COLORS.black,
+        keyboardType: "default",
+        autoCapitalize: "none",
+        autoCorrect: false
+    }), iconRight);
+};
+var SearchInput_default = SearchInput;
+var styles20 = StyleSheet21.create({
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: COLORS.primary500,
+        paddingHorizontal: 16,
+        backgroundColor: COLORS.white
+    },
+    input: {
+        flex: 1,
+        fontSize: 14,
+        fontFamily: "Urbanist",
+        color: COLORS.neutral700,
+        lineHeight: 21,
+        marginLeft: 6
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -2658,9 +2865,9 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-import { useState as useState4, useCallback } from "react";
+import { useState as useState5, useCallback } from "react";
 var useModal = function() {
-    var _useState4 = _sliced_to_array(useState4(false), 2), visible = _useState4[0], setVisible = _useState4[1];
+    var _useState5 = _sliced_to_array(useState5(false), 2), visible = _useState5[0], setVisible = _useState5[1];
     var onOpen = useCallback(function() {
         setVisible(true);
     }, []);
@@ -2731,10 +2938,10 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-import { useState as useState5, useEffect as useEffect3 } from "react";
+import { useState as useState6, useEffect as useEffect3 } from "react";
 var useTimer = function(initialSeconds) {
-    var _useState5 = _sliced_to_array(useState5(initialSeconds), 2), seconds = _useState5[0], setSeconds = _useState5[1];
-    var _useState51 = _sliced_to_array(useState5(false), 2), isFinished = _useState51[0], setIsFinished = _useState51[1];
+    var _useState6 = _sliced_to_array(useState6(initialSeconds), 2), seconds = _useState6[0], setSeconds = _useState6[1];
+    var _useState61 = _sliced_to_array(useState6(false), 2), isFinished = _useState61[0], setIsFinished = _useState61[1];
     useEffect3(function() {
         var timer = null;
         if (seconds > 0) {
@@ -2762,10 +2969,10 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-import { useEffect as useEffect4, useRef as useRef4, useState as useState6 } from "react";
+import { useEffect as useEffect4, useRef as useRef4, useState as useState7 } from "react";
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _useState6 = _sliced_to_array(useState6(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState6[0], setTimeLeft = _useState6[1];
+    var _useState7 = _sliced_to_array(useState7(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState7[0], setTimeLeft = _useState7[1];
     var intervalRef = useRef4(null);
     var hasStarted = useRef4(false);
     var hasCompleted = useRef4(false);
@@ -2820,13 +3027,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 import * as LocalAuthentication from "expo-local-authentication";
-import { useEffect as useEffect5, useState as useState7 } from "react";
+import { useEffect as useEffect5, useState as useState8 } from "react";
 var useBiometrics = function() {
-    var _useState7 = _sliced_to_array(useState7(false), 2), facialRecognitionAvailable = _useState7[0], setFacialRecognitionAvailable = _useState7[1];
-    var _useState71 = _sliced_to_array(useState7(false), 2), fingerprintAvailable = _useState71[0], setFingerprintAvailable = _useState71[1];
-    var _useState72 = _sliced_to_array(useState7(false), 2), irisAvailable = _useState72[0], setIrisAvailable = _useState72[1];
-    var _useState73 = _sliced_to_array(useState7(false), 2), loading = _useState73[0], setLoading = _useState73[1];
-    var _useState74 = _sliced_to_array(useState7(), 2), result = _useState74[0], setResult = _useState74[1];
+    var _useState8 = _sliced_to_array(useState8(false), 2), facialRecognitionAvailable = _useState8[0], setFacialRecognitionAvailable = _useState8[1];
+    var _useState81 = _sliced_to_array(useState8(false), 2), fingerprintAvailable = _useState81[0], setFingerprintAvailable = _useState81[1];
+    var _useState82 = _sliced_to_array(useState8(false), 2), irisAvailable = _useState82[0], setIrisAvailable = _useState82[1];
+    var _useState83 = _sliced_to_array(useState8(false), 2), loading = _useState83[0], setLoading = _useState83[1];
+    var _useState84 = _sliced_to_array(useState8(), 2), result = _useState84[0], setResult = _useState84[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -2942,11 +3149,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-import { useState as useState8 } from "react";
+import { useState as useState9 } from "react";
 var useDateTimePicker = function() {
-    var _useState8 = _sliced_to_array(useState8(false), 2), isPickerVisible = _useState8[0], setIsPickerVisible = _useState8[1];
-    var _useState81 = _sliced_to_array(useState8("date"), 2), pickerMode = _useState81[0], setPickerMode = _useState81[1];
-    var _useState82 = _sliced_to_array(useState8(null), 2), selectedDateTime = _useState82[0], setSelectedDateTime = _useState82[1];
+    var _useState9 = _sliced_to_array(useState9(false), 2), isPickerVisible = _useState9[0], setIsPickerVisible = _useState9[1];
+    var _useState91 = _sliced_to_array(useState9("date"), 2), pickerMode = _useState91[0], setPickerMode = _useState91[1];
+    var _useState92 = _sliced_to_array(useState9(null), 2), selectedDateTime = _useState92[0], setSelectedDateTime = _useState92[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -2976,18 +3183,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-import { useState as useState9 } from "react";
+import { useState as useState10 } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _useState9 = _sliced_to_array(useState9(""), 2), query = _useState9[0], setQuery = _useState9[1];
-    var _useState91 = _sliced_to_array(useState9([]), 2), predictions = _useState91[0], setPredictions = _useState91[1];
-    var _useState92 = _sliced_to_array(useState9(null), 2), placeDetails = _useState92[0], setPlaceDetails = _useState92[1];
-    var _useState93 = _sliced_to_array(useState9(false), 2), isLoading = _useState93[0], setIsLoading = _useState93[1];
-    var _useState94 = _sliced_to_array(useState9(null), 2), error = _useState94[0], setError = _useState94[1];
+    var _useState10 = _sliced_to_array(useState10(""), 2), query = _useState10[0], setQuery = _useState10[1];
+    var _useState101 = _sliced_to_array(useState10([]), 2), predictions = _useState101[0], setPredictions = _useState101[1];
+    var _useState102 = _sliced_to_array(useState10(null), 2), placeDetails = _useState102[0], setPlaceDetails = _useState102[1];
+    var _useState103 = _sliced_to_array(useState10(false), 2), isLoading = _useState103[0], setIsLoading = _useState103[1];
+    var _useState104 = _sliced_to_array(useState10(null), 2), error = _useState104[0], setError = _useState104[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -3312,7 +3519,7 @@ var baseApi_default = api;
 // src/config/useStorageState.ts
 import { useEffect as useEffect6, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
-import { Platform as Platform4 } from "react-native";
+import { Platform as Platform5 } from "react-native";
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
@@ -3334,7 +3541,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(Platform4.OS === "web")) return [
+                    if (!(Platform5.OS === "web")) return [
                         3,
                         1
                     ];
@@ -3386,7 +3593,7 @@ function _setStorageItemAsync() {
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
     useEffect6(function() {
-        if (Platform4.OS === "web") {
+        if (Platform5.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -3414,7 +3621,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-import React26, { createContext, useContext, useEffect as useEffect7, useState as useState10 } from "react";
+import React30, { createContext, useContext, useEffect as useEffect7, useState as useState11 } from "react";
 // src/config/socket.ts
 import { io } from "socket.io-client";
 var socket = null;
@@ -3465,7 +3672,7 @@ var SocketContext = createContext({
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _useState10 = _sliced_to_array(useState10(null), 2), socket2 = _useState10[0], setSocket = _useState10[1];
+    var _useState11 = _sliced_to_array(useState11(null), 2), socket2 = _useState11[0], setSocket = _useState11[1];
     useEffect7(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
@@ -3513,7 +3720,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ React26.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ React30.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -3889,5 +4096,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileServices, SOCKET_URL, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
 //# sourceMappingURL=index.mjs.map
