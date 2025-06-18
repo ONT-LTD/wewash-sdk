@@ -7,6 +7,12 @@ function _array_like_to_array(arr, len) {
 function _array_with_holes(arr) {
     if (Array.isArray(arr)) return arr;
 }
+function _assert_this_initialized(self) {
+    if (self === void 0) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return self;
+}
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
         var info = gen[key](arg);
@@ -36,10 +42,31 @@ function _async_to_generator(fn) {
         });
     };
 }
+function _call_super(_this, derived, args) {
+    derived = _get_prototype_of(derived);
+    return _possible_constructor_return(_this, _is_native_reflect_construct() ? Reflect.construct(derived, args || [], _get_prototype_of(_this).constructor) : derived.apply(_this, args));
+}
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
+}
+function _construct(Parent, args, Class) {
+    if (_is_native_reflect_construct()) {
+        _construct = Reflect.construct;
+    } else {
+        _construct = function construct(Parent, args, Class) {
+            var a = [
+                null
+            ];
+            a.push.apply(a, args);
+            var Constructor = Function.bind.apply(Parent, a);
+            var instance = new Constructor();
+            if (Class) _set_prototype_of(instance, Class.prototype);
+            return instance;
+        };
+    }
+    return _construct.apply(null, arguments);
 }
 function _defineProperties(target, props) {
     for(var i = 0; i < props.length; i++){
@@ -67,6 +94,28 @@ function _define_property(obj, key, value) {
         obj[key] = value;
     }
     return obj;
+}
+function _get_prototype_of(o) {
+    _get_prototype_of = Object.setPrototypeOf ? Object.getPrototypeOf : function getPrototypeOf(o) {
+        return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _get_prototype_of(o);
+}
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) _set_prototype_of(subClass, superClass);
+}
+function _is_native_function(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
 }
 function _iterable_to_array_limit(arr, i) {
     var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
@@ -161,6 +210,19 @@ function _object_without_properties_loose(source, excluded) {
     }
     return target;
 }
+function _possible_constructor_return(self, call) {
+    if (call && (_type_of(call) === "object" || typeof call === "function")) {
+        return call;
+    }
+    return _assert_this_initialized(self);
+}
+function _set_prototype_of(o, p) {
+    _set_prototype_of = Object.setPrototypeOf || function setPrototypeOf(o, p) {
+        o.__proto__ = p;
+        return o;
+    };
+    return _set_prototype_of(o, p);
+}
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
 }
@@ -175,6 +237,40 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Object" && o.constructor) n = o.constructor.name;
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+}
+function _wrap_native_super(Class) {
+    var _cache = typeof Map === "function" ? new Map() : undefined;
+    _wrap_native_super = function wrapNativeSuper(Class) {
+        if (Class === null || !_is_native_function(Class)) return Class;
+        if (typeof Class !== "function") {
+            throw new TypeError("Super expression must either be null or a function");
+        }
+        if (typeof _cache !== "undefined") {
+            if (_cache.has(Class)) return _cache.get(Class);
+            _cache.set(Class, Wrapper);
+        }
+        function Wrapper() {
+            return _construct(Class, arguments, _get_prototype_of(this).constructor);
+        }
+        Wrapper.prototype = Object.create(Class.prototype, {
+            constructor: {
+                value: Wrapper,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        return _set_prototype_of(Wrapper, Class);
+    };
+    return _wrap_native_super(Class);
+}
+function _is_native_reflect_construct() {
+    try {
+        var result = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
+    } catch (_) {}
+    return (_is_native_reflect_construct = function() {
+        return !!result;
+    })();
 }
 function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
@@ -278,8 +374,8 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = function(target, all) {
-    for(var name in all)__defProp(target, name, {
-        get: all[name],
+    for(var name2 in all)__defProp(target, name2, {
+        get: all[name2],
         enumerable: true
     });
 };
@@ -409,6 +505,9 @@ __export(index_exports, {
     },
     ModalContent: function() {
         return ModalContent_default;
+    },
+    PaymentModal: function() {
+        return PaymentModal_default;
     },
     ProfileServices: function() {
         return ProfileServices;
@@ -1949,6 +2048,423 @@ var styles10 = import_react_native12.StyleSheet.create({
         alignItems: "center"
     }
 });
+// src/components/PaymentModal/PaymentModal.tsx
+var import_react_native16 = require("react-native");
+var import_react12 = __toESM(require("react"));
+// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
+var import_react_native13 = require("react-native");
+// node_modules/expo-modules-core/src/web/index.ts
+function registerWebGlobals() {}
+// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
+function ensureNativeModulesAreInstalled() {
+    if (globalThis.expo) {
+        return;
+    }
+    try {
+        if (import_react_native13.Platform.OS === "web") {
+            registerWebGlobals();
+        } else {
+            var _import_react_native13_NativeModules_ExpoModulesCore;
+            (_import_react_native13_NativeModules_ExpoModulesCore = import_react_native13.NativeModules.ExpoModulesCore) === null || _import_react_native13_NativeModules_ExpoModulesCore === void 0 ? void 0 : _import_react_native13_NativeModules_ExpoModulesCore.installModules();
+        }
+    } catch (error) {
+        console.error("Unable to install Expo modules: ".concat(error));
+    }
+}
+// node_modules/expo-modules-core/src/NativeModulesProxy.ts
+var NativeModulesProxy_default = {};
+// node_modules/expo-modules-core/src/errors/CodedError.ts
+var CodedError = /*#__PURE__*/ function(Error1) {
+    _inherits(CodedError, Error1);
+    function CodedError(code, message) {
+        _class_call_check(this, CodedError);
+        var _this;
+        _this = _call_super(this, CodedError, [
+            message
+        ]);
+        _this.code = code;
+        return _this;
+    }
+    return CodedError;
+}(_wrap_native_super(Error));
+// node_modules/expo-modules-core/src/Platform.ts
+var import_react_native14 = require("react-native");
+// node_modules/expo-modules-core/src/environment/browser.ts
+var isDOMAvailable = false;
+var canUseEventListeners = false;
+var canUseViewport = false;
+var isAsyncDebugging = false;
+if (__DEV__) {
+    isAsyncDebugging = !global.nativeExtensions && !global.nativeCallSyncHook && !global.RN$Bridgeless;
+}
+// node_modules/expo-modules-core/src/Platform.ts
+if (__DEV__ && typeof process.env.EXPO_OS === "undefined") {
+    console.warn("The global process.env.EXPO_OS is not defined. This should be inlined by babel-preset-expo during transformation.");
+}
+var nativeSelect = typeof window !== "undefined" ? import_react_native14.Platform.select : // process.env.EXPO_OS is injected by `babel-preset-expo` and available in both client and `react-server` environments.
+// Opt to use the env var when possible, and fallback to the React Native Platform module when it's not (arbitrary bundlers and transformers).
+function select(specifics) {
+    if (!process.env.EXPO_OS) return void 0;
+    if (specifics.hasOwnProperty(process.env.EXPO_OS)) {
+        return specifics[process.env.EXPO_OS];
+    } else if (process.env.EXPO_OS !== "web" && specifics.hasOwnProperty("native")) {
+        return specifics.native;
+    } else if (specifics.hasOwnProperty("default")) {
+        return specifics.default;
+    }
+    return void 0;
+};
+var Platform2 = {
+    /**
+   * Denotes the currently running platform.
+   * Can be one of ios, android, web.
+   */ OS: process.env.EXPO_OS || import_react_native14.Platform.OS,
+    /**
+   * Returns the value with the matching platform.
+   * Object keys can be any of ios, android, native, web, default.
+   *
+   * @ios ios, native, default
+   * @android android, native, default
+   * @web web, default
+   */ select: nativeSelect,
+    /**
+   * Denotes if the DOM API is available in the current environment.
+   * The DOM is not available in native React runtimes and Node.js.
+   */ isDOMAvailable: isDOMAvailable,
+    /**
+   * Denotes if the current environment can attach event listeners
+   * to the window. This will return false in native React
+   * runtimes and Node.js.
+   */ canUseEventListeners: canUseEventListeners,
+    /**
+   * Denotes if the current environment can inspect properties of the
+   * screen on which the current window is being rendered. This will
+   * return false in native React runtimes and Node.js.
+   */ canUseViewport: canUseViewport,
+    /**
+   * If the JavaScript is being executed in a remote JavaScript environment.
+   * When `true`, synchronous native invocations cannot be executed.
+   */ isAsyncDebugging: isAsyncDebugging
+};
+var Platform_default = Platform2;
+// node_modules/expo-modules-core/src/sweet/NativeErrorManager.ts
+var NativeErrorManager_default = NativeModulesProxy_default.ExpoModulesCoreErrorManager;
+// node_modules/expo-modules-core/src/sweet/setUpErrorManager.fx.ts
+if (__DEV__ && Platform_default.OS === "android" && NativeErrorManager_default) {
+    var onNewException = "ExpoModulesCoreErrorManager.onNewException";
+    var onNewWarning = "ExpoModulesCoreErrorManager.onNewWarning";
+    NativeErrorManager_default.addListener(onNewException, function(param) {
+        var message = param.message;
+        console.error(message);
+    });
+    NativeErrorManager_default.addListener(onNewWarning, function(param) {
+        var message = param.message;
+        console.warn(message);
+    });
+}
+globalThis.ExpoModulesCore_CodedError = CodedError;
+// node_modules/expo-modules-core/src/requireNativeModule.ts
+function requireOptionalNativeModule(moduleName) {
+    var _globalThis_expo_modules, _globalThis_expo;
+    ensureNativeModulesAreInstalled();
+    var _globalThis_expo_modules_moduleName, _ref;
+    return (_ref = (_globalThis_expo_modules_moduleName = (_globalThis_expo = globalThis.expo) === null || _globalThis_expo === void 0 ? void 0 : (_globalThis_expo_modules = _globalThis_expo.modules) === null || _globalThis_expo_modules === void 0 ? void 0 : _globalThis_expo_modules[moduleName]) !== null && _globalThis_expo_modules_moduleName !== void 0 ? _globalThis_expo_modules_moduleName : NativeModulesProxy_default[moduleName]) !== null && _ref !== void 0 ? _ref : null;
+}
+// node_modules/expo-constants/build/Constants.js
+var import_react_native15 = require("react-native");
+// node_modules/expo-constants/build/Constants.types.js
+var AppOwnership;
+(function(AppOwnership2) {
+    AppOwnership2["Expo"] = "expo";
+})(AppOwnership || (AppOwnership = {}));
+var ExecutionEnvironment;
+(function(ExecutionEnvironment2) {
+    ExecutionEnvironment2["Bare"] = "bare";
+    ExecutionEnvironment2["Standalone"] = "standalone";
+    ExecutionEnvironment2["StoreClient"] = "storeClient";
+})(ExecutionEnvironment || (ExecutionEnvironment = {}));
+var UserInterfaceIdiom;
+(function(UserInterfaceIdiom2) {
+    UserInterfaceIdiom2["Handset"] = "handset";
+    UserInterfaceIdiom2["Tablet"] = "tablet";
+    UserInterfaceIdiom2["Desktop"] = "desktop";
+    UserInterfaceIdiom2["TV"] = "tv";
+    UserInterfaceIdiom2["Unsupported"] = "unsupported";
+})(UserInterfaceIdiom || (UserInterfaceIdiom = {}));
+// node_modules/expo-constants/build/ExponentConstants.js
+var ExponentConstants_default = requireOptionalNativeModule("ExponentConstants");
+// node_modules/expo-constants/build/Constants.js
+if (!ExponentConstants_default) {
+    console.warn("No native ExponentConstants module found, are you sure the expo-constants's module is linked properly?");
+}
+var ExpoUpdates = requireOptionalNativeModule("ExpoUpdates");
+var rawUpdatesManifest = null;
+if (ExpoUpdates) {
+    var updatesManifest;
+    if (ExpoUpdates.manifest) {
+        updatesManifest = ExpoUpdates.manifest;
+    } else if (ExpoUpdates.manifestString) {
+        updatesManifest = JSON.parse(ExpoUpdates.manifestString);
+    }
+    if (updatesManifest && Object.keys(updatesManifest).length > 0) {
+        rawUpdatesManifest = updatesManifest;
+    }
+}
+var rawDevLauncherManifest = null;
+if (import_react_native15.NativeModules.EXDevLauncher) {
+    var devLauncherManifest;
+    if (import_react_native15.NativeModules.EXDevLauncher.manifestString) {
+        devLauncherManifest = JSON.parse(import_react_native15.NativeModules.EXDevLauncher.manifestString);
+    }
+    if (devLauncherManifest && Object.keys(devLauncherManifest).length > 0) {
+        rawDevLauncherManifest = devLauncherManifest;
+    }
+}
+var rawAppConfig = null;
+if (ExponentConstants_default && ExponentConstants_default.manifest) {
+    var appConfig = ExponentConstants_default.manifest;
+    if (typeof appConfig === "string") {
+        rawAppConfig = JSON.parse(appConfig);
+    } else {
+        rawAppConfig = appConfig;
+    }
+}
+var _ref;
+var rawManifest = (_ref = rawUpdatesManifest !== null && rawUpdatesManifest !== void 0 ? rawUpdatesManifest : rawDevLauncherManifest) !== null && _ref !== void 0 ? _ref : rawAppConfig;
+var _ref1 = ExponentConstants_default || {}, name = _ref1.name, appOwnership = _ref1.appOwnership, nativeConstants = _object_without_properties(_ref1, [
+    "name",
+    "appOwnership"
+]);
+var constants = _object_spread_props(_object_spread({}, nativeConstants), {
+    // Ensure this is null in bare workflow
+    appOwnership: appOwnership !== null && appOwnership !== void 0 ? appOwnership : null
+});
+Object.defineProperties(constants, {
+    /**
+   * Use `manifest` property by default.
+   * This property is only used for internal purposes.
+   * It behaves similarly to the original one, but suppresses warning upon no manifest available.
+   * `expo-asset` uses it to prevent users from seeing mentioned warning.
+   */ __unsafeNoWarnManifest: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest || !isEmbeddedManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: false
+    },
+    __unsafeNoWarnManifest2: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest || !isExpoUpdatesManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: false
+    },
+    manifest: {
+        get: function get() {
+            var maybeManifest = getManifest();
+            if (!maybeManifest || !isEmbeddedManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: true
+    },
+    manifest2: {
+        get: function get() {
+            var maybeManifest = getManifest();
+            if (!maybeManifest || !isExpoUpdatesManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: true
+    },
+    expoConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (ExpoUpdates && ExpoUpdates.isEmbeddedLaunch) {
+                return rawAppConfig;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_expoClient;
+                return (_maybeManifest_extra_expoClient = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.expoClient) !== null && _maybeManifest_extra_expoClient !== void 0 ? _maybeManifest_extra_expoClient : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    expoGoConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_expoGo;
+                return (_maybeManifest_extra_expoGo = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.expoGo) !== null && _maybeManifest_extra_expoGo !== void 0 ? _maybeManifest_extra_expoGo : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    easConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_eas;
+                return (_maybeManifest_extra_eas = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.eas) !== null && _maybeManifest_extra_eas !== void 0 ? _maybeManifest_extra_eas : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    __rawManifest_TEST: {
+        get: function get() {
+            return rawManifest;
+        },
+        set: function set(value) {
+            rawManifest = value;
+        },
+        enumerable: false
+    }
+});
+function isEmbeddedManifest(manifest) {
+    return !isExpoUpdatesManifest(manifest);
+}
+function isExpoUpdatesManifest(manifest) {
+    return "metadata" in manifest;
+}
+function getManifest() {
+    var suppressWarning = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : false;
+    if (!rawManifest) {
+        var invalidManifestType = rawManifest === null ? "null" : "undefined";
+        if (nativeConstants.executionEnvironment === ExecutionEnvironment.Bare && import_react_native15.Platform.OS !== "web") {
+            if (!suppressWarning) {
+                console.warn("Constants.manifest is ".concat(invalidManifestType, " because the embedded app.config could not be read. Ensure that you have installed the expo-constants build scripts if you need to read from Constants.manifest."));
+            }
+        } else if (nativeConstants.executionEnvironment === ExecutionEnvironment.StoreClient || nativeConstants.executionEnvironment === ExecutionEnvironment.Standalone) {
+            throw new CodedError("ERR_CONSTANTS_MANIFEST_UNAVAILABLE", "Constants.manifest is ".concat(invalidManifestType, ", must be an object."));
+        }
+    }
+    return rawManifest;
+}
+var Constants_default = constants;
+// src/components/PaymentModal/PaymentModal.tsx
+var import_react_native_webview = __toESM(require("react-native-webview"));
+// src/assets/svg/ArrowBack.tsx
+var React17 = __toESM(require("react"));
+var import_react_native_svg6 = __toESM(require("react-native-svg"));
+var SvgComponent6 = function(props) {
+    return /* @__PURE__ */ React17.createElement(import_react_native_svg6.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 9,
+        height: 14,
+        fill: "none"
+    }, props), /* @__PURE__ */ React17.createElement(import_react_native_svg6.Path, {
+        fill: "#fff",
+        fillRule: "evenodd",
+        d: "m2.845 7 5.488 5.488a.833.833 0 0 1-1.178 1.179L.488 7 7.155.333a.833.833 0 0 1 1.178 1.179L2.845 7Z",
+        clipRule: "evenodd"
+    }));
+};
+var ArrowBack_default = SvgComponent6;
+// src/components/PaymentModal/PaymentModal.tsx
+var PaymentModal = function(param) {
+    var uri = param.uri, onClose = param.onClose;
+    var _ref = _sliced_to_array((0, import_react12.useState)(true), 2), loading = _ref[0], setLoading = _ref[1];
+    return /* @__PURE__ */ import_react12.default.createElement(import_react_native16.View, {
+        style: styles11.container
+    }, loading && /* @__PURE__ */ import_react12.default.createElement(import_react_native16.View, {
+        style: styles11.loader
+    }, /* @__PURE__ */ import_react12.default.createElement(import_react_native16.ActivityIndicator, {
+        size: "large",
+        color: COLORS.black
+    }), /* @__PURE__ */ import_react12.default.createElement(CustomTextNeutral, {
+        style: styles11.text
+    }, "Loading...")), /* @__PURE__ */ import_react12.default.createElement(import_react_native16.TouchableOpacity, {
+        style: styles11.arrow,
+        onPress: onClose
+    }, /* @__PURE__ */ import_react12.default.createElement(ArrowBack_default, null)), /* @__PURE__ */ import_react12.default.createElement(import_react_native_webview.default, {
+        source: {
+            uri: uri
+        },
+        onLoadEnd: function() {
+            return setLoading(false);
+        },
+        onLoadStart: function() {
+            return setLoading(true);
+        },
+        onError: function(syntheticEvent) {
+            var nativeEvent = syntheticEvent.nativeEvent;
+            console.debug("WebView error: ", nativeEvent);
+        },
+        onHttpError: function(syntheticEvent) {
+            var nativeEvent = syntheticEvent.nativeEvent;
+            console.debug("HTTP error: ", nativeEvent.statusCode, nativeEvent.description);
+        },
+        style: styles11.webview
+    }));
+};
+var PaymentModal_default = PaymentModal;
+var styles11 = import_react_native16.StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: Constants_default.statusBarHeight,
+        backgroundColor: COLORS.white,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 60,
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32
+    },
+    webview: {
+        flex: 1
+    },
+    arrow: {
+        height: 32,
+        width: 32,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 20,
+        borderRadius: 20,
+        backgroundColor: COLORS.black
+    },
+    loader: _object_spread_props(_object_spread({}, import_react_native16.StyleSheet.absoluteFillObject), {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.white,
+        zIndex: 1,
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32
+    }),
+    text: {
+        color: COLORS.primary500,
+        fontSize: 16,
+        lineHeight: 24,
+        fontFamily: "UrbanistSemiBold"
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -1988,13 +2504,13 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-var import_react12 = require("react");
+var import_react13 = require("react");
 var useModal = function() {
-    var _ref = _sliced_to_array((0, import_react12.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
-    var onOpen = (0, import_react12.useCallback)(function() {
+    var _ref = _sliced_to_array((0, import_react13.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
+    var onOpen = (0, import_react13.useCallback)(function() {
         setVisible(true);
     }, []);
-    var onClose = (0, import_react12.useCallback)(function() {
+    var onClose = (0, import_react13.useCallback)(function() {
         setVisible(false);
     }, []);
     return {
@@ -2004,10 +2520,10 @@ var useModal = function() {
     };
 };
 // src/hooks/useShareLink/useShareLink.tsx
-var import_react13 = require("react");
-var import_react_native13 = require("react-native");
+var import_react14 = require("react");
+var import_react_native17 = require("react-native");
 var useShareLink = function() {
-    var shareLink = (0, import_react13.useCallback)(/*#__PURE__*/ function() {
+    var shareLink = (0, import_react14.useCallback)(/*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(content, options) {
             var result, error;
             return _ts_generator(this, function(_state) {
@@ -2021,17 +2537,17 @@ var useShareLink = function() {
                         ]);
                         return [
                             4,
-                            import_react_native13.Share.share(content, options)
+                            import_react_native17.Share.share(content, options)
                         ];
                     case 1:
                         result = _state.sent();
-                        if (result.action === import_react_native13.Share.sharedAction) {
+                        if (result.action === import_react_native17.Share.sharedAction) {
                             if (result.activityType) {
                                 console.log("Shared with activity type: ".concat(result.activityType));
                             } else {
                                 console.log("Link shared successfully");
                             }
-                        } else if (result.action === import_react_native13.Share.dismissedAction) {
+                        } else if (result.action === import_react_native17.Share.dismissedAction) {
                             console.log("Share dismissed");
                         }
                         return [
@@ -2061,11 +2577,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-var import_react14 = require("react");
+var import_react15 = require("react");
 var useTimer = function(initialSeconds) {
-    var _ref = _sliced_to_array((0, import_react14.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react14.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
-    (0, import_react14.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react15.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react15.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
+    (0, import_react15.useEffect)(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -2092,14 +2608,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-var import_react15 = require("react");
+var import_react16 = require("react");
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _ref1 = _sliced_to_array((0, import_react15.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
-    var intervalRef = (0, import_react15.useRef)(null);
-    var hasStarted = (0, import_react15.useRef)(false);
-    var hasCompleted = (0, import_react15.useRef)(false);
-    (0, import_react15.useEffect)(function() {
+    var _ref1 = _sliced_to_array((0, import_react16.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
+    var intervalRef = (0, import_react16.useRef)(null);
+    var hasStarted = (0, import_react16.useRef)(false);
+    var hasCompleted = (0, import_react16.useRef)(false);
+    (0, import_react16.useEffect)(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -2108,7 +2624,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    (0, import_react15.useEffect)(function() {
+    (0, import_react16.useEffect)(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -2150,13 +2666,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 var LocalAuthentication = __toESM(require("expo-local-authentication"));
-var import_react16 = require("react");
+var import_react17 = require("react");
 var useBiometrics = function() {
-    var _ref = _sliced_to_array((0, import_react16.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react16.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react16.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react16.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react16.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react17.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react17.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react17.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react17.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react17.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -2242,7 +2758,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    (0, import_react16.useEffect)(function() {
+    (0, import_react17.useEffect)(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -2272,11 +2788,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-var import_react17 = require("react");
+var import_react18 = require("react");
 var useDateTimePicker = function() {
-    var _ref = _sliced_to_array((0, import_react17.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react17.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react17.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var _ref = _sliced_to_array((0, import_react18.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react18.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react18.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -2306,18 +2822,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-var import_react18 = require("react");
+var import_react19 = require("react");
 var import_axios = __toESM(require("axios"));
 var Location = __toESM(require("expo-location"));
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _ref = _sliced_to_array((0, import_react18.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react18.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react18.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react18.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react18.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react19.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react19.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react19.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react19.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react19.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -2640,15 +3156,15 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react19 = require("react");
+var import_react20 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native14 = require("react-native");
+var import_react_native18 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react19.useReducer)(function(state) {
+    return (0, import_react20.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -2664,7 +3180,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native14.Platform.OS === "web")) return [
+                    if (!(import_react_native18.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -2715,8 +3231,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react19.useEffect)(function() {
-        if (import_react_native14.Platform.OS === "web") {
+    (0, import_react20.useEffect)(function() {
+        if (import_react_native18.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -2732,7 +3248,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react19.useCallback)(function(value) {
+    var setValue = (0, import_react20.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -2744,7 +3260,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react20 = __toESM(require("react"));
+var import_react21 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -2790,13 +3306,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react20.createContext)({
+var SocketContext = (0, import_react21.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react20.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react20.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react21.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react21.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -2843,7 +3359,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react20.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react21.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -3243,6 +3759,7 @@ var ChatServices = new ChatService();
     ETab: ETab,
     EmptyList: EmptyList,
     ModalContent: ModalContent,
+    PaymentModal: PaymentModal,
     ProfileServices: ProfileServices,
     SOCKET_URL: SOCKET_URL,
     SocketProvider: SocketProvider,

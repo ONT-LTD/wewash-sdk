@@ -7,6 +7,12 @@ function _array_like_to_array(arr, len) {
 function _array_with_holes(arr) {
     if (Array.isArray(arr)) return arr;
 }
+function _assert_this_initialized(self) {
+    if (self === void 0) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return self;
+}
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
         var info = gen[key](arg);
@@ -36,10 +42,31 @@ function _async_to_generator(fn) {
         });
     };
 }
+function _call_super(_this, derived, args) {
+    derived = _get_prototype_of(derived);
+    return _possible_constructor_return(_this, _is_native_reflect_construct() ? Reflect.construct(derived, args || [], _get_prototype_of(_this).constructor) : derived.apply(_this, args));
+}
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
+}
+function _construct(Parent, args, Class) {
+    if (_is_native_reflect_construct()) {
+        _construct = Reflect.construct;
+    } else {
+        _construct = function construct(Parent, args, Class) {
+            var a = [
+                null
+            ];
+            a.push.apply(a, args);
+            var Constructor = Function.bind.apply(Parent, a);
+            var instance = new Constructor();
+            if (Class) _set_prototype_of(instance, Class.prototype);
+            return instance;
+        };
+    }
+    return _construct.apply(null, arguments);
 }
 function _defineProperties(target, props) {
     for(var i = 0; i < props.length; i++){
@@ -67,6 +94,28 @@ function _define_property(obj, key, value) {
         obj[key] = value;
     }
     return obj;
+}
+function _get_prototype_of(o) {
+    _get_prototype_of = Object.setPrototypeOf ? Object.getPrototypeOf : function getPrototypeOf(o) {
+        return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _get_prototype_of(o);
+}
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) _set_prototype_of(subClass, superClass);
+}
+function _is_native_function(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
 }
 function _iterable_to_array_limit(arr, i) {
     var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
@@ -161,8 +210,25 @@ function _object_without_properties_loose(source, excluded) {
     }
     return target;
 }
+function _possible_constructor_return(self, call) {
+    if (call && (_type_of(call) === "object" || typeof call === "function")) {
+        return call;
+    }
+    return _assert_this_initialized(self);
+}
+function _set_prototype_of(o, p) {
+    _set_prototype_of = Object.setPrototypeOf || function setPrototypeOf(o, p) {
+        o.__proto__ = p;
+        return o;
+    };
+    return _set_prototype_of(o, p);
+}
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
+}
+function _type_of(obj) {
+    "@swc/helpers - typeof";
+    return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
 }
 function _unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
@@ -171,6 +237,40 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Object" && o.constructor) n = o.constructor.name;
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+}
+function _wrap_native_super(Class) {
+    var _cache = typeof Map === "function" ? new Map() : undefined;
+    _wrap_native_super = function wrapNativeSuper(Class) {
+        if (Class === null || !_is_native_function(Class)) return Class;
+        if (typeof Class !== "function") {
+            throw new TypeError("Super expression must either be null or a function");
+        }
+        if (typeof _cache !== "undefined") {
+            if (_cache.has(Class)) return _cache.get(Class);
+            _cache.set(Class, Wrapper);
+        }
+        function Wrapper() {
+            return _construct(Class, arguments, _get_prototype_of(this).constructor);
+        }
+        Wrapper.prototype = Object.create(Class.prototype, {
+            constructor: {
+                value: Wrapper,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        return _set_prototype_of(Wrapper, Class);
+    };
+    return _wrap_native_super(Class);
+}
+function _is_native_reflect_construct() {
+    try {
+        var result = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
+    } catch (_) {}
+    return (_is_native_reflect_construct = function() {
+        return !!result;
+    })();
 }
 function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
@@ -1647,6 +1747,424 @@ var styles10 = StyleSheet11.create({
         alignItems: "center"
     }
 });
+// src/components/PaymentModal/PaymentModal.tsx
+import { ActivityIndicator as ActivityIndicator2, StyleSheet as StyleSheet12, TouchableOpacity as TouchableOpacity7, View as View9 } from "react-native";
+import React18, { useState as useState2 } from "react";
+// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
+import { NativeModules, Platform } from "react-native";
+// node_modules/expo-modules-core/src/web/index.ts
+function registerWebGlobals() {}
+// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
+function ensureNativeModulesAreInstalled() {
+    if (globalThis.expo) {
+        return;
+    }
+    try {
+        if (Platform.OS === "web") {
+            registerWebGlobals();
+        } else {
+            var _NativeModules_ExpoModulesCore;
+            (_NativeModules_ExpoModulesCore = NativeModules.ExpoModulesCore) === null || _NativeModules_ExpoModulesCore === void 0 ? void 0 : _NativeModules_ExpoModulesCore.installModules();
+        }
+    } catch (error) {
+        console.error("Unable to install Expo modules: ".concat(error));
+    }
+}
+// node_modules/expo-modules-core/src/NativeModulesProxy.ts
+var NativeModulesProxy_default = {};
+// node_modules/expo-modules-core/src/errors/CodedError.ts
+var CodedError = /*#__PURE__*/ function(Error1) {
+    "use strict";
+    _inherits(CodedError, Error1);
+    function CodedError(code, message) {
+        _class_call_check(this, CodedError);
+        var _this;
+        _this = _call_super(this, CodedError, [
+            message
+        ]);
+        _this.code = code;
+        return _this;
+    }
+    return CodedError;
+}(_wrap_native_super(Error));
+// node_modules/expo-modules-core/src/Platform.ts
+import { Platform as ReactNativePlatform } from "react-native";
+// node_modules/expo-modules-core/src/environment/browser.ts
+var isDOMAvailable = false;
+var canUseEventListeners = false;
+var canUseViewport = false;
+var isAsyncDebugging = false;
+if (__DEV__) {
+    isAsyncDebugging = !global.nativeExtensions && !global.nativeCallSyncHook && !global.RN$Bridgeless;
+}
+// node_modules/expo-modules-core/src/Platform.ts
+if (__DEV__ && typeof process.env.EXPO_OS === "undefined") {
+    console.warn("The global process.env.EXPO_OS is not defined. This should be inlined by babel-preset-expo during transformation.");
+}
+var nativeSelect = typeof window !== "undefined" ? ReactNativePlatform.select : // process.env.EXPO_OS is injected by `babel-preset-expo` and available in both client and `react-server` environments.
+// Opt to use the env var when possible, and fallback to the React Native Platform module when it's not (arbitrary bundlers and transformers).
+function select(specifics) {
+    if (!process.env.EXPO_OS) return void 0;
+    if (specifics.hasOwnProperty(process.env.EXPO_OS)) {
+        return specifics[process.env.EXPO_OS];
+    } else if (process.env.EXPO_OS !== "web" && specifics.hasOwnProperty("native")) {
+        return specifics.native;
+    } else if (specifics.hasOwnProperty("default")) {
+        return specifics.default;
+    }
+    return void 0;
+};
+var Platform2 = {
+    /**
+   * Denotes the currently running platform.
+   * Can be one of ios, android, web.
+   */ OS: process.env.EXPO_OS || ReactNativePlatform.OS,
+    /**
+   * Returns the value with the matching platform.
+   * Object keys can be any of ios, android, native, web, default.
+   *
+   * @ios ios, native, default
+   * @android android, native, default
+   * @web web, default
+   */ select: nativeSelect,
+    /**
+   * Denotes if the DOM API is available in the current environment.
+   * The DOM is not available in native React runtimes and Node.js.
+   */ isDOMAvailable: isDOMAvailable,
+    /**
+   * Denotes if the current environment can attach event listeners
+   * to the window. This will return false in native React
+   * runtimes and Node.js.
+   */ canUseEventListeners: canUseEventListeners,
+    /**
+   * Denotes if the current environment can inspect properties of the
+   * screen on which the current window is being rendered. This will
+   * return false in native React runtimes and Node.js.
+   */ canUseViewport: canUseViewport,
+    /**
+   * If the JavaScript is being executed in a remote JavaScript environment.
+   * When `true`, synchronous native invocations cannot be executed.
+   */ isAsyncDebugging: isAsyncDebugging
+};
+var Platform_default = Platform2;
+// node_modules/expo-modules-core/src/sweet/NativeErrorManager.ts
+var NativeErrorManager_default = NativeModulesProxy_default.ExpoModulesCoreErrorManager;
+// node_modules/expo-modules-core/src/sweet/setUpErrorManager.fx.ts
+if (__DEV__ && Platform_default.OS === "android" && NativeErrorManager_default) {
+    var onNewException = "ExpoModulesCoreErrorManager.onNewException";
+    var onNewWarning = "ExpoModulesCoreErrorManager.onNewWarning";
+    NativeErrorManager_default.addListener(onNewException, function(param) {
+        var message = param.message;
+        console.error(message);
+    });
+    NativeErrorManager_default.addListener(onNewWarning, function(param) {
+        var message = param.message;
+        console.warn(message);
+    });
+}
+globalThis.ExpoModulesCore_CodedError = CodedError;
+// node_modules/expo-modules-core/src/requireNativeModule.ts
+function requireOptionalNativeModule(moduleName) {
+    var _globalThis_expo_modules, _globalThis_expo;
+    ensureNativeModulesAreInstalled();
+    var _globalThis_expo_modules_moduleName, _ref;
+    return (_ref = (_globalThis_expo_modules_moduleName = (_globalThis_expo = globalThis.expo) === null || _globalThis_expo === void 0 ? void 0 : (_globalThis_expo_modules = _globalThis_expo.modules) === null || _globalThis_expo_modules === void 0 ? void 0 : _globalThis_expo_modules[moduleName]) !== null && _globalThis_expo_modules_moduleName !== void 0 ? _globalThis_expo_modules_moduleName : NativeModulesProxy_default[moduleName]) !== null && _ref !== void 0 ? _ref : null;
+}
+// node_modules/expo-constants/build/Constants.js
+import { Platform as Platform3, NativeModules as NativeModules2 } from "react-native";
+// node_modules/expo-constants/build/Constants.types.js
+var AppOwnership;
+(function(AppOwnership2) {
+    AppOwnership2["Expo"] = "expo";
+})(AppOwnership || (AppOwnership = {}));
+var ExecutionEnvironment;
+(function(ExecutionEnvironment2) {
+    ExecutionEnvironment2["Bare"] = "bare";
+    ExecutionEnvironment2["Standalone"] = "standalone";
+    ExecutionEnvironment2["StoreClient"] = "storeClient";
+})(ExecutionEnvironment || (ExecutionEnvironment = {}));
+var UserInterfaceIdiom;
+(function(UserInterfaceIdiom2) {
+    UserInterfaceIdiom2["Handset"] = "handset";
+    UserInterfaceIdiom2["Tablet"] = "tablet";
+    UserInterfaceIdiom2["Desktop"] = "desktop";
+    UserInterfaceIdiom2["TV"] = "tv";
+    UserInterfaceIdiom2["Unsupported"] = "unsupported";
+})(UserInterfaceIdiom || (UserInterfaceIdiom = {}));
+// node_modules/expo-constants/build/ExponentConstants.js
+var ExponentConstants_default = requireOptionalNativeModule("ExponentConstants");
+// node_modules/expo-constants/build/Constants.js
+if (!ExponentConstants_default) {
+    console.warn("No native ExponentConstants module found, are you sure the expo-constants's module is linked properly?");
+}
+var ExpoUpdates = requireOptionalNativeModule("ExpoUpdates");
+var rawUpdatesManifest = null;
+if (ExpoUpdates) {
+    var updatesManifest;
+    if (ExpoUpdates.manifest) {
+        updatesManifest = ExpoUpdates.manifest;
+    } else if (ExpoUpdates.manifestString) {
+        updatesManifest = JSON.parse(ExpoUpdates.manifestString);
+    }
+    if (updatesManifest && Object.keys(updatesManifest).length > 0) {
+        rawUpdatesManifest = updatesManifest;
+    }
+}
+var rawDevLauncherManifest = null;
+if (NativeModules2.EXDevLauncher) {
+    var devLauncherManifest;
+    if (NativeModules2.EXDevLauncher.manifestString) {
+        devLauncherManifest = JSON.parse(NativeModules2.EXDevLauncher.manifestString);
+    }
+    if (devLauncherManifest && Object.keys(devLauncherManifest).length > 0) {
+        rawDevLauncherManifest = devLauncherManifest;
+    }
+}
+var rawAppConfig = null;
+if (ExponentConstants_default && ExponentConstants_default.manifest) {
+    var appConfig = ExponentConstants_default.manifest;
+    if (typeof appConfig === "string") {
+        rawAppConfig = JSON.parse(appConfig);
+    } else {
+        rawAppConfig = appConfig;
+    }
+}
+var _ref;
+var rawManifest = (_ref = rawUpdatesManifest !== null && rawUpdatesManifest !== void 0 ? rawUpdatesManifest : rawDevLauncherManifest) !== null && _ref !== void 0 ? _ref : rawAppConfig;
+var _ref1 = ExponentConstants_default || {}, name = _ref1.name, appOwnership = _ref1.appOwnership, nativeConstants = _object_without_properties(_ref1, [
+    "name",
+    "appOwnership"
+]);
+var constants = _object_spread_props(_object_spread({}, nativeConstants), {
+    // Ensure this is null in bare workflow
+    appOwnership: appOwnership !== null && appOwnership !== void 0 ? appOwnership : null
+});
+Object.defineProperties(constants, {
+    /**
+   * Use `manifest` property by default.
+   * This property is only used for internal purposes.
+   * It behaves similarly to the original one, but suppresses warning upon no manifest available.
+   * `expo-asset` uses it to prevent users from seeing mentioned warning.
+   */ __unsafeNoWarnManifest: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest || !isEmbeddedManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: false
+    },
+    __unsafeNoWarnManifest2: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest || !isExpoUpdatesManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: false
+    },
+    manifest: {
+        get: function get() {
+            var maybeManifest = getManifest();
+            if (!maybeManifest || !isEmbeddedManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: true
+    },
+    manifest2: {
+        get: function get() {
+            var maybeManifest = getManifest();
+            if (!maybeManifest || !isExpoUpdatesManifest(maybeManifest)) {
+                return null;
+            }
+            return maybeManifest;
+        },
+        enumerable: true
+    },
+    expoConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (ExpoUpdates && ExpoUpdates.isEmbeddedLaunch) {
+                return rawAppConfig;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_expoClient;
+                return (_maybeManifest_extra_expoClient = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.expoClient) !== null && _maybeManifest_extra_expoClient !== void 0 ? _maybeManifest_extra_expoClient : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    expoGoConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_expoGo;
+                return (_maybeManifest_extra_expoGo = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.expoGo) !== null && _maybeManifest_extra_expoGo !== void 0 ? _maybeManifest_extra_expoGo : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    easConfig: {
+        get: function get() {
+            var maybeManifest = getManifest(true);
+            if (!maybeManifest) {
+                return null;
+            }
+            if (isExpoUpdatesManifest(maybeManifest)) {
+                var _maybeManifest_extra;
+                var _maybeManifest_extra_eas;
+                return (_maybeManifest_extra_eas = (_maybeManifest_extra = maybeManifest.extra) === null || _maybeManifest_extra === void 0 ? void 0 : _maybeManifest_extra.eas) !== null && _maybeManifest_extra_eas !== void 0 ? _maybeManifest_extra_eas : null;
+            } else if (isEmbeddedManifest(maybeManifest)) {
+                return maybeManifest;
+            }
+            return null;
+        },
+        enumerable: true
+    },
+    __rawManifest_TEST: {
+        get: function get() {
+            return rawManifest;
+        },
+        set: function set(value) {
+            rawManifest = value;
+        },
+        enumerable: false
+    }
+});
+function isEmbeddedManifest(manifest) {
+    return !isExpoUpdatesManifest(manifest);
+}
+function isExpoUpdatesManifest(manifest) {
+    return "metadata" in manifest;
+}
+function getManifest() {
+    var suppressWarning = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : false;
+    if (!rawManifest) {
+        var invalidManifestType = rawManifest === null ? "null" : "undefined";
+        if (nativeConstants.executionEnvironment === ExecutionEnvironment.Bare && Platform3.OS !== "web") {
+            if (!suppressWarning) {
+                console.warn("Constants.manifest is ".concat(invalidManifestType, " because the embedded app.config could not be read. Ensure that you have installed the expo-constants build scripts if you need to read from Constants.manifest."));
+            }
+        } else if (nativeConstants.executionEnvironment === ExecutionEnvironment.StoreClient || nativeConstants.executionEnvironment === ExecutionEnvironment.Standalone) {
+            throw new CodedError("ERR_CONSTANTS_MANIFEST_UNAVAILABLE", "Constants.manifest is ".concat(invalidManifestType, ", must be an object."));
+        }
+    }
+    return rawManifest;
+}
+var Constants_default = constants;
+// src/components/PaymentModal/PaymentModal.tsx
+import WebView from "react-native-webview";
+// src/assets/svg/ArrowBack.tsx
+import * as React17 from "react";
+import Svg6, { Path as Path6 } from "react-native-svg";
+var SvgComponent6 = function(props) {
+    return /* @__PURE__ */ React17.createElement(Svg6, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 9,
+        height: 14,
+        fill: "none"
+    }, props), /* @__PURE__ */ React17.createElement(Path6, {
+        fill: "#fff",
+        fillRule: "evenodd",
+        d: "m2.845 7 5.488 5.488a.833.833 0 0 1-1.178 1.179L.488 7 7.155.333a.833.833 0 0 1 1.178 1.179L2.845 7Z",
+        clipRule: "evenodd"
+    }));
+};
+var ArrowBack_default = SvgComponent6;
+// src/components/PaymentModal/PaymentModal.tsx
+var PaymentModal = function(param) {
+    var uri = param.uri, onClose = param.onClose;
+    var _useState2 = _sliced_to_array(useState2(true), 2), loading = _useState2[0], setLoading = _useState2[1];
+    return /* @__PURE__ */ React18.createElement(View9, {
+        style: styles11.container
+    }, loading && /* @__PURE__ */ React18.createElement(View9, {
+        style: styles11.loader
+    }, /* @__PURE__ */ React18.createElement(ActivityIndicator2, {
+        size: "large",
+        color: COLORS.black
+    }), /* @__PURE__ */ React18.createElement(CustomTextNeutral, {
+        style: styles11.text
+    }, "Loading...")), /* @__PURE__ */ React18.createElement(TouchableOpacity7, {
+        style: styles11.arrow,
+        onPress: onClose
+    }, /* @__PURE__ */ React18.createElement(ArrowBack_default, null)), /* @__PURE__ */ React18.createElement(WebView, {
+        source: {
+            uri: uri
+        },
+        onLoadEnd: function() {
+            return setLoading(false);
+        },
+        onLoadStart: function() {
+            return setLoading(true);
+        },
+        onError: function(syntheticEvent) {
+            var nativeEvent = syntheticEvent.nativeEvent;
+            console.debug("WebView error: ", nativeEvent);
+        },
+        onHttpError: function(syntheticEvent) {
+            var nativeEvent = syntheticEvent.nativeEvent;
+            console.debug("HTTP error: ", nativeEvent.statusCode, nativeEvent.description);
+        },
+        style: styles11.webview
+    }));
+};
+var PaymentModal_default = PaymentModal;
+var styles11 = StyleSheet12.create({
+    container: {
+        flex: 1,
+        marginTop: Constants_default.statusBarHeight,
+        backgroundColor: COLORS.white,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 60,
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32
+    },
+    webview: {
+        flex: 1
+    },
+    arrow: {
+        height: 32,
+        width: 32,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 20,
+        borderRadius: 20,
+        backgroundColor: COLORS.black
+    },
+    loader: _object_spread_props(_object_spread({}, StyleSheet12.absoluteFillObject), {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.white,
+        zIndex: 1,
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32
+    }),
+    text: {
+        color: COLORS.primary500,
+        fontSize: 16,
+        lineHeight: 24,
+        fontFamily: "UrbanistSemiBold"
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -1686,9 +2204,9 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-import { useState as useState2, useCallback } from "react";
+import { useState as useState3, useCallback } from "react";
 var useModal = function() {
-    var _useState2 = _sliced_to_array(useState2(false), 2), visible = _useState2[0], setVisible = _useState2[1];
+    var _useState3 = _sliced_to_array(useState3(false), 2), visible = _useState3[0], setVisible = _useState3[1];
     var onOpen = useCallback(function() {
         setVisible(true);
     }, []);
@@ -1759,10 +2277,10 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-import { useState as useState3, useEffect } from "react";
+import { useState as useState4, useEffect } from "react";
 var useTimer = function(initialSeconds) {
-    var _useState3 = _sliced_to_array(useState3(initialSeconds), 2), seconds = _useState3[0], setSeconds = _useState3[1];
-    var _useState31 = _sliced_to_array(useState3(false), 2), isFinished = _useState31[0], setIsFinished = _useState31[1];
+    var _useState4 = _sliced_to_array(useState4(initialSeconds), 2), seconds = _useState4[0], setSeconds = _useState4[1];
+    var _useState41 = _sliced_to_array(useState4(false), 2), isFinished = _useState41[0], setIsFinished = _useState41[1];
     useEffect(function() {
         var timer = null;
         if (seconds > 0) {
@@ -1790,13 +2308,13 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-import { useEffect as useEffect2, useRef, useState as useState4 } from "react";
+import { useEffect as useEffect2, useRef as useRef2, useState as useState5 } from "react";
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _useState4 = _sliced_to_array(useState4(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState4[0], setTimeLeft = _useState4[1];
-    var intervalRef = useRef(null);
-    var hasStarted = useRef(false);
-    var hasCompleted = useRef(false);
+    var _useState5 = _sliced_to_array(useState5(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _useState5[0], setTimeLeft = _useState5[1];
+    var intervalRef = useRef2(null);
+    var hasStarted = useRef2(false);
+    var hasCompleted = useRef2(false);
     useEffect2(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
@@ -1848,13 +2366,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 import * as LocalAuthentication from "expo-local-authentication";
-import { useEffect as useEffect3, useState as useState5 } from "react";
+import { useEffect as useEffect3, useState as useState6 } from "react";
 var useBiometrics = function() {
-    var _useState5 = _sliced_to_array(useState5(false), 2), facialRecognitionAvailable = _useState5[0], setFacialRecognitionAvailable = _useState5[1];
-    var _useState51 = _sliced_to_array(useState5(false), 2), fingerprintAvailable = _useState51[0], setFingerprintAvailable = _useState51[1];
-    var _useState52 = _sliced_to_array(useState5(false), 2), irisAvailable = _useState52[0], setIrisAvailable = _useState52[1];
-    var _useState53 = _sliced_to_array(useState5(false), 2), loading = _useState53[0], setLoading = _useState53[1];
-    var _useState54 = _sliced_to_array(useState5(), 2), result = _useState54[0], setResult = _useState54[1];
+    var _useState6 = _sliced_to_array(useState6(false), 2), facialRecognitionAvailable = _useState6[0], setFacialRecognitionAvailable = _useState6[1];
+    var _useState61 = _sliced_to_array(useState6(false), 2), fingerprintAvailable = _useState61[0], setFingerprintAvailable = _useState61[1];
+    var _useState62 = _sliced_to_array(useState6(false), 2), irisAvailable = _useState62[0], setIrisAvailable = _useState62[1];
+    var _useState63 = _sliced_to_array(useState6(false), 2), loading = _useState63[0], setLoading = _useState63[1];
+    var _useState64 = _sliced_to_array(useState6(), 2), result = _useState64[0], setResult = _useState64[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -1970,11 +2488,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-import { useState as useState6 } from "react";
+import { useState as useState7 } from "react";
 var useDateTimePicker = function() {
-    var _useState6 = _sliced_to_array(useState6(false), 2), isPickerVisible = _useState6[0], setIsPickerVisible = _useState6[1];
-    var _useState61 = _sliced_to_array(useState6("date"), 2), pickerMode = _useState61[0], setPickerMode = _useState61[1];
-    var _useState62 = _sliced_to_array(useState6(null), 2), selectedDateTime = _useState62[0], setSelectedDateTime = _useState62[1];
+    var _useState7 = _sliced_to_array(useState7(false), 2), isPickerVisible = _useState7[0], setIsPickerVisible = _useState7[1];
+    var _useState71 = _sliced_to_array(useState7("date"), 2), pickerMode = _useState71[0], setPickerMode = _useState71[1];
+    var _useState72 = _sliced_to_array(useState7(null), 2), selectedDateTime = _useState72[0], setSelectedDateTime = _useState72[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -2004,18 +2522,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-import { useState as useState7 } from "react";
+import { useState as useState8 } from "react";
 import axios from "axios";
 import * as Location from "expo-location";
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _useState7 = _sliced_to_array(useState7(""), 2), query = _useState7[0], setQuery = _useState7[1];
-    var _useState71 = _sliced_to_array(useState7([]), 2), predictions = _useState71[0], setPredictions = _useState71[1];
-    var _useState72 = _sliced_to_array(useState7(null), 2), placeDetails = _useState72[0], setPlaceDetails = _useState72[1];
-    var _useState73 = _sliced_to_array(useState7(false), 2), isLoading = _useState73[0], setIsLoading = _useState73[1];
-    var _useState74 = _sliced_to_array(useState7(null), 2), error = _useState74[0], setError = _useState74[1];
+    var _useState8 = _sliced_to_array(useState8(""), 2), query = _useState8[0], setQuery = _useState8[1];
+    var _useState81 = _sliced_to_array(useState8([]), 2), predictions = _useState81[0], setPredictions = _useState81[1];
+    var _useState82 = _sliced_to_array(useState8(null), 2), placeDetails = _useState82[0], setPlaceDetails = _useState82[1];
+    var _useState83 = _sliced_to_array(useState8(false), 2), isLoading = _useState83[0], setIsLoading = _useState83[1];
+    var _useState84 = _sliced_to_array(useState8(null), 2), error = _useState84[0], setError = _useState84[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -2340,7 +2858,7 @@ var baseApi_default = api;
 // src/config/useStorageState.ts
 import { useEffect as useEffect4, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
-import { Platform } from "react-native";
+import { Platform as Platform4 } from "react-native";
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
@@ -2362,7 +2880,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(Platform.OS === "web")) return [
+                    if (!(Platform4.OS === "web")) return [
                         3,
                         1
                     ];
@@ -2414,7 +2932,7 @@ function _setStorageItemAsync() {
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
     useEffect4(function() {
-        if (Platform.OS === "web") {
+        if (Platform4.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -2442,7 +2960,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-import React17, { createContext, useContext, useEffect as useEffect5, useState as useState8 } from "react";
+import React19, { createContext, useContext, useEffect as useEffect5, useState as useState9 } from "react";
 // src/config/socket.ts
 import { io } from "socket.io-client";
 var socket = null;
@@ -2493,7 +3011,7 @@ var SocketContext = createContext({
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _useState8 = _sliced_to_array(useState8(null), 2), socket2 = _useState8[0], setSocket = _useState8[1];
+    var _useState9 = _sliced_to_array(useState9(null), 2), socket2 = _useState9[0], setSocket = _useState9[1];
     useEffect5(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
@@ -2541,7 +3059,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ React17.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ React19.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -2917,5 +3435,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
+export { API_URL, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, ModalContent_default as ModalContent, PaymentModal_default as PaymentModal, ProfileServices, SOCKET_URL, SocketProvider, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
 //# sourceMappingURL=index.mjs.map

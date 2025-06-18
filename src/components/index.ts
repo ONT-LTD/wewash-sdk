@@ -19,3 +19,4 @@ export { default as CustomSwitch } from './CustomSwitch/CustomSwitch';
 export { default as CustomSelect } from './CustomSelect/CustomSelect';
 export { default as ModalContent } from './ModalContent/ModalContent';
 export { default as EmptyList } from './EmptyList/EmptyList';
+export { default as PaymentModal } from './PaymentModal/PaymentModal';
