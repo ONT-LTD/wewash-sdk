@@ -456,6 +456,9 @@ __export(index_exports, {
     ChatServices: function() {
         return ChatServices;
     },
+    ChooseFile: function() {
+        return ChooseFile_default;
+    },
     CustomButton: function() {
         return CustomButton_default;
     },
@@ -518,6 +521,9 @@ __export(index_exports, {
     },
     EmptyList: function() {
         return EmptyList_default;
+    },
+    FileUpload: function() {
+        return FileUpload_default;
     },
     Header: function() {
         return Header;
@@ -3152,6 +3158,336 @@ var styles20 = import_react_native25.StyleSheet.create({
         marginLeft: 6
     }
 });
+// src/components/ChooseFile/ChooseFile.tsx
+var import_react_native26 = require("react-native");
+var import_react22 = __toESM(require("react"));
+// src/assets/svg/Cloud.tsx
+var React30 = __toESM(require("react"));
+var import_react_native_svg9 = __toESM(require("react-native-svg"));
+var SvgComponent9 = function(props) {
+    return /* @__PURE__ */ React30.createElement(import_react_native_svg9.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 25,
+        height: 24,
+        fill: "none"
+    }, props), /* @__PURE__ */ React30.createElement(import_react_native_svg9.Path, {
+        fill: "#34519F",
+        d: "m12.5 12.527 3.819 3.818-1.274 1.274-1.645-1.646V21h-1.8v-5.028l-1.645 1.647-1.274-1.274 3.819-3.818ZM12.5 3a6.3 6.3 0 0 1 6.258 5.575 4.95 4.95 0 0 1-.857 9.705v-1.812a3.149 3.149 0 1 0-1.001-6.22 4.5 4.5 0 1 0-8.8 0 3.15 3.15 0 1 0-1.162 6.193l.162.027v1.812a4.95 4.95 0 0 1-.859-9.705A6.3 6.3 0 0 1 12.5 3Z"
+    }));
+};
+var Cloud_default = SvgComponent9;
+// src/components/ChooseFile/ChooseFile.tsx
+var ChooseFile = function(param) {
+    var handleChoosePhotoWithoutUpload = param.handleChoosePhotoWithoutUpload, error = param.error;
+    return /* @__PURE__ */ import_react22.default.createElement(import_react_native26.View, {
+        style: styles21.upload
+    }, /* @__PURE__ */ import_react22.default.createElement(Cloud_default, null), /* @__PURE__ */ import_react22.default.createElement(import_react_native26.View, {
+        style: [
+            customStyles.group,
+            styles21.uploadBottom
+        ]
+    }, /* @__PURE__ */ import_react22.default.createElement(import_react_native26.TouchableOpacity, {
+        style: styles21.file,
+        onPress: function() {
+            return handleChoosePhotoWithoutUpload();
+        }
+    }, /* @__PURE__ */ import_react22.default.createElement(import_react_native26.Text, {
+        style: styles21.fileText
+    }, "Choose a file")), /* @__PURE__ */ import_react22.default.createElement(import_react_native26.Text, {
+        style: styles21.noFileText
+    }, "No file chosen")), /* @__PURE__ */ import_react22.default.createElement(import_react_native26.View, null, error ? /* @__PURE__ */ import_react22.default.createElement(CustomError_default, {
+        error: error
+    }) : /* @__PURE__ */ import_react22.default.createElement(import_react_native26.Text, {
+        style: styles21.text
+    }, "JPEG, PNG, PDF formats, up to 500 KB")));
+};
+var ChooseFile_default = ChooseFile;
+var styles21 = import_react_native26.StyleSheet.create({
+    upload: {
+        alignItems: "center",
+        backgroundColor: COLORS.white,
+        borderStyle: "dashed",
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingVertical: 16,
+        borderColor: "#868C98"
+    },
+    uploadBottom: {
+        gap: 4,
+        marginTop: 7,
+        marginBottom: 4,
+        alignSelf: "center"
+    },
+    file: {
+        backgroundColor: COLORS.primary500,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 4,
+        gap: 8
+    },
+    fileText: {
+        color: COLORS.white,
+        fontFamily: "UrbanistMedium",
+        fontSize: 14
+    },
+    noFileText: {
+        fontFamily: "UrbanistMedium",
+        fontSize: 14,
+        color: COLORS.neutral400
+    },
+    text: {
+        color: "#868C98",
+        lineHeight: 16,
+        fontSize: 12,
+        fontFamily: "Urbanist"
+    }
+});
+// src/components/FileUpload/FileUpload.tsx
+var import_react_native27 = require("react-native");
+var import_react23 = __toESM(require("react"));
+// src/assets/svg/FileIcon.tsx
+var React32 = __toESM(require("react"));
+var import_react_native_svg10 = __toESM(require("react-native-svg"));
+var SvgComponent10 = function(props) {
+    return /* @__PURE__ */ React32.createElement(import_react_native_svg10.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React32.createElement(import_react_native_svg10.G, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React32.createElement(import_react_native_svg10.G, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React32.createElement(import_react_native_svg10.G, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React32.createElement(import_react_native_svg10.Mask, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        fill: "#DF1C41",
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm29 12H0h28ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm20-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        fill: "#fff",
+        d: "M3.79 30v-8h3c.614 0 1.13.115 1.546.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.558.34H4.78v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.398-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.141 1.141 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184H5.238V30H3.79Zm10.01 0h-2.712v-8h2.766c.794 0 1.476.16 2.047.48a3.212 3.212 0 0 1 1.32 1.372c.307.596.46 1.31.46 2.14 0 .834-.154 1.55-.464 2.149a3.212 3.212 0 0 1-1.332 1.379c-.578.32-1.273.48-2.086.48Zm-1.263-1.254h1.192c.557 0 1.022-.101 1.394-.305a1.95 1.95 0 0 0 .84-.918c.188-.408.281-.919.281-1.53 0-.613-.093-1.12-.28-1.524a1.918 1.918 0 0 0-.833-.91c-.364-.204-.818-.305-1.36-.305h-1.234v5.492ZM19.28 30v-8h5.125v1.215h-3.676v2.172h3.324v1.215h-3.324V30h-1.45Z"
+    }))), /* @__PURE__ */ React32.createElement(import_react_native_svg10.Defs, null, /* @__PURE__ */ React32.createElement(import_react_native_svg10.ClipPath, {
+        id: "a"
+    }, /* @__PURE__ */ React32.createElement(import_react_native_svg10.Path, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FileIcon_default = SvgComponent10;
+// src/assets/svg/FileJPGIcon.tsx
+var React33 = __toESM(require("react"));
+var import_react_native_svg11 = __toESM(require("react-native-svg"));
+var SvgComponent11 = function(props) {
+    return /* @__PURE__ */ React33.createElement(import_react_native_svg11.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React33.createElement(import_react_native_svg11.G, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React33.createElement(import_react_native_svg11.G, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React33.createElement(import_react_native_svg11.G, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React33.createElement(import_react_native_svg11.Mask, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        fill: "#375DFB",
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm29 12H0h28ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm20-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        fill: "#fff",
+        d: "M6.945 22h1.438v5.625c-.003.516-.112.96-.328 1.332-.216.37-.519.655-.907.855-.385.198-.834.297-1.347.297-.469 0-.89-.083-1.266-.25a2.063 2.063 0 0 1-.887-.75c-.218-.33-.328-.742-.328-1.234h1.442c.002.216.05.402.14.559a.937.937 0 0 0 .387.359c.164.083.353.125.566.125.232 0 .429-.048.59-.145a.927.927 0 0 0 .367-.437c.086-.193.13-.43.133-.711V22Zm3.23 8v-8h3c.615 0 1.13.115 1.547.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.559.34h-1.988v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.399-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.142 1.142 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184h-1.328V30h-1.449Zm12.659-5.445a2.068 2.068 0 0 0-.27-.567 1.743 1.743 0 0 0-.406-.433 1.639 1.639 0 0 0-.54-.27 2.249 2.249 0 0 0-.663-.094c-.43 0-.813.108-1.149.325-.336.216-.6.534-.793.953-.19.416-.285.924-.285 1.523 0 .604.095 1.116.285 1.535.19.42.455.739.793.957.339.216.732.325 1.18.325.406 0 .758-.079 1.055-.235.3-.156.53-.377.691-.664.162-.289.242-.627.242-1.015l.328.05H21.13v-1.133h3.247v.961c0 .685-.146 1.278-.438 1.778-.292.5-.693.885-1.203 1.156-.51.268-1.096.402-1.758.402-.737 0-1.384-.165-1.941-.496a3.433 3.433 0 0 1-1.301-1.418c-.31-.614-.465-1.343-.465-2.187 0-.646.091-1.223.273-1.73.185-.508.443-.94.774-1.294.33-.356.719-.627 1.164-.812.445-.188.93-.281 1.453-.281.443 0 .856.065 1.238.195.383.128.723.31 1.02.547.3.237.545.518.738.844.193.325.32.684.38 1.078h-1.477Z"
+    }))), /* @__PURE__ */ React33.createElement(import_react_native_svg11.Defs, null, /* @__PURE__ */ React33.createElement(import_react_native_svg11.ClipPath, {
+        id: "a"
+    }, /* @__PURE__ */ React33.createElement(import_react_native_svg11.Path, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FileJPGIcon_default = SvgComponent11;
+// src/assets/svg/FilePNGIcon.tsx
+var React34 = __toESM(require("react"));
+var import_react_native_svg12 = __toESM(require("react-native-svg"));
+var SvgComponent12 = function(props) {
+    return /* @__PURE__ */ React34.createElement(import_react_native_svg12.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React34.createElement(import_react_native_svg12.G, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React34.createElement(import_react_native_svg12.G, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React34.createElement(import_react_native_svg12.G, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React34.createElement(import_react_native_svg12.Mask, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        d: "M0 22a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        fill: "#35B9E9",
+        d: "M0 22a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm31 12H0h30ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm22-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        fill: "#fff",
+        d: "M3.79 30v-8h3c.614 0 1.13.115 1.546.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.558.34H4.78v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.398-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.141 1.141 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184H5.238V30H3.79Zm13.872-8v8h-1.289l-3.77-5.45h-.066V30h-1.449v-8h1.297l3.766 5.453h.07V22h1.441Zm7.159 2.555a2.068 2.068 0 0 0-.27-.567 1.743 1.743 0 0 0-.406-.433 1.639 1.639 0 0 0-.539-.27 2.249 2.249 0 0 0-.664-.094c-.43 0-.813.108-1.148.325-.336.216-.6.534-.794.953-.19.416-.285.924-.285 1.523 0 .604.095 1.116.285 1.535.19.42.455.739.794.957.338.216.731.325 1.18.325.405 0 .757-.079 1.054-.235.3-.156.53-.377.691-.664.162-.289.242-.627.242-1.015l.329.05h-2.172v-1.133h3.246v.961c0 .685-.146 1.278-.438 1.778-.291.5-.692.885-1.203 1.156-.51.268-1.096.402-1.758.402-.737 0-1.384-.165-1.941-.496a3.433 3.433 0 0 1-1.3-1.418c-.31-.614-.466-1.343-.466-2.187 0-.646.091-1.223.274-1.73.185-.508.442-.94.773-1.294.331-.356.719-.627 1.164-.812.446-.188.93-.281 1.453-.281.443 0 .856.065 1.239.195.383.128.722.31 1.02.547.299.237.545.518.738.844.192.325.319.684.378 1.078h-1.476Z"
+    }))), /* @__PURE__ */ React34.createElement(import_react_native_svg12.Defs, null, /* @__PURE__ */ React34.createElement(import_react_native_svg12.ClipPath, {
+        id: "a"
+    }, /* @__PURE__ */ React34.createElement(import_react_native_svg12.Path, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FilePNGIcon_default = SvgComponent12;
+// src/assets/svg/DeleteFile.tsx
+var React35 = __toESM(require("react"));
+var import_react_native_svg13 = __toESM(require("react-native-svg"));
+var SvgComponent13 = function(props) {
+    return /* @__PURE__ */ React35.createElement(import_react_native_svg13.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 20,
+        height: 20,
+        fill: "none"
+    }, props), /* @__PURE__ */ React35.createElement(import_react_native_svg13.Path, {
+        fill: "#525866",
+        d: "M13.75 5.5h3.75V7H16v9.75a.75.75 0 0 1-.75.75H4.75a.75.75 0 0 1-.75-.75V7H2.5V5.5h3.75V3.25A.75.75 0 0 1 7 2.5h6a.75.75 0 0 1 .75.75V5.5ZM14.5 7h-9v9h9V7ZM7.75 9.25h1.5v4.5h-1.5v-4.5Zm3 0h1.5v4.5h-1.5v-4.5ZM7.75 4v1.5h4.5V4h-4.5Z"
+    }));
+};
+var DeleteFile_default = SvgComponent13;
+// src/assets/svg/Complete.tsx
+var React36 = __toESM(require("react"));
+var import_react_native_svg14 = __toESM(require("react-native-svg"));
+var SvgComponent14 = function(props) {
+    return /* @__PURE__ */ React36.createElement(import_react_native_svg14.default, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 12,
+        height: 13,
+        fill: "none"
+    }, props), /* @__PURE__ */ React36.createElement(import_react_native_svg14.Path, {
+        fill: "#38C793",
+        d: "M6 12.5a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm-.598-3.6 4.242-4.243-.849-.848-3.393 3.394-1.698-1.697-.848.848L5.402 8.9Z"
+    }));
+};
+var Complete_default = SvgComponent14;
+// src/components/FileUpload/FileUpload.tsx
+var FileUpload = function(param) {
+    var fileSize = param.fileSize, fileType = param.fileType, fileName = param.fileName, fileLabel = param.fileLabel, removeImage = param.removeImage;
+    return /* @__PURE__ */ import_react23.default.createElement(import_react_native27.View, {
+        style: styles22.container
+    }, /* @__PURE__ */ import_react23.default.createElement(import_react_native27.View, {
+        style: [
+            customStyles.group,
+            {
+                gap: 12
+            }
+        ]
+    }, fileType === "PDF" ? /* @__PURE__ */ import_react23.default.createElement(FileIcon_default, null) : fileType === "PNG" ? /* @__PURE__ */ import_react23.default.createElement(FilePNGIcon_default, null) : /* @__PURE__ */ import_react23.default.createElement(FileJPGIcon_default, null), /* @__PURE__ */ import_react23.default.createElement(import_react_native27.View, null, /* @__PURE__ */ import_react23.default.createElement(import_react_native27.Text, {
+        style: styles22.text
+    }, fileName), /* @__PURE__ */ import_react23.default.createElement(import_react_native27.View, {
+        style: [
+            customStyles.group,
+            {
+                gap: 10,
+                marginTop: 6
+            }
+        ]
+    }, /* @__PURE__ */ import_react23.default.createElement(import_react_native27.Text, {
+        style: [
+            styles22.text,
+            {
+                color: COLORS.neutral200
+            }
+        ]
+    }, fileSize), fileLabel === "Uploading..." ? /* @__PURE__ */ import_react23.default.createElement(import_react_native27.ActivityIndicator, {
+        size: "small"
+    }) : /* @__PURE__ */ import_react23.default.createElement(Complete_default, null), /* @__PURE__ */ import_react23.default.createElement(import_react_native27.Text, {
+        style: [
+            styles22.text,
+            {
+                color: COLORS.neutral200
+            }
+        ]
+    }, fileLabel)))), /* @__PURE__ */ import_react23.default.createElement(import_react_native27.TouchableOpacity, {
+        style: {
+            alignItems: "flex-end"
+        },
+        onPress: removeImage
+    }, /* @__PURE__ */ import_react23.default.createElement(DeleteFile_default, null)));
+};
+var FileUpload_default = FileUpload;
+var styles22 = import_react_native27.StyleSheet.create({
+    container: {
+        backgroundColor: COLORS.white,
+        padding: 14,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: "#E2E4E9",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 12
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: "UrbanistMedium",
+        color: "#0A0D14"
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -3191,13 +3527,13 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-var import_react22 = require("react");
+var import_react24 = require("react");
 var useModal = function() {
-    var _ref = _sliced_to_array((0, import_react22.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
-    var onOpen = (0, import_react22.useCallback)(function() {
+    var _ref = _sliced_to_array((0, import_react24.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
+    var onOpen = (0, import_react24.useCallback)(function() {
         setVisible(true);
     }, []);
-    var onClose = (0, import_react22.useCallback)(function() {
+    var onClose = (0, import_react24.useCallback)(function() {
         setVisible(false);
     }, []);
     return {
@@ -3207,10 +3543,10 @@ var useModal = function() {
     };
 };
 // src/hooks/useShareLink/useShareLink.tsx
-var import_react23 = require("react");
-var import_react_native26 = require("react-native");
+var import_react25 = require("react");
+var import_react_native28 = require("react-native");
 var useShareLink = function() {
-    var shareLink = (0, import_react23.useCallback)(/*#__PURE__*/ function() {
+    var shareLink = (0, import_react25.useCallback)(/*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(content, options) {
             var result, error;
             return _ts_generator(this, function(_state) {
@@ -3224,17 +3560,17 @@ var useShareLink = function() {
                         ]);
                         return [
                             4,
-                            import_react_native26.Share.share(content, options)
+                            import_react_native28.Share.share(content, options)
                         ];
                     case 1:
                         result = _state.sent();
-                        if (result.action === import_react_native26.Share.sharedAction) {
+                        if (result.action === import_react_native28.Share.sharedAction) {
                             if (result.activityType) {
                                 console.log("Shared with activity type: ".concat(result.activityType));
                             } else {
                                 console.log("Link shared successfully");
                             }
-                        } else if (result.action === import_react_native26.Share.dismissedAction) {
+                        } else if (result.action === import_react_native28.Share.dismissedAction) {
                             console.log("Share dismissed");
                         }
                         return [
@@ -3264,11 +3600,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-var import_react24 = require("react");
+var import_react26 = require("react");
 var useTimer = function(initialSeconds) {
-    var _ref = _sliced_to_array((0, import_react24.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react24.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
-    (0, import_react24.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react26.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react26.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
+    (0, import_react26.useEffect)(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -3295,14 +3631,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-var import_react25 = require("react");
+var import_react27 = require("react");
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _ref1 = _sliced_to_array((0, import_react25.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
-    var intervalRef = (0, import_react25.useRef)(null);
-    var hasStarted = (0, import_react25.useRef)(false);
-    var hasCompleted = (0, import_react25.useRef)(false);
-    (0, import_react25.useEffect)(function() {
+    var _ref1 = _sliced_to_array((0, import_react27.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
+    var intervalRef = (0, import_react27.useRef)(null);
+    var hasStarted = (0, import_react27.useRef)(false);
+    var hasCompleted = (0, import_react27.useRef)(false);
+    (0, import_react27.useEffect)(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -3311,7 +3647,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    (0, import_react25.useEffect)(function() {
+    (0, import_react27.useEffect)(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -3353,13 +3689,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 var LocalAuthentication = __toESM(require("expo-local-authentication"));
-var import_react26 = require("react");
+var import_react28 = require("react");
 var useBiometrics = function() {
-    var _ref = _sliced_to_array((0, import_react26.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react26.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react26.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react26.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react26.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react28.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react28.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react28.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react28.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react28.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -3445,7 +3781,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    (0, import_react26.useEffect)(function() {
+    (0, import_react28.useEffect)(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -3475,11 +3811,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-var import_react27 = require("react");
+var import_react29 = require("react");
 var useDateTimePicker = function() {
-    var _ref = _sliced_to_array((0, import_react27.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react27.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react27.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var _ref = _sliced_to_array((0, import_react29.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react29.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react29.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -3509,18 +3845,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-var import_react28 = require("react");
+var import_react30 = require("react");
 var import_axios = __toESM(require("axios"));
 var Location = __toESM(require("expo-location"));
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _ref = _sliced_to_array((0, import_react28.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react28.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react28.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react28.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react28.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react30.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react30.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react30.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react30.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react30.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -3843,15 +4179,15 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react29 = require("react");
+var import_react31 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native27 = require("react-native");
+var import_react_native29 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react29.useReducer)(function(state) {
+    return (0, import_react31.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -3867,7 +4203,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native27.Platform.OS === "web")) return [
+                    if (!(import_react_native29.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -3918,8 +4254,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react29.useEffect)(function() {
-        if (import_react_native27.Platform.OS === "web") {
+    (0, import_react31.useEffect)(function() {
+        if (import_react_native29.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -3935,7 +4271,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react29.useCallback)(function(value) {
+    var setValue = (0, import_react31.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -3947,7 +4283,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react30 = __toESM(require("react"));
+var import_react32 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -3993,13 +4329,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react30.createContext)({
+var SocketContext = (0, import_react32.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react30.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react30.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react32.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react32.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4046,7 +4382,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react30.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react32.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -4425,6 +4761,7 @@ var ChatServices = new ChatService();
     AuthServices: AuthServices,
     COLORS: COLORS,
     ChatServices: ChatServices,
+    ChooseFile: ChooseFile,
     CustomButton: CustomButton,
     CustomDropdown: CustomDropdown,
     CustomError: CustomError,
@@ -4446,6 +4783,7 @@ var ChatServices = new ChatService();
     EResult: EResult,
     ETab: ETab,
     EmptyList: EmptyList,
+    FileUpload: FileUpload,
     Header: Header,
     LineIndicator: LineIndicator,
     ModalContent: ModalContent,

@@ -2826,6 +2826,336 @@ var styles20 = StyleSheet21.create({
         marginLeft: 6
     }
 });
+// src/components/ChooseFile/ChooseFile.tsx
+import { StyleSheet as StyleSheet22, Text as Text10, TouchableOpacity as TouchableOpacity13, View as View19 } from "react-native";
+import React31 from "react";
+// src/assets/svg/Cloud.tsx
+import * as React30 from "react";
+import Svg9, { Path as Path9 } from "react-native-svg";
+var SvgComponent9 = function(props) {
+    return /* @__PURE__ */ React30.createElement(Svg9, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 25,
+        height: 24,
+        fill: "none"
+    }, props), /* @__PURE__ */ React30.createElement(Path9, {
+        fill: "#34519F",
+        d: "m12.5 12.527 3.819 3.818-1.274 1.274-1.645-1.646V21h-1.8v-5.028l-1.645 1.647-1.274-1.274 3.819-3.818ZM12.5 3a6.3 6.3 0 0 1 6.258 5.575 4.95 4.95 0 0 1-.857 9.705v-1.812a3.149 3.149 0 1 0-1.001-6.22 4.5 4.5 0 1 0-8.8 0 3.15 3.15 0 1 0-1.162 6.193l.162.027v1.812a4.95 4.95 0 0 1-.859-9.705A6.3 6.3 0 0 1 12.5 3Z"
+    }));
+};
+var Cloud_default = SvgComponent9;
+// src/components/ChooseFile/ChooseFile.tsx
+var ChooseFile = function(param) {
+    var handleChoosePhotoWithoutUpload = param.handleChoosePhotoWithoutUpload, error = param.error;
+    return /* @__PURE__ */ React31.createElement(View19, {
+        style: styles21.upload
+    }, /* @__PURE__ */ React31.createElement(Cloud_default, null), /* @__PURE__ */ React31.createElement(View19, {
+        style: [
+            customStyles.group,
+            styles21.uploadBottom
+        ]
+    }, /* @__PURE__ */ React31.createElement(TouchableOpacity13, {
+        style: styles21.file,
+        onPress: function() {
+            return handleChoosePhotoWithoutUpload();
+        }
+    }, /* @__PURE__ */ React31.createElement(Text10, {
+        style: styles21.fileText
+    }, "Choose a file")), /* @__PURE__ */ React31.createElement(Text10, {
+        style: styles21.noFileText
+    }, "No file chosen")), /* @__PURE__ */ React31.createElement(View19, null, error ? /* @__PURE__ */ React31.createElement(CustomError_default, {
+        error: error
+    }) : /* @__PURE__ */ React31.createElement(Text10, {
+        style: styles21.text
+    }, "JPEG, PNG, PDF formats, up to 500 KB")));
+};
+var ChooseFile_default = ChooseFile;
+var styles21 = StyleSheet22.create({
+    upload: {
+        alignItems: "center",
+        backgroundColor: COLORS.white,
+        borderStyle: "dashed",
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingVertical: 16,
+        borderColor: "#868C98"
+    },
+    uploadBottom: {
+        gap: 4,
+        marginTop: 7,
+        marginBottom: 4,
+        alignSelf: "center"
+    },
+    file: {
+        backgroundColor: COLORS.primary500,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 4,
+        gap: 8
+    },
+    fileText: {
+        color: COLORS.white,
+        fontFamily: "UrbanistMedium",
+        fontSize: 14
+    },
+    noFileText: {
+        fontFamily: "UrbanistMedium",
+        fontSize: 14,
+        color: COLORS.neutral400
+    },
+    text: {
+        color: "#868C98",
+        lineHeight: 16,
+        fontSize: 12,
+        fontFamily: "Urbanist"
+    }
+});
+// src/components/FileUpload/FileUpload.tsx
+import { ActivityIndicator as ActivityIndicator4, StyleSheet as StyleSheet23, Text as Text11, TouchableOpacity as TouchableOpacity14, View as View20 } from "react-native";
+import React37 from "react";
+// src/assets/svg/FileIcon.tsx
+import * as React32 from "react";
+import Svg10, { G, Path as Path10, Mask, Defs, ClipPath } from "react-native-svg";
+var SvgComponent10 = function(props) {
+    return /* @__PURE__ */ React32.createElement(Svg10, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React32.createElement(G, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React32.createElement(G, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React32.createElement(Path10, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React32.createElement(Path10, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React32.createElement(Path10, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React32.createElement(G, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React32.createElement(Mask, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React32.createElement(Path10, {
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React32.createElement(Path10, {
+        fill: "#DF1C41",
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React32.createElement(Path10, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm29 12H0h28ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm20-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React32.createElement(Path10, {
+        fill: "#fff",
+        d: "M3.79 30v-8h3c.614 0 1.13.115 1.546.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.558.34H4.78v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.398-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.141 1.141 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184H5.238V30H3.79Zm10.01 0h-2.712v-8h2.766c.794 0 1.476.16 2.047.48a3.212 3.212 0 0 1 1.32 1.372c.307.596.46 1.31.46 2.14 0 .834-.154 1.55-.464 2.149a3.212 3.212 0 0 1-1.332 1.379c-.578.32-1.273.48-2.086.48Zm-1.263-1.254h1.192c.557 0 1.022-.101 1.394-.305a1.95 1.95 0 0 0 .84-.918c.188-.408.281-.919.281-1.53 0-.613-.093-1.12-.28-1.524a1.918 1.918 0 0 0-.833-.91c-.364-.204-.818-.305-1.36-.305h-1.234v5.492ZM19.28 30v-8h5.125v1.215h-3.676v2.172h3.324v1.215h-3.324V30h-1.45Z"
+    }))), /* @__PURE__ */ React32.createElement(Defs, null, /* @__PURE__ */ React32.createElement(ClipPath, {
+        id: "a"
+    }, /* @__PURE__ */ React32.createElement(Path10, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FileIcon_default = SvgComponent10;
+// src/assets/svg/FileJPGIcon.tsx
+import * as React33 from "react";
+import Svg11, { G as G2, Path as Path11, Mask as Mask2, Defs as Defs2, ClipPath as ClipPath2 } from "react-native-svg";
+var SvgComponent11 = function(props) {
+    return /* @__PURE__ */ React33.createElement(Svg11, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React33.createElement(G2, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React33.createElement(G2, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React33.createElement(Path11, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React33.createElement(Path11, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React33.createElement(Path11, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React33.createElement(G2, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React33.createElement(Mask2, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React33.createElement(Path11, {
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React33.createElement(Path11, {
+        fill: "#375DFB",
+        d: "M0 22a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React33.createElement(Path11, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h20a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm29 12H0h28ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm20-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React33.createElement(Path11, {
+        fill: "#fff",
+        d: "M6.945 22h1.438v5.625c-.003.516-.112.96-.328 1.332-.216.37-.519.655-.907.855-.385.198-.834.297-1.347.297-.469 0-.89-.083-1.266-.25a2.063 2.063 0 0 1-.887-.75c-.218-.33-.328-.742-.328-1.234h1.442c.002.216.05.402.14.559a.937.937 0 0 0 .387.359c.164.083.353.125.566.125.232 0 .429-.048.59-.145a.927.927 0 0 0 .367-.437c.086-.193.13-.43.133-.711V22Zm3.23 8v-8h3c.615 0 1.13.115 1.547.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.559.34h-1.988v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.399-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.142 1.142 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184h-1.328V30h-1.449Zm12.659-5.445a2.068 2.068 0 0 0-.27-.567 1.743 1.743 0 0 0-.406-.433 1.639 1.639 0 0 0-.54-.27 2.249 2.249 0 0 0-.663-.094c-.43 0-.813.108-1.149.325-.336.216-.6.534-.793.953-.19.416-.285.924-.285 1.523 0 .604.095 1.116.285 1.535.19.42.455.739.793.957.339.216.732.325 1.18.325.406 0 .758-.079 1.055-.235.3-.156.53-.377.691-.664.162-.289.242-.627.242-1.015l.328.05H21.13v-1.133h3.247v.961c0 .685-.146 1.278-.438 1.778-.292.5-.693.885-1.203 1.156-.51.268-1.096.402-1.758.402-.737 0-1.384-.165-1.941-.496a3.433 3.433 0 0 1-1.301-1.418c-.31-.614-.465-1.343-.465-2.187 0-.646.091-1.223.273-1.73.185-.508.443-.94.774-1.294.33-.356.719-.627 1.164-.812.445-.188.93-.281 1.453-.281.443 0 .856.065 1.238.195.383.128.723.31 1.02.547.3.237.545.518.738.844.193.325.32.684.38 1.078h-1.477Z"
+    }))), /* @__PURE__ */ React33.createElement(Defs2, null, /* @__PURE__ */ React33.createElement(ClipPath2, {
+        id: "a"
+    }, /* @__PURE__ */ React33.createElement(Path11, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FileJPGIcon_default = SvgComponent11;
+// src/assets/svg/FilePNGIcon.tsx
+import * as React34 from "react";
+import Svg12, { G as G3, Path as Path12, Mask as Mask3, Defs as Defs3, ClipPath as ClipPath3 } from "react-native-svg";
+var SvgComponent12 = function(props) {
+    return /* @__PURE__ */ React34.createElement(Svg12, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 40,
+        height: 40,
+        fill: "none"
+    }, props), /* @__PURE__ */ React34.createElement(G3, {
+        clipPath: "url(#a)"
+    }, /* @__PURE__ */ React34.createElement(G3, {
+        filter: "url(#b)"
+    }, /* @__PURE__ */ React34.createElement(Path12, {
+        fill: "#fff",
+        d: "M30 40H10a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6h10.515a6 6 0 0 1 4.242 1.757l9.486 9.486A6 6 0 0 1 36 15.485V34a6 6 0 0 1-6 6Z"
+    }), /* @__PURE__ */ React34.createElement(Path12, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M10 .75h10.515a5.25 5.25 0 0 1 3.523 1.358l.189.18 9.485 9.485a5.25 5.25 0 0 1 1.538 3.712V34c0 2.9-2.35 5.25-5.25 5.25H10A5.25 5.25 0 0 1 4.75 34V6C4.75 3.1 7.1.75 10 .75Z"
+    })), /* @__PURE__ */ React34.createElement(Path12, {
+        stroke: "#CDD0D5",
+        strokeWidth: 1.5,
+        d: "M23 1v8a4 4 0 0 0 4 4h8"
+    }), /* @__PURE__ */ React34.createElement(G3, {
+        filter: "url(#c)"
+    }, /* @__PURE__ */ React34.createElement(Mask3, {
+        id: "d",
+        fill: "#fff"
+    }, /* @__PURE__ */ React34.createElement(Path12, {
+        d: "M0 22a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    })), /* @__PURE__ */ React34.createElement(Path12, {
+        fill: "#35B9E9",
+        d: "M0 22a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-8Z"
+    }), /* @__PURE__ */ React34.createElement(Path12, {
+        fill: "#000",
+        fillOpacity: 0.08,
+        d: "M-1 22a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3h-2Zm31 12H0h30ZM4 34a5 5 0 0 1-5-5v-7a5 5 0 0 1 5-5v2a3 3 0 0 0-3 3v8c0 2.21 1.343 4 3 4Zm22-17a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5c1.657 0 3-1.79 3-4v-8a3 3 0 0 0-3-3v-2Z",
+        mask: "url(#d)"
+    }), /* @__PURE__ */ React34.createElement(Path12, {
+        fill: "#fff",
+        d: "M3.79 30v-8h3c.614 0 1.13.115 1.546.344.42.229.736.544.95.945.215.398.323.852.323 1.36 0 .512-.108.968-.324 1.367a2.316 2.316 0 0 1-.957.941c-.422.227-.941.34-1.558.34H4.78v-1.192h1.793c.36 0 .654-.062.883-.187.23-.125.398-.297.508-.516.112-.218.168-.47.168-.754 0-.283-.056-.533-.168-.75a1.141 1.141 0 0 0-.512-.503c-.229-.123-.525-.184-.887-.184H5.238V30H3.79Zm13.872-8v8h-1.289l-3.77-5.45h-.066V30h-1.449v-8h1.297l3.766 5.453h.07V22h1.441Zm7.159 2.555a2.068 2.068 0 0 0-.27-.567 1.743 1.743 0 0 0-.406-.433 1.639 1.639 0 0 0-.539-.27 2.249 2.249 0 0 0-.664-.094c-.43 0-.813.108-1.148.325-.336.216-.6.534-.794.953-.19.416-.285.924-.285 1.523 0 .604.095 1.116.285 1.535.19.42.455.739.794.957.338.216.731.325 1.18.325.405 0 .757-.079 1.054-.235.3-.156.53-.377.691-.664.162-.289.242-.627.242-1.015l.329.05h-2.172v-1.133h3.246v.961c0 .685-.146 1.278-.438 1.778-.291.5-.692.885-1.203 1.156-.51.268-1.096.402-1.758.402-.737 0-1.384-.165-1.941-.496a3.433 3.433 0 0 1-1.3-1.418c-.31-.614-.466-1.343-.466-2.187 0-.646.091-1.223.274-1.73.185-.508.442-.94.773-1.294.331-.356.719-.627 1.164-.812.446-.188.93-.281 1.453-.281.443 0 .856.065 1.239.195.383.128.722.31 1.02.547.299.237.545.518.738.844.192.325.319.684.378 1.078h-1.476Z"
+    }))), /* @__PURE__ */ React34.createElement(Defs3, null, /* @__PURE__ */ React34.createElement(ClipPath3, {
+        id: "a"
+    }, /* @__PURE__ */ React34.createElement(Path12, {
+        fill: "#fff",
+        d: "M0 0h40v40H0z"
+    }))));
+};
+var FilePNGIcon_default = SvgComponent12;
+// src/assets/svg/DeleteFile.tsx
+import * as React35 from "react";
+import Svg13, { Path as Path13 } from "react-native-svg";
+var SvgComponent13 = function(props) {
+    return /* @__PURE__ */ React35.createElement(Svg13, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 20,
+        height: 20,
+        fill: "none"
+    }, props), /* @__PURE__ */ React35.createElement(Path13, {
+        fill: "#525866",
+        d: "M13.75 5.5h3.75V7H16v9.75a.75.75 0 0 1-.75.75H4.75a.75.75 0 0 1-.75-.75V7H2.5V5.5h3.75V3.25A.75.75 0 0 1 7 2.5h6a.75.75 0 0 1 .75.75V5.5ZM14.5 7h-9v9h9V7ZM7.75 9.25h1.5v4.5h-1.5v-4.5Zm3 0h1.5v4.5h-1.5v-4.5ZM7.75 4v1.5h4.5V4h-4.5Z"
+    }));
+};
+var DeleteFile_default = SvgComponent13;
+// src/assets/svg/Complete.tsx
+import * as React36 from "react";
+import Svg14, { Path as Path14 } from "react-native-svg";
+var SvgComponent14 = function(props) {
+    return /* @__PURE__ */ React36.createElement(Svg14, _object_spread({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: 12,
+        height: 13,
+        fill: "none"
+    }, props), /* @__PURE__ */ React36.createElement(Path14, {
+        fill: "#38C793",
+        d: "M6 12.5a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm-.598-3.6 4.242-4.243-.849-.848-3.393 3.394-1.698-1.697-.848.848L5.402 8.9Z"
+    }));
+};
+var Complete_default = SvgComponent14;
+// src/components/FileUpload/FileUpload.tsx
+var FileUpload = function(param) {
+    var fileSize = param.fileSize, fileType = param.fileType, fileName = param.fileName, fileLabel = param.fileLabel, removeImage = param.removeImage;
+    return /* @__PURE__ */ React37.createElement(View20, {
+        style: styles22.container
+    }, /* @__PURE__ */ React37.createElement(View20, {
+        style: [
+            customStyles.group,
+            {
+                gap: 12
+            }
+        ]
+    }, fileType === "PDF" ? /* @__PURE__ */ React37.createElement(FileIcon_default, null) : fileType === "PNG" ? /* @__PURE__ */ React37.createElement(FilePNGIcon_default, null) : /* @__PURE__ */ React37.createElement(FileJPGIcon_default, null), /* @__PURE__ */ React37.createElement(View20, null, /* @__PURE__ */ React37.createElement(Text11, {
+        style: styles22.text
+    }, fileName), /* @__PURE__ */ React37.createElement(View20, {
+        style: [
+            customStyles.group,
+            {
+                gap: 10,
+                marginTop: 6
+            }
+        ]
+    }, /* @__PURE__ */ React37.createElement(Text11, {
+        style: [
+            styles22.text,
+            {
+                color: COLORS.neutral200
+            }
+        ]
+    }, fileSize), fileLabel === "Uploading..." ? /* @__PURE__ */ React37.createElement(ActivityIndicator4, {
+        size: "small"
+    }) : /* @__PURE__ */ React37.createElement(Complete_default, null), /* @__PURE__ */ React37.createElement(Text11, {
+        style: [
+            styles22.text,
+            {
+                color: COLORS.neutral200
+            }
+        ]
+    }, fileLabel)))), /* @__PURE__ */ React37.createElement(TouchableOpacity14, {
+        style: {
+            alignItems: "flex-end"
+        },
+        onPress: removeImage
+    }, /* @__PURE__ */ React37.createElement(DeleteFile_default, null)));
+};
+var FileUpload_default = FileUpload;
+var styles22 = StyleSheet23.create({
+    container: {
+        backgroundColor: COLORS.white,
+        padding: 14,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: "#E2E4E9",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 12
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: "UrbanistMedium",
+        color: "#0A0D14"
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -3621,7 +3951,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-import React30, { createContext, useContext, useEffect as useEffect7, useState as useState11 } from "react";
+import React38, { createContext, useContext, useEffect as useEffect7, useState as useState11 } from "react";
 // src/config/socket.ts
 import { io } from "socket.io-client";
 var socket = null;
@@ -3720,7 +4050,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ React30.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ React38.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -4096,5 +4426,5 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
 //# sourceMappingURL=index.mjs.map

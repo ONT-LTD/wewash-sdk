@@ -29,3 +29,5 @@ export { default as LineIndicator } from './LineIndicator/LineIndicator';
 export { default as Accordion } from './Accordion/Accordion';
 export { default as ProfileCard } from './ProfileCard/ProfileCard';
 export { default as SearchInput } from './SearchInput/SearchInput';
+export { default as ChooseFile } from './ChooseFile/ChooseFile';
+export { default as FileUpload } from './FileUpload/FileUpload';
