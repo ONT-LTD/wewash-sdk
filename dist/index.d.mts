@@ -596,6 +596,7 @@ interface IProfileState {
     faqs: FAQS[] | [];
     configs: VehicleConfigs | {};
     loading: boolean;
+    supportedIDs: string[];
     error: any;
 }
 interface ITickets {
