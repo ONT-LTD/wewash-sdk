@@ -710,6 +710,9 @@ __export(index_exports, {
     },
     validationSchema: function() {
         return validationSchema;
+    },
+    walletServices: function() {
+        return walletServices;
     }
 });
 module.exports = __toCommonJS(index_exports);
@@ -4122,6 +4125,9 @@ var CHAT = "".concat(V1, "/chats");
 var TICKETS = "".concat(CHAT, "/tickets");
 var WASHES = "".concat(V1, "/washes");
 var ORDERS = "".concat(V1, "/orders");
+var KYC = "".concat(V1, "/kyc");
+var WALLET = "".concat(V1, "/wallets");
+var BANKS = "".concat(V1, "/users/banks");
 var ENDPOINT = {
     SIGN_IN: "".concat(AUTH, "/init/local"),
     SIGN_IN_WITH_GOOGLE: "".concat(AUTH, "/init/google"),
@@ -4165,7 +4171,12 @@ var ENDPOINT = {
     CREATE_TICKET: "".concat(TICKETS, "/create"),
     GET_TICKETS: "".concat(TICKETS, "/customer"),
     GET_TICKET_CONVERSATIONS: "".concat(TICKETS, "/conversations"),
-    SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support")
+    SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support"),
+    INITIATE_KYC: "".concat(KYC, "/initiate"),
+    KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
+    WALLET: "".concat(WALLET),
+    BANKS: "".concat(BANKS, "/local"),
+    ADD_BANKS: "".concat(BANKS)
 };
 // src/config/baseApi.ts
 var import_axios2 = __toESM(require("axios"));
@@ -4665,6 +4676,42 @@ var ProfileService = /*#__PURE__*/ function() {
             value: function NOTIFICATIONS() {
                 return baseApi_default.get("".concat(ENDPOINT.NOTIFICATIONS));
             }
+        },
+        {
+            key: "INITIATE_KYC",
+            value: function INITIATE_KYC(data) {
+                return baseApi_default.post("".concat(ENDPOINT.INITIATE_KYC), data);
+            }
+        },
+        {
+            key: "KYC_SUPPORTED_ID_TYPES",
+            value: function KYC_SUPPORTED_ID_TYPES() {
+                return baseApi_default.get("".concat(ENDPOINT.KYC_SUPPORTED_ID_TYPES));
+            }
+        },
+        {
+            key: "BANKS",
+            value: function BANKS() {
+                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+            }
+        },
+        {
+            key: "ADD_BANKS",
+            value: function ADD_BANKS(data) {
+                return baseApi_default.post("".concat(ENDPOINT.BANKS), data);
+            }
+        },
+        {
+            key: "USER_BANK",
+            value: function USER_BANK() {
+                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+            }
+        },
+        {
+            key: "DELETE_BANK",
+            value: function DELETE_BANK() {
+                return baseApi_default.delete("".concat(ENDPOINT.BANKS));
+            }
         }
     ]);
     return ProfileService;
@@ -4754,6 +4801,22 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
+// src/services/walletServices/walletServices.ts
+var walletService = /*#__PURE__*/ function() {
+    function walletService() {
+        _class_call_check(this, walletService);
+    }
+    _create_class(walletService, [
+        {
+            key: "WALLET",
+            value: function WALLET() {
+                return baseApi_default.get("".concat(ENDPOINT.WALLET));
+            }
+        }
+    ]);
+    return walletService;
+}();
+var walletServices = new walletService();
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
     API_URL: API_URL,
@@ -4845,6 +4908,7 @@ var ChatServices = new ChatService();
     useShareLink: useShareLink,
     useStorageState: useStorageState,
     useTimer: useTimer,
-    validationSchema: validationSchema
+    validationSchema: validationSchema,
+    walletServices: walletServices
 });
 //# sourceMappingURL=index.js.map

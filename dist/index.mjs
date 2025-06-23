@@ -3790,6 +3790,9 @@ var CHAT = "".concat(V1, "/chats");
 var TICKETS = "".concat(CHAT, "/tickets");
 var WASHES = "".concat(V1, "/washes");
 var ORDERS = "".concat(V1, "/orders");
+var KYC = "".concat(V1, "/kyc");
+var WALLET = "".concat(V1, "/wallets");
+var BANKS = "".concat(V1, "/users/banks");
 var ENDPOINT = {
     SIGN_IN: "".concat(AUTH, "/init/local"),
     SIGN_IN_WITH_GOOGLE: "".concat(AUTH, "/init/google"),
@@ -3833,7 +3836,12 @@ var ENDPOINT = {
     CREATE_TICKET: "".concat(TICKETS, "/create"),
     GET_TICKETS: "".concat(TICKETS, "/customer"),
     GET_TICKET_CONVERSATIONS: "".concat(TICKETS, "/conversations"),
-    SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support")
+    SEND_TICKET_MESSAGE: "".concat(CHAT, "/message/support"),
+    INITIATE_KYC: "".concat(KYC, "/initiate"),
+    KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
+    WALLET: "".concat(WALLET),
+    BANKS: "".concat(BANKS, "/local"),
+    ADD_BANKS: "".concat(BANKS)
 };
 // src/config/baseApi.ts
 import axios2 from "axios";
@@ -4336,6 +4344,42 @@ var ProfileService = /*#__PURE__*/ function() {
             value: function NOTIFICATIONS() {
                 return baseApi_default.get("".concat(ENDPOINT.NOTIFICATIONS));
             }
+        },
+        {
+            key: "INITIATE_KYC",
+            value: function INITIATE_KYC(data) {
+                return baseApi_default.post("".concat(ENDPOINT.INITIATE_KYC), data);
+            }
+        },
+        {
+            key: "KYC_SUPPORTED_ID_TYPES",
+            value: function KYC_SUPPORTED_ID_TYPES() {
+                return baseApi_default.get("".concat(ENDPOINT.KYC_SUPPORTED_ID_TYPES));
+            }
+        },
+        {
+            key: "BANKS",
+            value: function BANKS() {
+                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+            }
+        },
+        {
+            key: "ADD_BANKS",
+            value: function ADD_BANKS(data) {
+                return baseApi_default.post("".concat(ENDPOINT.BANKS), data);
+            }
+        },
+        {
+            key: "USER_BANK",
+            value: function USER_BANK() {
+                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+            }
+        },
+        {
+            key: "DELETE_BANK",
+            value: function DELETE_BANK() {
+                return baseApi_default.delete("".concat(ENDPOINT.BANKS));
+            }
         }
     ]);
     return ProfileService;
@@ -4426,5 +4470,22 @@ var ChatService = /*#__PURE__*/ function() {
     return ChatService;
 }();
 var ChatServices = new ChatService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema };
+// src/services/walletServices/walletServices.ts
+var walletService = /*#__PURE__*/ function() {
+    "use strict";
+    function walletService() {
+        _class_call_check(this, walletService);
+    }
+    _create_class(walletService, [
+        {
+            key: "WALLET",
+            value: function WALLET() {
+                return baseApi_default.get("".concat(ENDPOINT.WALLET));
+            }
+        }
+    ]);
+    return walletService;
+}();
+var walletServices = new walletService();
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema, walletServices };
 //# sourceMappingURL=index.mjs.map
