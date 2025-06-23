@@ -6,7 +6,8 @@ import {
   IVehicleUpdateData,
   IActivateBiometrics,
   IUpdatePasswordData,
-  IReferralParam
+  IReferralParam,
+  KYCType
 } from './types';
 
 class ProfileService {
@@ -81,6 +82,12 @@ class ProfileService {
   }
   NOTIFICATIONS() {
     return api.get(`${ENDPOINT.NOTIFICATIONS}`);
+  }
+  INITIATE_KYC(data: KYCType) {
+    return api.post(`${ENDPOINT.INITIATE_KYC}`, data);
+  }
+  KYC_SUPPORTED_ID_TYPES() {
+    return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
   }
 }
 

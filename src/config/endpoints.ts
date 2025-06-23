@@ -6,6 +6,7 @@ const CHAT = `${V1}/chats`;
 const TICKETS = `${CHAT}/tickets`;
 const WASHES = `${V1}/washes`;
 const ORDERS = `${V1}/orders`;
+const KYC = `${V1}/kyc`;
 
 export const ENDPOINT = {
   SIGN_IN: `${AUTH}/init/local`,
@@ -50,5 +51,7 @@ export const ENDPOINT = {
   CREATE_TICKET: `${TICKETS}/create`,
   GET_TICKETS: `${TICKETS}/customer`,
   GET_TICKET_CONVERSATIONS: `${TICKETS}/conversations`,
-  SEND_TICKET_MESSAGE: `${CHAT}/message/support`
+  SEND_TICKET_MESSAGE: `${CHAT}/message/support`,
+  INITIATE_KYC: `${KYC}/initiate`,
+  KYC_SUPPORTED_ID_TYPES: `${KYC}/supported-ids`
 };

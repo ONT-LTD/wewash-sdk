@@ -170,6 +170,19 @@ export type Notification = {
   updatedAt: string;
 };
 
+export type KYCIdType =
+  | 'bvn'
+  | 'nin'
+  | 'drivers-license'
+  | 'voters-card'
+  | 'international-passport'
+  | 'national-id';
+
+export type KYCType = {
+  kycDoc: KYCIdType;
+  userId: string;
+};
+
 export type VehicleResponse = ApiResponse<{ vehicle: Vehicle }>;
 export type FAQResponse = ApiResponse<{ faqs: FAQS[] }>;
 export type VehicleConfigResponse = ApiResponse<{ configs: VehicleConfigs }>;
@@ -181,3 +194,10 @@ export type ProfileNotificationResponse = ApiResponse<{
 export type ReferralResponse = ApiResponse<{ referrals: Referral }>;
 export type ReferralConfigResponse = ApiResponse<{ config: any }>;
 export type GoogleMapResponse = ApiResponse<any>;
+
+export type KycResponse = ApiResponse<{
+  link: string;
+  reference: string;
+}>;
+
+export type SupportedKycResponse = ApiResponse<string[]>;

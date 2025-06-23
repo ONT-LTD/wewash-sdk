@@ -3,6 +3,7 @@ export interface ISignInType {
   password: string;
   authenticateBy: 'phone-number' | 'email';
   context: string;
+  userType?: 'customer' | 'washer';
 }
 
 export interface ISignInWithBiometricsType {
