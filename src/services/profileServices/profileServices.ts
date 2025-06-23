@@ -7,7 +7,8 @@ import {
   IActivateBiometrics,
   IUpdatePasswordData,
   IReferralParam,
-  KYCType
+  KYCType,
+  BankData
 } from './types';
 
 class ProfileService {
@@ -88,6 +89,18 @@ class ProfileService {
   }
   KYC_SUPPORTED_ID_TYPES() {
     return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
+  }
+  BANKS() {
+    return api.get(`${ENDPOINT.BANKS}`);
+  }
+  ADD_BANKS(data: BankData) {
+    return api.post(`${ENDPOINT.BANKS}`, data);
+  }
+  USER_BANK() {
+    return api.get(`${ENDPOINT.BANKS}`);
+  }
+  DELETE_BANK() {
+    return api.delete(`${ENDPOINT.BANKS}`);
   }
 }
 

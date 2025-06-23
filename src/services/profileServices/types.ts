@@ -183,6 +183,11 @@ export type KYCType = {
   userId: string;
 };
 
+export type BankData = {
+  accountNumber: string;
+  bankCode: string;
+};
+
 export type VehicleResponse = ApiResponse<{ vehicle: Vehicle }>;
 export type FAQResponse = ApiResponse<{ faqs: FAQS[] }>;
 export type VehicleConfigResponse = ApiResponse<{ configs: VehicleConfigs }>;
@@ -201,3 +206,4 @@ export type KycResponse = ApiResponse<{
 }>;
 
 export type SupportedKycResponse = ApiResponse<string[]>;
+export type BanksResponse = ApiResponse<any>;
