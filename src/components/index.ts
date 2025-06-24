@@ -31,3 +31,4 @@ export { default as ProfileCard } from './ProfileCard/ProfileCard';
 export { default as SearchInput } from './SearchInput/SearchInput';
 export { default as ChooseFile } from './ChooseFile/ChooseFile';
 export { default as FileUpload } from './FileUpload/FileUpload';
+export { default as DetailInfo } from './DetailInfo/DetailInfo';

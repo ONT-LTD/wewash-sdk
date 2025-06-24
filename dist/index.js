@@ -510,6 +510,9 @@ __export(index_exports, {
     CustomUrbanistTitle: function() {
         return CustomUrbanistTitle;
     },
+    DetailInfo: function() {
+        return DetailInfo_default;
+    },
     ENDPOINT: function() {
         return ENDPOINT;
     },
@@ -3491,6 +3494,39 @@ var styles22 = import_react_native27.StyleSheet.create({
         color: "#0A0D14"
     }
 });
+// src/components/DetailInfo/DetailInfo.tsx
+var import_react_native28 = require("react-native");
+var import_react24 = __toESM(require("react"));
+var DetailInfo = function(param) {
+    var label = param.label, value = param.value, _param_marginBottom = param.marginBottom, marginBottom = _param_marginBottom === void 0 ? 16 : _param_marginBottom;
+    return /* @__PURE__ */ import_react24.default.createElement(import_react_native28.View, {
+        style: [
+            customStyles.groupSpaceBetween,
+            {
+                marginBottom: marginBottom
+            }
+        ]
+    }, /* @__PURE__ */ import_react24.default.createElement(CustomTextNeutral, {
+        style: styles23.label
+    }, label), /* @__PURE__ */ import_react24.default.createElement(CustomTextNeutral, {
+        style: styles23.text
+    }, value));
+};
+var DetailInfo_default = DetailInfo;
+var styles23 = import_react_native28.StyleSheet.create({
+    label: {
+        color: COLORS.neutral200,
+        fontSize: 14,
+        lineHeight: 21,
+        fontFamily: "Urbanist"
+    },
+    text: {
+        color: COLORS.neutral700,
+        fontFamily: "UrbanistMedium",
+        fontSize: 16,
+        lineHeight: 21
+    }
+});
 // src/types/others.ts
 var EResult = /* @__PURE__ */ function(EResult2) {
     EResult2["CANCELLED"] = "CANCELLED";
@@ -3530,13 +3566,13 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     return apiContext2;
 }(apiContext || {});
 // src/hooks/useModal/useModal.tsx
-var import_react24 = require("react");
+var import_react25 = require("react");
 var useModal = function() {
-    var _ref = _sliced_to_array((0, import_react24.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
-    var onOpen = (0, import_react24.useCallback)(function() {
+    var _ref = _sliced_to_array((0, import_react25.useState)(false), 2), visible = _ref[0], setVisible = _ref[1];
+    var onOpen = (0, import_react25.useCallback)(function() {
         setVisible(true);
     }, []);
-    var onClose = (0, import_react24.useCallback)(function() {
+    var onClose = (0, import_react25.useCallback)(function() {
         setVisible(false);
     }, []);
     return {
@@ -3546,10 +3582,10 @@ var useModal = function() {
     };
 };
 // src/hooks/useShareLink/useShareLink.tsx
-var import_react25 = require("react");
-var import_react_native28 = require("react-native");
+var import_react26 = require("react");
+var import_react_native29 = require("react-native");
 var useShareLink = function() {
-    var shareLink = (0, import_react25.useCallback)(/*#__PURE__*/ function() {
+    var shareLink = (0, import_react26.useCallback)(/*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(content, options) {
             var result, error;
             return _ts_generator(this, function(_state) {
@@ -3563,17 +3599,17 @@ var useShareLink = function() {
                         ]);
                         return [
                             4,
-                            import_react_native28.Share.share(content, options)
+                            import_react_native29.Share.share(content, options)
                         ];
                     case 1:
                         result = _state.sent();
-                        if (result.action === import_react_native28.Share.sharedAction) {
+                        if (result.action === import_react_native29.Share.sharedAction) {
                             if (result.activityType) {
                                 console.log("Shared with activity type: ".concat(result.activityType));
                             } else {
                                 console.log("Link shared successfully");
                             }
-                        } else if (result.action === import_react_native28.Share.dismissedAction) {
+                        } else if (result.action === import_react_native29.Share.dismissedAction) {
                             console.log("Share dismissed");
                         }
                         return [
@@ -3603,11 +3639,11 @@ var useShareLink = function() {
     };
 };
 // src/hooks/useTimer/useTimer.tsx
-var import_react26 = require("react");
+var import_react27 = require("react");
 var useTimer = function(initialSeconds) {
-    var _ref = _sliced_to_array((0, import_react26.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react26.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
-    (0, import_react26.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react27.useState)(initialSeconds), 2), seconds = _ref[0], setSeconds = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react27.useState)(false), 2), isFinished = _ref1[0], setIsFinished = _ref1[1];
+    (0, import_react27.useEffect)(function() {
         var timer = null;
         if (seconds > 0) {
             timer = setTimeout(function() {
@@ -3634,14 +3670,14 @@ var useTimer = function(initialSeconds) {
     };
 };
 // src/hooks/useCountDown/useCountDown.ts
-var import_react27 = require("react");
+var import_react28 = require("react");
 var useCountdown = function(minutes) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, onStart = _ref.onStart, onComplete = _ref.onComplete;
-    var _ref1 = _sliced_to_array((0, import_react27.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
-    var intervalRef = (0, import_react27.useRef)(null);
-    var hasStarted = (0, import_react27.useRef)(false);
-    var hasCompleted = (0, import_react27.useRef)(false);
-    (0, import_react27.useEffect)(function() {
+    var _ref1 = _sliced_to_array((0, import_react28.useState)(minutes > 0 ? minutes * 60 : 0), 2), timeLeft = _ref1[0], setTimeLeft = _ref1[1];
+    var intervalRef = (0, import_react28.useRef)(null);
+    var hasStarted = (0, import_react28.useRef)(false);
+    var hasCompleted = (0, import_react28.useRef)(false);
+    (0, import_react28.useEffect)(function() {
         if (minutes > 0) {
             setTimeLeft(minutes * 60);
             hasStarted.current = false;
@@ -3650,7 +3686,7 @@ var useCountdown = function(minutes) {
     }, [
         minutes
     ]);
-    (0, import_react27.useEffect)(function() {
+    (0, import_react28.useEffect)(function() {
         if (timeLeft > 0 && !hasStarted.current) {
             hasStarted.current = true;
             onStart === null || onStart === void 0 ? void 0 : onStart();
@@ -3692,13 +3728,13 @@ var useCountdown = function(minutes) {
 };
 // src/hooks/useBiometrics/useBiometrics.tsx
 var LocalAuthentication = __toESM(require("expo-local-authentication"));
-var import_react28 = require("react");
+var import_react29 = require("react");
 var useBiometrics = function() {
-    var _ref = _sliced_to_array((0, import_react28.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react28.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react28.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react28.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react28.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react29.useState)(false), 2), facialRecognitionAvailable = _ref[0], setFacialRecognitionAvailable = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react29.useState)(false), 2), fingerprintAvailable = _ref1[0], setFingerprintAvailable = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react29.useState)(false), 2), irisAvailable = _ref2[0], setIrisAvailable = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react29.useState)(false), 2), loading = _ref3[0], setLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react29.useState)(), 2), result = _ref4[0], setResult = _ref4[1];
     var checkSupportedAuthentication = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function() {
             var types;
@@ -3784,7 +3820,7 @@ var useBiometrics = function() {
             return _ref.apply(this, arguments);
         };
     }();
-    (0, import_react28.useEffect)(function() {
+    (0, import_react29.useEffect)(function() {
         checkSupportedAuthentication();
     }, []);
     var resultMessage;
@@ -3814,11 +3850,11 @@ var useBiometrics = function() {
     };
 };
 // src/hooks/useDateTimePicker/useDateTimePicker.ts
-var import_react29 = require("react");
+var import_react30 = require("react");
 var useDateTimePicker = function() {
-    var _ref = _sliced_to_array((0, import_react29.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react29.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react29.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
+    var _ref = _sliced_to_array((0, import_react30.useState)(false), 2), isPickerVisible = _ref[0], setIsPickerVisible = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react30.useState)("date"), 2), pickerMode = _ref1[0], setPickerMode = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react30.useState)(null), 2), selectedDateTime = _ref2[0], setSelectedDateTime = _ref2[1];
     var showPicker = function(mode) {
         setPickerMode(mode);
         setIsPickerVisible(true);
@@ -3848,18 +3884,18 @@ var useDateTimePicker = function() {
     };
 };
 // src/hooks/useGooglePlaces/useGooglePlaces.ts
-var import_react30 = require("react");
+var import_react31 = require("react");
 var import_axios = __toESM(require("axios"));
 var Location = __toESM(require("expo-location"));
 var useGooglePlaces = function(apiKey) {
     if (!apiKey) {
         console.error("[useGooglePlaces] Google API key is missing. Please provide a valid API key.");
     }
-    var _ref = _sliced_to_array((0, import_react30.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
-    var _ref1 = _sliced_to_array((0, import_react30.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
-    var _ref2 = _sliced_to_array((0, import_react30.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
-    var _ref3 = _sliced_to_array((0, import_react30.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
-    var _ref4 = _sliced_to_array((0, import_react30.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
+    var _ref = _sliced_to_array((0, import_react31.useState)(""), 2), query = _ref[0], setQuery = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react31.useState)([]), 2), predictions = _ref1[0], setPredictions = _ref1[1];
+    var _ref2 = _sliced_to_array((0, import_react31.useState)(null), 2), placeDetails = _ref2[0], setPlaceDetails = _ref2[1];
+    var _ref3 = _sliced_to_array((0, import_react31.useState)(false), 2), isLoading = _ref3[0], setIsLoading = _ref3[1];
+    var _ref4 = _sliced_to_array((0, import_react31.useState)(null), 2), error = _ref4[0], setError = _ref4[1];
     var fetchPredictions = /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(text) {
             var response, error2;
@@ -4190,15 +4226,15 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react31 = require("react");
+var import_react32 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native29 = require("react-native");
+var import_react_native30 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react31.useReducer)(function(state) {
+    return (0, import_react32.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -4214,7 +4250,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native29.Platform.OS === "web")) return [
+                    if (!(import_react_native30.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -4265,8 +4301,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react31.useEffect)(function() {
-        if (import_react_native29.Platform.OS === "web") {
+    (0, import_react32.useEffect)(function() {
+        if (import_react_native30.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -4282,7 +4318,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react31.useCallback)(function(value) {
+    var setValue = (0, import_react32.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -4294,7 +4330,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react32 = __toESM(require("react"));
+var import_react33 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -4340,13 +4376,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react32.createContext)({
+var SocketContext = (0, import_react33.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react32.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react32.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react33.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react33.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4393,7 +4429,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react32.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react33.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -4842,6 +4878,7 @@ var walletServices = new walletService();
     CustomUrbanistSubtitle: CustomUrbanistSubtitle,
     CustomUrbanistText: CustomUrbanistText,
     CustomUrbanistTitle: CustomUrbanistTitle,
+    DetailInfo: DetailInfo,
     ENDPOINT: ENDPOINT,
     EResult: EResult,
     ETab: ETab,
