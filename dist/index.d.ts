@@ -597,6 +597,7 @@ interface IProfileState {
     configs: VehicleConfigs | {};
     loading: boolean;
     supportedIDs: string[];
+    banks: [] | any;
     error: any;
 }
 interface ITickets {
