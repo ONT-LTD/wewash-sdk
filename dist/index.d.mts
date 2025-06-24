@@ -598,6 +598,7 @@ interface IProfileState {
     loading: boolean;
     supportedIDs: string[];
     banks: [] | any;
+    userBank: {} | any;
     error: any;
 }
 interface ITickets {
