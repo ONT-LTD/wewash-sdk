@@ -513,7 +513,7 @@ var CustomButton = forwardRef(function(param, ref) {
     }, title), isLoading && /* @__PURE__ */ React.createElement(ActivityIndicator, {
         size: "small",
         color: COLORS.black
-    }), iconRight && iconRight) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
+    }), iconRight) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
         ref: ref,
         onPress: onPress,
         disabled: isLoading,

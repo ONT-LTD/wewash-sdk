@@ -858,7 +858,7 @@ var CustomButton = (0, import_react.forwardRef)(function(param, ref) {
     }, title), isLoading && /* @__PURE__ */ import_react.default.createElement(import_react_native2.ActivityIndicator, {
         size: "small",
         color: COLORS.black
-    }), iconRight && iconRight) : /* @__PURE__ */ import_react.default.createElement(import_react_native2.TouchableOpacity, {
+    }), iconRight) : /* @__PURE__ */ import_react.default.createElement(import_react_native2.TouchableOpacity, {
         ref: ref,
         onPress: onPress,
         disabled: isLoading,
