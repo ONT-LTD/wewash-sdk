@@ -3827,6 +3827,149 @@ var useGooglePlaces = function(apiKey) {
         getCurrentLocation: getCurrentLocation
     };
 };
+// src/hooks/useReceiptPDF/useReceiptPDF.ts
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
+import { useRef as useRef5 } from "react";
+import { captureRef } from "react-native-view-shot";
+var useReceiptPDF = function() {
+    var receiptRef = useRef5(null);
+    var generatePDF = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(modalData) {
+            var vehicles, addOns, uri, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        vehicles = modalData === null || modalData === void 0 ? void 0 : modalData.washDetails.flatMap(function(item) {
+                            return item.vehicle || [];
+                        });
+                        addOns = modalData === null || modalData === void 0 ? void 0 : modalData.washDetails.flatMap(function(item) {
+                            return item.addons || [];
+                        });
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            4,
+                            ,
+                            5
+                        ]);
+                        return [
+                            4,
+                            Print.printToFileAsync({
+                                html: htmlContent(modalData, vehicles, addOns),
+                                base64: false
+                            })
+                        ];
+                    case 2:
+                        uri = _state.sent().uri;
+                        return [
+                            4,
+                            Sharing.shareAsync(uri, {
+                                UTI: ".pdf",
+                                mimeType: "application/pdf"
+                            })
+                        ];
+                    case 3:
+                        _state.sent();
+                        return [
+                            2,
+                            true
+                        ];
+                    case 4:
+                        error = _state.sent();
+                        console.error("Error generating PDF:", error);
+                        return [
+                            2,
+                            false
+                        ];
+                    case 5:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function generatePDF(modalData) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    var captureAndShare = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var uri, isAvailable, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            6,
+                            ,
+                            7
+                        ]);
+                        if (!receiptRef.current) return [
+                            2
+                        ];
+                        return [
+                            4,
+                            captureRef(receiptRef.current, {
+                                quality: 1,
+                                format: "png"
+                            })
+                        ];
+                    case 1:
+                        uri = _state.sent();
+                        return [
+                            4,
+                            Sharing.isAvailableAsync()
+                        ];
+                    case 2:
+                        isAvailable = _state.sent();
+                        if (!isAvailable) return [
+                            3,
+                            4
+                        ];
+                        return [
+                            4,
+                            Sharing.shareAsync(uri)
+                        ];
+                    case 3:
+                        _state.sent();
+                        return [
+                            3,
+                            5
+                        ];
+                    case 4:
+                        console.warn("Sharing is not available on this device.");
+                        _state.label = 5;
+                    case 5:
+                        return [
+                            3,
+                            7
+                        ];
+                    case 6:
+                        error = _state.sent();
+                        console.error("Error capturing and sharing screenshot:", error);
+                        return [
+                            3,
+                            7
+                        ];
+                    case 7:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function captureAndShare() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    return {
+        receiptRef: receiptRef,
+        captureAndShare: captureAndShare,
+        generatePDF: generatePDF
+    };
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4533,5 +4676,5 @@ var walletService = /*#__PURE__*/ function() {
     return walletService;
 }();
 var walletServices = new walletService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema, walletServices };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useStorageState, useTimer, validationSchema, walletServices };
 //# sourceMappingURL=index.mjs.map

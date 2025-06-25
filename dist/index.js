@@ -705,6 +705,9 @@ __export(index_exports, {
     useModal: function() {
         return useModal;
     },
+    useReceiptPDF: function() {
+        return useReceiptPDF;
+    },
     useShareLink: function() {
         return useShareLink;
     },
@@ -4168,6 +4171,149 @@ var useGooglePlaces = function(apiKey) {
         getCurrentLocation: getCurrentLocation
     };
 };
+// src/hooks/useReceiptPDF/useReceiptPDF.ts
+var Print = __toESM(require("expo-print"));
+var Sharing = __toESM(require("expo-sharing"));
+var import_react32 = require("react");
+var import_react_native_view_shot = require("react-native-view-shot");
+var useReceiptPDF = function() {
+    var receiptRef = (0, import_react32.useRef)(null);
+    var generatePDF = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(modalData) {
+            var vehicles, addOns, uri, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        vehicles = modalData === null || modalData === void 0 ? void 0 : modalData.washDetails.flatMap(function(item) {
+                            return item.vehicle || [];
+                        });
+                        addOns = modalData === null || modalData === void 0 ? void 0 : modalData.washDetails.flatMap(function(item) {
+                            return item.addons || [];
+                        });
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            4,
+                            ,
+                            5
+                        ]);
+                        return [
+                            4,
+                            Print.printToFileAsync({
+                                html: htmlContent(modalData, vehicles, addOns),
+                                base64: false
+                            })
+                        ];
+                    case 2:
+                        uri = _state.sent().uri;
+                        return [
+                            4,
+                            Sharing.shareAsync(uri, {
+                                UTI: ".pdf",
+                                mimeType: "application/pdf"
+                            })
+                        ];
+                    case 3:
+                        _state.sent();
+                        return [
+                            2,
+                            true
+                        ];
+                    case 4:
+                        error = _state.sent();
+                        console.error("Error generating PDF:", error);
+                        return [
+                            2,
+                            false
+                        ];
+                    case 5:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function generatePDF(modalData) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    var captureAndShare = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var uri, isAvailable, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            6,
+                            ,
+                            7
+                        ]);
+                        if (!receiptRef.current) return [
+                            2
+                        ];
+                        return [
+                            4,
+                            (0, import_react_native_view_shot.captureRef)(receiptRef.current, {
+                                quality: 1,
+                                format: "png"
+                            })
+                        ];
+                    case 1:
+                        uri = _state.sent();
+                        return [
+                            4,
+                            Sharing.isAvailableAsync()
+                        ];
+                    case 2:
+                        isAvailable = _state.sent();
+                        if (!isAvailable) return [
+                            3,
+                            4
+                        ];
+                        return [
+                            4,
+                            Sharing.shareAsync(uri)
+                        ];
+                    case 3:
+                        _state.sent();
+                        return [
+                            3,
+                            5
+                        ];
+                    case 4:
+                        console.warn("Sharing is not available on this device.");
+                        _state.label = 5;
+                    case 5:
+                        return [
+                            3,
+                            7
+                        ];
+                    case 6:
+                        error = _state.sent();
+                        console.error("Error capturing and sharing screenshot:", error);
+                        return [
+                            3,
+                            7
+                        ];
+                    case 7:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function captureAndShare() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    return {
+        receiptRef: receiptRef,
+        captureAndShare: captureAndShare,
+        generatePDF: generatePDF
+    };
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4242,7 +4388,7 @@ var api = import_axios2.default.create({
 });
 var baseApi_default = api;
 // src/config/useStorageState.ts
-var import_react32 = require("react");
+var import_react33 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
 var import_react_native30 = require("react-native");
 function useAsyncState() {
@@ -4250,7 +4396,7 @@ function useAsyncState() {
         true,
         null
     ];
-    return (0, import_react32.useReducer)(function(state) {
+    return (0, import_react33.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -4317,7 +4463,7 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react32.useEffect)(function() {
+    (0, import_react33.useEffect)(function() {
         if (import_react_native30.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
@@ -4334,7 +4480,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react32.useCallback)(function(value) {
+    var setValue = (0, import_react33.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -4346,7 +4492,7 @@ function useStorageState(key) {
     ];
 }
 // src/context/socket.tsx
-var import_react33 = __toESM(require("react"));
+var import_react34 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 var socket = null;
@@ -4392,13 +4538,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react33.createContext)({
+var SocketContext = (0, import_react34.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react33.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react33.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react34.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react34.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4445,7 +4591,7 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react33.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react34.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
@@ -4959,6 +5105,7 @@ var walletServices = new walletService();
     useDateTimePicker: useDateTimePicker,
     useGooglePlaces: useGooglePlaces,
     useModal: useModal,
+    useReceiptPDF: useReceiptPDF,
     useShareLink: useShareLink,
     useStorageState: useStorageState,
     useTimer: useTimer,

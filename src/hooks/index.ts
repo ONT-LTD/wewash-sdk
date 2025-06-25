@@ -5,3 +5,4 @@ export { useCountdown } from './useCountDown/useCountDown';
 export { useBiometrics } from './useBiometrics/useBiometrics';
 export { useDateTimePicker } from './useDateTimePicker/useDateTimePicker';
 export { useGooglePlaces } from './useGooglePlaces/useGooglePlaces';
+export { useReceiptPDF } from './useReceiptPDF/useReceiptPDF';

@@ -1,6 +1,7 @@
 import * as react_native from 'react-native';
-import { Text, TextInputProps, ShareContent, ShareOptions } from 'react-native';
-import React$1, { FC, ReactNode } from 'react';
+import { Text, TextInputProps, ShareContent, ShareOptions, View } from 'react-native';
+import * as React$1 from 'react';
+import React__default, { FC, ReactNode } from 'react';
 import * as Yup from 'yup';
 import { ToastType } from 'react-native-toast-message';
 import * as axios from 'axios';
@@ -860,17 +861,17 @@ interface IRequestError {
 
 type walletResponse = ApiResponse<{}>;
 
-declare const CustomButton: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<React$1.ForwardRefExoticComponent<react_native.TouchableOpacityProps & React$1.RefAttributes<react_native.View>>>>;
+declare const CustomButton: React__default.ForwardRefExoticComponent<ButtonProps & React__default.RefAttributes<React__default.ForwardRefExoticComponent<react_native.TouchableOpacityProps & React__default.RefAttributes<react_native.View>>>>;
 
-declare function CustomTextNeutral(props: TextProps): React$1.JSX.Element;
-declare function CustomTitle(props: TextProps): React$1.JSX.Element;
-declare function CustomTitleMedium(props: TextProps): React$1.JSX.Element;
-declare function CustomUrbanistTitle(props: TextProps): React$1.JSX.Element;
-declare function CustomSubtitle(props: TextProps): React$1.JSX.Element;
-declare function CustomUrbanistSubtitle(props: TextProps): React$1.JSX.Element;
-declare function CustomText(props: TextProps): React$1.JSX.Element;
-declare function CustomTextItalics(props: TextProps): React$1.JSX.Element;
-declare function CustomUrbanistText(props: TextProps): React$1.JSX.Element;
+declare function CustomTextNeutral(props: TextProps): React__default.JSX.Element;
+declare function CustomTitle(props: TextProps): React__default.JSX.Element;
+declare function CustomTitleMedium(props: TextProps): React__default.JSX.Element;
+declare function CustomUrbanistTitle(props: TextProps): React__default.JSX.Element;
+declare function CustomSubtitle(props: TextProps): React__default.JSX.Element;
+declare function CustomUrbanistSubtitle(props: TextProps): React__default.JSX.Element;
+declare function CustomText(props: TextProps): React__default.JSX.Element;
+declare function CustomTextItalics(props: TextProps): React__default.JSX.Element;
+declare function CustomUrbanistText(props: TextProps): React__default.JSX.Element;
 
 type Props$i = {
     title: string;
@@ -895,7 +896,7 @@ type InputFieldProps = ({
     onBlur?: (e: any) => void;
     placeholder?: string;
     error?: string;
-    icon?: React$1.ReactNode;
+    icon?: React__default.ReactNode;
     onIconPress?: () => void;
     secureTextEntry?: boolean;
     multiline?: boolean;
@@ -903,15 +904,15 @@ type InputFieldProps = ({
     marginBottom?: number;
     disabled?: boolean;
 } & TextInputProps);
-declare const CustomInput: React$1.FC<InputFieldProps>;
+declare const CustomInput: React__default.FC<InputFieldProps>;
 
 interface Props$g {
-    inner: React$1.ReactNode;
-    innerTop?: React$1.ReactNode;
+    inner: React__default.ReactNode;
+    innerTop?: React__default.ReactNode;
     onClose: any;
     visible: boolean;
     snapPoint?: string | number;
-    searchIcon?: React$1.ReactNode;
+    searchIcon?: React__default.ReactNode;
     disabledBg?: boolean;
 }
 declare const CustomModal: FC<Props$g>;
@@ -948,7 +949,7 @@ type Props$c = {
     subtitle?: string;
     subTitleMarginBottom?: number;
     subTitleWidth?: number;
-    icon?: React$1.ReactNode;
+    icon?: React__default.ReactNode;
     buttonTitle?: string;
     secondButton?: boolean;
     secondButtonTitle?: string;
@@ -957,12 +958,12 @@ type Props$c = {
     loading?: boolean;
     marginHorizontal?: number;
 };
-declare const ModalContent: ({ onPress, title, subtitle, icon, buttonTitle, secondButton, secondButtonTitle, subTitleMarginBottom, subTitleWidth, marginHorizontal, secondButtonOnPress, isRowButton, loading }: Props$c) => React$1.JSX.Element;
+declare const ModalContent: ({ onPress, title, subtitle, icon, buttonTitle, secondButton, secondButtonTitle, subTitleMarginBottom, subTitleWidth, marginHorizontal, secondButtonOnPress, isRowButton, loading }: Props$c) => React__default.JSX.Element;
 
 type Props$b = {
     title: string;
     description: string;
-    icon?: React$1.ReactNode;
+    icon?: React__default.ReactNode;
     marginTop?: number;
 };
 declare const EmptyList: FC<Props$b>;
@@ -978,7 +979,7 @@ type Props$9 = {
     goBackLink?: string | any;
     isNotAuth?: boolean;
 };
-declare function Header({ title, goBackLink, isNotAuth }: Props$9): React$1.JSX.Element;
+declare function Header({ title, goBackLink, isNotAuth }: Props$9): React__default.JSX.Element;
 
 type Props$8 = {
     tabList: TabType[];
@@ -1000,18 +1001,18 @@ type Props$6 = {
     maxLength: number;
     onCodeFilled: (code: string) => void;
 };
-declare const OTPInput: React$1.FC<Props$6>;
+declare const OTPInput: React__default.FC<Props$6>;
 
 type Props$5 = {
     item: Notification;
 };
 declare const NotificationItem: FC<Props$5>;
 
-declare const LineLoadingIndicator: React$1.FC;
+declare const LineLoadingIndicator: React__default.FC;
 
 type AccordionProps = {
     title: string;
-    children: React$1.ReactNode;
+    children: React__default.ReactNode;
     initiallyExpanded?: boolean;
     style?: object;
 };
@@ -1020,7 +1021,7 @@ declare const Accordion: FC<AccordionProps>;
 type Props$4 = {
     title: string;
     subTitle?: string;
-    icon: React$1.ReactNode;
+    icon: React__default.ReactNode;
     onPress?: () => void;
     isSwitch?: boolean;
     isEnabled?: boolean;
@@ -1036,10 +1037,10 @@ type Props$3 = {
     text: string;
     setText: (v: string) => void;
     placeholder?: string;
-    icon: React$1.ReactNode;
+    icon: React__default.ReactNode;
     height?: number;
     borderRadius?: number;
-    iconRight?: React$1.ReactNode;
+    iconRight?: React__default.ReactNode;
 };
 declare const SearchInput: FC<Props$3>;
 
@@ -1328,6 +1329,12 @@ declare const useGooglePlaces: (apiKey: string) => {
     getCurrentLocation: () => Promise<any>;
 };
 
+declare const useReceiptPDF: () => {
+    receiptRef: React$1.RefObject<View>;
+    captureAndShare: () => Promise<void>;
+    generatePDF: (modalData: IWash) => Promise<boolean>;
+};
+
 declare const ENDPOINT: {
     SIGN_IN: string;
     SIGN_IN_WITH_GOOGLE: string;
@@ -1469,4 +1476,4 @@ declare class walletService {
 }
 declare const walletServices: walletService;
 
-export { API_URL, Accordion, type Addon, type Address, type ApiResponse, AuthServices, type BankData, type BanksResponse, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, ChooseFile, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, DetailInfo, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, FileUpload, type GetWashResponse, type GoogleMapResponse, Header, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type KYCIdType, type KYCType, type KycResponse, LineLoadingIndicator as LineIndicator, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, NotificationItem, OTPInput, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, PaymentModal, type PriceBreakdown, type Profile, ProfileCard, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SearchInput, type SocketOrderDetailsPayload, SocketProvider, type SupportedKycResponse, Tab, type TabType, type TextProps, type TicketConversationResponse, TicketItem, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, type notificationDataType, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useShareLink, useStorageState, useTimer, validationSchema, type walletResponse, walletServices };
+export { API_URL, Accordion, type Addon, type Address, type ApiResponse, AuthServices, type BankData, type BanksResponse, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, ChooseFile, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, DetailInfo, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, FileUpload, type GetWashResponse, type GoogleMapResponse, Header, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type KYCIdType, type KYCType, type KycResponse, LineLoadingIndicator as LineIndicator, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, NotificationItem, OTPInput, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, PaymentModal, type PriceBreakdown, type Profile, ProfileCard, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SearchInput, type SocketOrderDetailsPayload, SocketProvider, type SupportedKycResponse, Tab, type TabType, type TextProps, type TicketConversationResponse, TicketItem, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WashData, type WashResponse, WashServices, api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, type notificationDataType, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useStorageState, useTimer, validationSchema, type walletResponse, walletServices };
