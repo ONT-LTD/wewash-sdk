@@ -513,7 +513,7 @@ var CustomButton = forwardRef(function(param, ref) {
     }, title), isLoading && /* @__PURE__ */ React.createElement(ActivityIndicator, {
         size: "small",
         color: COLORS.black
-    }), iconRight) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
+    }), iconRight && iconRight) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
         ref: ref,
         onPress: onPress,
         disabled: isLoading,
@@ -555,7 +555,7 @@ var CustomButton = forwardRef(function(param, ref) {
     }, "(", estimated, ")"), isLoading && /* @__PURE__ */ React.createElement(ActivityIndicator, {
         size: "small",
         color: COLORS.black
-    }));
+    }), iconRight && iconRight);
 });
 var styles = StyleSheet2.create({
     container: {
