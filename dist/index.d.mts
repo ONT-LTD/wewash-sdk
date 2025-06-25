@@ -22,6 +22,7 @@ type ButtonProps = {
   borderColor?: string;
   isTextMedium?: boolean;
   icon?: React.ReactNode;
+  iconRight?: React.ReactNode;
   alignSelf?: string;
   fontSize?: number;
   isHalfWidth?: boolean;

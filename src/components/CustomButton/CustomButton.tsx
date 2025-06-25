@@ -25,6 +25,7 @@ const CustomButton = forwardRef<typeof TouchableOpacity, ButtonProps>(
       borderColor,
       isTextMedium,
       icon,
+      iconRight,
       alignSelf,
       isHalfWidth,
       paddingHorizontal,
@@ -72,6 +73,7 @@ const CustomButton = forwardRef<typeof TouchableOpacity, ButtonProps>(
           {title}
         </Text>
         {isLoading && <ActivityIndicator size="small" color={COLORS.black} />}
+        {iconRight && iconRight}
       </TouchableOpacity>
     ) : (
       <TouchableOpacity

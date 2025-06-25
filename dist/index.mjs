@@ -480,7 +480,7 @@ var statusBorderColor = function(title) {
 };
 // src/components/CustomButton/CustomButton.tsx
 var CustomButton = forwardRef(function(param, ref) {
-    var title = param.title, onPress = param.onPress, disabled = param.disabled, backgroundColor = param.backgroundColor, textColor = param.textColor, marginBottom = param.marginBottom, marginTop = param.marginTop, marginHorizontal = param.marginHorizontal, marginVertical = param.marginVertical, marginLeft = param.marginLeft, marginRight = param.marginRight, borderColor = param.borderColor, isTextMedium = param.isTextMedium, icon = param.icon, alignSelf = param.alignSelf, isHalfWidth = param.isHalfWidth, paddingHorizontal = param.paddingHorizontal, fontSize = param.fontSize, paddingVertical = param.paddingVertical, isLoading = param.isLoading, isSmallButton = param.isSmallButton, estimated = param.estimated;
+    var title = param.title, onPress = param.onPress, disabled = param.disabled, backgroundColor = param.backgroundColor, textColor = param.textColor, marginBottom = param.marginBottom, marginTop = param.marginTop, marginHorizontal = param.marginHorizontal, marginVertical = param.marginVertical, marginLeft = param.marginLeft, marginRight = param.marginRight, borderColor = param.borderColor, isTextMedium = param.isTextMedium, icon = param.icon, iconRight = param.iconRight, alignSelf = param.alignSelf, isHalfWidth = param.isHalfWidth, paddingHorizontal = param.paddingHorizontal, fontSize = param.fontSize, paddingVertical = param.paddingVertical, isLoading = param.isLoading, isSmallButton = param.isSmallButton, estimated = param.estimated;
     return isSmallButton ? /* @__PURE__ */ React.createElement(TouchableOpacity, {
         ref: ref,
         onPress: onPress,
@@ -513,7 +513,7 @@ var CustomButton = forwardRef(function(param, ref) {
     }, title), isLoading && /* @__PURE__ */ React.createElement(ActivityIndicator, {
         size: "small",
         color: COLORS.black
-    })) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
+    }), iconRight && iconRight) : /* @__PURE__ */ React.createElement(TouchableOpacity, {
         ref: ref,
         onPress: onPress,
         disabled: isLoading,
