@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Toast, { ToastType } from 'react-native-toast-message';
 import RNSimpleCrypto from 'react-native-simple-crypto';
 import { IVehicle, IWash, IWashDetails } from '../types';
+import moment from 'moment';
 
 export function truncateText(text: string) {
   if (typeof text !== 'string' || text.length <= 4) {
@@ -420,3 +421,412 @@ export function formatDateTime(isoString: string): {
 
   return { date, time };
 }
+
+export const htmlContent = (modalData: any, vehicles: any, addOns: any) => `
+        <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receipt</title>
+  </head>
+  <body
+    style="
+      width: 100%;
+      height: 100vh;
+      background: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Urbanist", sans-serif;
+        font-optical-sizing: auto;
+      }
+    </style>
+    <section
+      style="
+        width: 90%;
+        max-width: 442px;
+        background: #fff;
+        padding: 20px 0px;
+        border-radius: 7px;
+      "
+    >
+      <section style="padding: 0px 20px; margin-bottom: 30px">
+        <header
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            place-items: center;
+            padding: 10px 0;
+            margin-bottom: 15px;
+          "
+        >
+          <img
+            src="./src/assets/rainbow-logo.png"
+            alt=""
+            style="
+              max-width: 160px;
+              max-height: 40px;
+              object-fit: contain;
+              user-select: none;
+            "
+          />
+
+          <div>
+            <p
+              style="
+                color: #162243;
+                font-size: 17px;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+              "
+            >
+              <span style="font-size: 12px; color: #42526d; font-weight: 500"
+                >Transaction ID:
+              </span>
+              ${modalData.id}
+            </p>
+            <p
+              style="
+                display: block;
+                text-align: right;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 24px;
+                color: #42526d;
+              "
+            >
+              ${moment(modalData.createdAt).format('ddd, MMMM Do YYYY')}
+            </p>
+          </div>
+        </header>
+
+        <p style="font-weight: 500; font-size: 17px; color: #162243">
+          Here is your Wash receipt
+        </p>
+      </section>
+
+      <table style="width: 100%; border: none; border-collapse: collapse">
+        <thead>
+          <tr style="width: 100%; border: none; border-collapse: collapse">
+            <th
+              scope="row"
+              style="
+                font-size: 14px;
+                background: #eceffd;
+                padding: 10px 20px;
+                color: #243757;
+                text-align: left;
+              "
+            >
+              Item
+            </th>
+
+            <th
+              scope="row"
+              style="
+                font-size: 14px;
+                background: #eceffd;
+                padding: 10px 20px;
+                color: #243757;
+                text-align: left;
+              "
+            ></th>
+
+            <th
+              scope="row"
+              style="
+                font-size: 14px;
+                background: #eceffd;
+                padding: 10px 20px;
+                color: #243757;
+                text-align: left;
+              "
+            >
+              Quantity
+            </th>
+
+            <th
+              scope="row"
+              style="
+                font-size: 14px;
+                background: #eceffd;
+                padding: 10px 20px;
+                color: #243757;
+                text-align: left;
+              "
+            >
+              Rate
+            </th>
+
+            <th
+              scope="row"
+              style="
+                font-size: 14px;
+                background: #eceffd;
+                padding: 10px 20px;
+                color: #243757;
+              "
+            >
+              Amount
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${vehicles
+            .map(
+              (vehicle: IVehicle) => `
+            <tr>
+              <td
+                style="
+                  padding: 10px 20px;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #243757;
+                "
+                colspan="2"
+              >
+                 ${vehicle.make + ' ' + vehicle.model + ' ' + vehicle.year}
+              </td>
+
+              <td
+                style="
+                  padding: 10px 20px;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #243757;
+                "
+              >
+                <div
+                  style="
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 2.5px;
+                  "
+                >
+                  <span>x</span>
+                  <span>1</span>
+                </div>
+              </td>
+
+              <td
+                style="
+                  padding: 10px 20px;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #243757;
+                "
+              >
+                ₦
+              </td>
+
+              <td
+                style="
+                  padding: 10px 20px;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #243757;
+                "
+              >
+                ₦
+              </td>
+            </tr>
+          `
+            )
+            .join('')}
+        </tbody>
+      </table>
+
+      <section style="margin: 35px 0px 0px 0px; padding: 0px 20px">
+        <div
+          style="
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              width: 100%;
+              padding: 5px 0px 0px 0px;
+            "
+          >
+            <span style="font-size: 16px; font-weight: 500; color: #162243">
+              Subtotal
+            </span>
+
+            <span style="font-size: 16px; font-weight: 600; color: #162243">
+              ₦
+            </span>
+          </div>
+
+          ${
+            addOns.length > 0
+              ? `
+            <p
+              style="
+                font-weight: 500;
+                font-size: 12px;
+                vertical-align: middle;
+                color: #34519f;
+                margin: 8px 0px 0px 0px;
+              "
+            >
+              Addons
+            </p>
+
+            <table style="width: 100%; border: none; border-collapse: collapse">
+              <thead>
+                <tr style="width: 100%; border: none; border-collapse: collapse">
+                  <th
+                    scope="row"
+                    style="font-size: 14px; padding: 0px 20px; text-align: left"
+                  ></th>
+
+                  <th
+                    scope="row"
+                    style="font-size: 14px; padding: 0px 20px; text-align: left"
+                  ></th>
+
+                  <th
+                    scope="row"
+                    style="font-size: 14px; padding: 0px 20px; text-align: left"
+                  ></th>
+
+                  <th
+                    scope="row"
+                    style="font-size: 14px; padding: 0px 20px; text-align: left"
+                  ></th>
+
+                  <th scope="row" style="font-size: 14px; padding: 0px 20px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                ${addOns
+                  .map(
+                    (addon: any) => `
+                  <tr>
+                    <td
+                      style="
+                        padding: 10px 0px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #243757;
+                      "
+                      colspan="4"
+                    >
+                      <div style="display: flex; flex-direction: column; gap: 2px">
+                        <span
+                          style="color: #42526d; font-size: 14px; font-weight: 500"
+                        >
+                          ${addon.name}
+                        </span>
+                        <span
+                          style="font-weight: 400; font-size: 10px; color: #5d6b82"
+                        >
+                         
+                        </span>
+                      </div>
+                    </td>
+
+                    <td
+                      style="
+                        padding: 10px 0px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #243757;
+                      "
+                    >
+                      <div
+                        style="
+                          width: 100%;
+                          display: flex;
+                          flex-direction: row;
+                          gap: 2.5px;
+                        "
+                      >
+                        <span>x</span>
+                        <span>1</span>
+                      </div>
+                    </td>
+
+                    <td
+                      style="
+                        padding: 10px 0px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #243757;
+                        text-align: right;
+                      "
+                    >
+                      ₦
+                    </td>
+                  </tr>
+                `
+                  )
+                  .join('')}
+              </tbody>
+            </table>
+          `
+              : ''
+          }
+        </div>
+
+        <div
+          style="
+            padding: 15px 0px 10px 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+        >
+          <span
+            style="
+              font-weight: 600;
+              font-size: 16px;
+              color: #162243;
+              vertical-align: middle;
+            "
+          >
+            Total
+          </span>
+
+          <span
+            style="
+              font-weight: 700;
+              font-size: 20px;
+              color: #243757;
+              vertical-align: middle;
+            "
+          >
+            ${
+              modalData?.netPrice
+                ? new Intl.NumberFormat('en-NG', {
+                    style: 'currency',
+                    currency: 'NGN',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                  }).format(Number(modalData?.netPrice))
+                : '--'
+            }
+          </span>
+        </div>
+      </section>
+    </section>
+  </body>
+</html>
+      `;

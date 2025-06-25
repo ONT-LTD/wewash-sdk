@@ -630,6 +630,9 @@ __export(index_exports, {
     getYearsArray: function() {
         return getYearsArray;
     },
+    htmlContent: function() {
+        return htmlContent;
+    },
     loginValidationSchema: function() {
         return loginValidationSchema;
     },
@@ -1478,6 +1481,7 @@ var Yup = __toESM(require("yup"));
 var import_uuid = require("uuid");
 var import_react_native_toast_message = __toESM(require("react-native-toast-message"));
 var import_react_native_simple_crypto = __toESM(require("react-native-simple-crypto"));
+var import_moment = __toESM(require("moment"));
 function truncateText(text) {
     if (typeof text !== "string" || text.length <= 4) {
         return text;
@@ -1891,6 +1895,18 @@ function formatDateTime(isoString) {
         time: time
     };
 }
+var htmlContent = function(modalData, vehicles, addOns) {
+    return '\n        <html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>Receipt</title>\n  </head>\n  <body\n    style="\n      width: 100%;\n      height: 100vh;\n      background: #ccc;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    "\n  >\n    <style>\n      @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");\n      * {\n        margin: 0;\n        padding: 0;\n        box-sizing: border-box;\n        font-family: "Urbanist", sans-serif;\n        font-optical-sizing: auto;\n      }\n    </style>\n    <section\n      style="\n        width: 90%;\n        max-width: 442px;\n        background: #fff;\n        padding: 20px 0px;\n        border-radius: 7px;\n      "\n    >\n      <section style="padding: 0px 20px; margin-bottom: 30px">\n        <header\n          style="\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            place-items: center;\n            padding: 10px 0;\n            margin-bottom: 15px;\n          "\n        >\n          <img\n            src="./src/assets/rainbow-logo.png"\n            alt=""\n            style="\n              max-width: 160px;\n              max-height: 40px;\n              object-fit: contain;\n              user-select: none;\n            "\n          />\n\n          <div>\n            <p\n              style="\n                color: #162243;\n                font-size: 17px;\n                display: flex;\n                flex-direction: row;\n                place-items: center;\n              "\n            >\n              <span style="font-size: 12px; color: #42526d; font-weight: 500"\n                >Transaction ID:\n              </span>\n              '.concat(modalData.id, '\n            </p>\n            <p\n              style="\n                display: block;\n                text-align: right;\n                font-size: 12px;\n                font-weight: 500;\n                line-height: 24px;\n                color: #42526d;\n              "\n            >\n              ').concat((0, import_moment.default)(modalData.createdAt).format("ddd, MMMM Do YYYY"), '\n            </p>\n          </div>\n        </header>\n\n        <p style="font-weight: 500; font-size: 17px; color: #162243">\n          Here is your Wash receipt\n        </p>\n      </section>\n\n      <table style="width: 100%; border: none; border-collapse: collapse">\n        <thead>\n          <tr style="width: 100%; border: none; border-collapse: collapse">\n            <th\n              scope="row"\n              style="\n                font-size: 14px;\n                background: #eceffd;\n                padding: 10px 20px;\n                color: #243757;\n                text-align: left;\n              "\n            >\n              Item\n            </th>\n\n            <th\n              scope="row"\n              style="\n                font-size: 14px;\n                background: #eceffd;\n                padding: 10px 20px;\n                color: #243757;\n                text-align: left;\n              "\n            ></th>\n\n            <th\n              scope="row"\n              style="\n                font-size: 14px;\n                background: #eceffd;\n                padding: 10px 20px;\n                color: #243757;\n                text-align: left;\n              "\n            >\n              Quantity\n            </th>\n\n            <th\n              scope="row"\n              style="\n                font-size: 14px;\n                background: #eceffd;\n                padding: 10px 20px;\n                color: #243757;\n                text-align: left;\n              "\n            >\n              Rate\n            </th>\n\n            <th\n              scope="row"\n              style="\n                font-size: 14px;\n                background: #eceffd;\n                padding: 10px 20px;\n                color: #243757;\n              "\n            >\n              Amount\n            </th>\n          </tr>\n        </thead>\n\n        <tbody>\n          ').concat(vehicles.map(function(vehicle) {
+        return '\n            <tr>\n              <td\n                style="\n                  padding: 10px 20px;\n                  font-weight: 400;\n                  font-size: 14px;\n                  color: #243757;\n                "\n                colspan="2"\n              >\n                 '.concat(vehicle.make + " " + vehicle.model + " " + vehicle.year, '\n              </td>\n\n              <td\n                style="\n                  padding: 10px 20px;\n                  font-weight: 400;\n                  font-size: 14px;\n                  color: #243757;\n                "\n              >\n                <div\n                  style="\n                    width: 100%;\n                    display: flex;\n                    flex-direction: row;\n                    gap: 2.5px;\n                  "\n                >\n                  <span>x</span>\n                  <span>1</span>\n                </div>\n              </td>\n\n              <td\n                style="\n                  padding: 10px 20px;\n                  font-weight: 400;\n                  font-size: 14px;\n                  color: #243757;\n                "\n              >\n                ₦\n              </td>\n\n              <td\n                style="\n                  padding: 10px 20px;\n                  font-weight: 400;\n                  font-size: 14px;\n                  color: #243757;\n                "\n              >\n                ₦\n              </td>\n            </tr>\n          ');
+    }).join(""), '\n        </tbody>\n      </table>\n\n      <section style="margin: 35px 0px 0px 0px; padding: 0px 20px">\n        <div\n          style="\n            border-top: 1px solid #ddd;\n            border-bottom: 1px solid #ddd;\n            padding: 10px 0px;\n          "\n        >\n          <div\n            style="\n              display: flex;\n              flex-direction: row;\n              justify-content: space-between;\n              width: 100%;\n              padding: 5px 0px 0px 0px;\n            "\n          >\n            <span style="font-size: 16px; font-weight: 500; color: #162243">\n              Subtotal\n            </span>\n\n            <span style="font-size: 16px; font-weight: 600; color: #162243">\n              ₦\n            </span>\n          </div>\n\n          ').concat(addOns.length > 0 ? '\n            <p\n              style="\n                font-weight: 500;\n                font-size: 12px;\n                vertical-align: middle;\n                color: #34519f;\n                margin: 8px 0px 0px 0px;\n              "\n            >\n              Addons\n            </p>\n\n            <table style="width: 100%; border: none; border-collapse: collapse">\n              <thead>\n                <tr style="width: 100%; border: none; border-collapse: collapse">\n                  <th\n                    scope="row"\n                    style="font-size: 14px; padding: 0px 20px; text-align: left"\n                  ></th>\n\n                  <th\n                    scope="row"\n                    style="font-size: 14px; padding: 0px 20px; text-align: left"\n                  ></th>\n\n                  <th\n                    scope="row"\n                    style="font-size: 14px; padding: 0px 20px; text-align: left"\n                  ></th>\n\n                  <th\n                    scope="row"\n                    style="font-size: 14px; padding: 0px 20px; text-align: left"\n                  ></th>\n\n                  <th scope="row" style="font-size: 14px; padding: 0px 20px"></th>\n                </tr>\n              </thead>\n              <tbody>\n                '.concat(addOns.map(function(addon) {
+        return '\n                  <tr>\n                    <td\n                      style="\n                        padding: 10px 0px;\n                        font-weight: 400;\n                        font-size: 14px;\n                        color: #243757;\n                      "\n                      colspan="4"\n                    >\n                      <div style="display: flex; flex-direction: column; gap: 2px">\n                        <span\n                          style="color: #42526d; font-size: 14px; font-weight: 500"\n                        >\n                          '.concat(addon.name, '\n                        </span>\n                        <span\n                          style="font-weight: 400; font-size: 10px; color: #5d6b82"\n                        >\n                         \n                        </span>\n                      </div>\n                    </td>\n\n                    <td\n                      style="\n                        padding: 10px 0px;\n                        font-weight: 400;\n                        font-size: 14px;\n                        color: #243757;\n                      "\n                    >\n                      <div\n                        style="\n                          width: 100%;\n                          display: flex;\n                          flex-direction: row;\n                          gap: 2.5px;\n                        "\n                      >\n                        <span>x</span>\n                        <span>1</span>\n                      </div>\n                    </td>\n\n                    <td\n                      style="\n                        padding: 10px 0px;\n                        font-weight: 400;\n                        font-size: 14px;\n                        color: #243757;\n                        text-align: right;\n                      "\n                    >\n                      ₦\n                    </td>\n                  </tr>\n                ');
+    }).join(""), "\n              </tbody>\n            </table>\n          ") : "", '\n        </div>\n\n        <div\n          style="\n            padding: 15px 0px 10px 0px;\n            display: flex;\n            flex-direction: row;\n            justify-content: space-between;\n          "\n        >\n          <span\n            style="\n              font-weight: 600;\n              font-size: 16px;\n              color: #162243;\n              vertical-align: middle;\n            "\n          >\n            Total\n          </span>\n\n          <span\n            style="\n              font-weight: 700;\n              font-size: 20px;\n              color: #243757;\n              vertical-align: middle;\n            "\n          >\n            ').concat((modalData === null || modalData === void 0 ? void 0 : modalData.netPrice) ? new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(Number(modalData === null || modalData === void 0 ? void 0 : modalData.netPrice)) : "--", "\n          </span>\n        </div>\n      </section>\n    </section>\n  </body>\n</html>\n      ");
+};
 // src/assets/svg/MasterCardSmall.tsx
 var React13 = __toESM(require("react"));
 var import_react_native_svg5 = __toESM(require("react-native-svg"));
@@ -2675,7 +2691,7 @@ var styles13 = import_react_native18.StyleSheet.create({
 var import_react_native19 = require("react-native");
 var import_react15 = __toESM(require("react"));
 var import_expo_router2 = require("expo-router");
-var import_moment = __toESM(require("moment"));
+var import_moment2 = __toESM(require("moment"));
 var TicketItem = function(param) {
     var item = param.item;
     var statusText = {
@@ -2714,7 +2730,7 @@ var TicketItem = function(param) {
         style: styles14.smallText
     }, "Ticket number"), /* @__PURE__ */ import_react15.default.createElement(CustomText, {
         style: styles14.smallText
-    }, (0, import_moment.default)(item.createdAt).format("Do MMMM YYYY | hh:mm A"))), /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
+    }, (0, import_moment2.default)(item.createdAt).format("Do MMMM YYYY | hh:mm A"))), /* @__PURE__ */ import_react15.default.createElement(import_react_native19.View, {
         style: customStyles.groupSpaceBetween
     }, /* @__PURE__ */ import_react15.default.createElement(CustomText, {
         style: styles14.bigText
@@ -2853,7 +2869,7 @@ var styles15 = import_react_native20.StyleSheet.create({
 // src/components/NotificationItem/NotificationItem.tsx
 var import_react_native21 = require("react-native");
 var import_react17 = __toESM(require("react"));
-var import_moment2 = __toESM(require("moment"));
+var import_moment3 = __toESM(require("moment"));
 var NotificationItem = function(param) {
     var item = param.item;
     return /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
@@ -2868,7 +2884,7 @@ var NotificationItem = function(param) {
         style: styles16.description
     }, item.message)), /* @__PURE__ */ import_react17.default.createElement(CustomText, {
         style: styles16.date
-    }, (0, import_moment2.default)(item.createdAt).format("hh:mm A")), /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
+    }, (0, import_moment3.default)(item.createdAt).format("hh:mm A")), /* @__PURE__ */ import_react17.default.createElement(import_react_native21.View, {
         style: styles16.line
     })));
 };
@@ -4918,6 +4934,7 @@ var walletServices = new walletService();
     getTimeDifference: getTimeDifference,
     getVehicleIds: getVehicleIds,
     getYearsArray: getYearsArray,
+    htmlContent: htmlContent,
     loginValidationSchema: loginValidationSchema,
     modalEnum: modalEnum,
     otpChannel: otpChannel,
