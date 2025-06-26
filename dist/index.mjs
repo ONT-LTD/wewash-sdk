@@ -1326,8 +1326,24 @@ var cardValidationSchema = Yup.object().shape({
     cvv: Yup.string().matches(/^\d{3}$/, "CVV must be exactly 3 digits").required("CVV is required")
 });
 var withdrawalValidationSchema = Yup.object().shape({
-    amount: Yup.number().typeError("Amount must be a number").required("Amount is required").positive("Amount must be greater than zero").min(100, "Minimum withdrawal is \u20A6100").max(1e6, "Maximum withdrawal is \u20A61,000,000").test("is-decimal", "Amount can have up to 2 decimal places only", function(value) {
-        return /^\d+(\.\d{1,2})?$/.test(String(value));
+    amount: Yup.string().required("Amount is required").test("is-valid-format", "Amount must be a number", function(value) {
+        if (!value) return false;
+        var sanitized = value.replace(/,/g, "");
+        return !isNaN(Number(sanitized));
+    }).test("is-positive", "Amount must be greater than zero", function(value) {
+        if (!value) return false;
+        var num = parseFloat(value.replace(/,/g, ""));
+        return num > 0;
+    }).test("min-amount", "Minimum withdrawal is \u20A6100", function(value) {
+        var num = parseFloat((value === null || value === void 0 ? void 0 : value.replace(/,/g, "")) || "");
+        return num >= 100;
+    }).test("max-amount", "Maximum withdrawal is \u20A61,000,000", function(value) {
+        var num = parseFloat((value === null || value === void 0 ? void 0 : value.replace(/,/g, "")) || "");
+        return num <= 1e6;
+    }).test("decimal-places", "Amount can have up to 2 decimal places", function(value) {
+        if (!value) return false;
+        var sanitized = value.replace(/,/g, "");
+        return /^\d+(\.\d{1,2})?$/.test(sanitized);
     })
 });
 var profileValidationSchema = Yup.object().shape({
@@ -1570,6 +1586,14 @@ var htmlContent = function(modalData, vehicles, addOns) {
         maximumFractionDigits: 0
     }).format(Number(modalData === null || modalData === void 0 ? void 0 : modalData.netPrice)) : "--", "\n          </span>\n        </div>\n      </section>\n    </section>\n  </body>\n</html>\n      ");
 };
+function sanitizeAmount(value) {
+    return parseFloat(value.replace(/,/g, ""));
+}
+function formatWithCommas(value) {
+    var _value_replace_split = _sliced_to_array(value.replace(/,/g, "").split("."), 2), intPart = _value_replace_split[0], decimalPart = _value_replace_split[1];
+    var formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return decimalPart ? "".concat(formattedInt, ".").concat(decimalPart) : formattedInt;
+}
 // src/assets/svg/MasterCardSmall.tsx
 import * as React13 from "react";
 import Svg5, { Path as Path5 } from "react-native-svg";
@@ -4681,5 +4705,5 @@ var walletService = /*#__PURE__*/ function() {
     return walletService;
 }();
 var walletServices = new walletService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
 //# sourceMappingURL=index.mjs.map

@@ -166,16 +166,34 @@ export const cardValidationSchema = Yup.object().shape({
 });
 
 export const withdrawalValidationSchema = Yup.object().shape({
-  amount: Yup.number()
-    .typeError('Amount must be a number')
+  amount: Yup.string()
     .required('Amount is required')
-    .positive('Amount must be greater than zero')
-    .min(100, 'Minimum withdrawal is ₦100')
-    .max(1_000_000, 'Maximum withdrawal is ₦1,000,000')
+    .test('is-valid-format', 'Amount must be a number', (value) => {
+      if (!value) return false;
+      const sanitized = value.replace(/,/g, '');
+      return !isNaN(Number(sanitized));
+    })
+    .test('is-positive', 'Amount must be greater than zero', (value) => {
+      if (!value) return false;
+      const num = parseFloat(value.replace(/,/g, ''));
+      return num > 0;
+    })
+    .test('min-amount', 'Minimum withdrawal is ₦100', (value) => {
+      const num = parseFloat(value?.replace(/,/g, '') || '');
+      return num >= 100;
+    })
+    .test('max-amount', 'Maximum withdrawal is ₦1,000,000', (value) => {
+      const num = parseFloat(value?.replace(/,/g, '') || '');
+      return num <= 1_000_000;
+    })
     .test(
-      'is-decimal',
-      'Amount can have up to 2 decimal places only',
-      (value) => /^\d+(\.\d{1,2})?$/.test(String(value))
+      'decimal-places',
+      'Amount can have up to 2 decimal places',
+      (value) => {
+        if (!value) return false;
+        const sanitized = value.replace(/,/g, '');
+        return /^\d+(\.\d{1,2})?$/.test(sanitized);
+      }
     )
 });
 
@@ -844,3 +862,13 @@ export const htmlContent = (modalData: any, vehicles: any, addOns: any) => `
   </body>
 </html>
       `;
+
+export function sanitizeAmount(value: string): number {
+  return parseFloat(value.replace(/,/g, ''));
+}
+
+export function formatWithCommas(value: string): string {
+  const [intPart, decimalPart] = value.replace(/,/g, '').split('.');
+  const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return decimalPart ? `${formattedInt}.${decimalPart}` : formattedInt;
+}
