@@ -165,6 +165,20 @@ export const cardValidationSchema = Yup.object().shape({
     .required('CVV is required')
 });
 
+export const withdrawalValidationSchema = Yup.object().shape({
+  amount: Yup.number()
+    .typeError('Amount must be a number')
+    .required('Amount is required')
+    .positive('Amount must be greater than zero')
+    .min(100, 'Minimum withdrawal is ₦100')
+    .max(1_000_000, 'Maximum withdrawal is ₦1,000,000')
+    .test(
+      'is-decimal',
+      'Amount can have up to 2 decimal places only',
+      (value) => /^\d+(\.\d{1,2})?$/.test(String(value))
+    )
+});
+
 export const profileValidationSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(

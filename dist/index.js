@@ -722,6 +722,9 @@ __export(index_exports, {
     },
     walletServices: function() {
         return walletServices;
+    },
+    withdrawalValidationSchema: function() {
+        return withdrawalValidationSchema;
     }
 });
 module.exports = __toCommonJS(index_exports);
@@ -1669,6 +1672,11 @@ var cardValidationSchema = Yup.object().shape({
         return year > currentYear || year === currentYear && month >= currentMonth;
     }).max(5, "Expiry date must be in MM/YY format").required("Expiry date is required"),
     cvv: Yup.string().matches(/^\d{3}$/, "CVV must be exactly 3 digits").required("CVV is required")
+});
+var withdrawalValidationSchema = Yup.object().shape({
+    amount: Yup.number().typeError("Amount must be a number").required("Amount is required").positive("Amount must be greater than zero").min(100, "Minimum withdrawal is \u20A6100").max(1e6, "Maximum withdrawal is \u20A61,000,000").test("is-decimal", "Amount can have up to 2 decimal places only", function(value) {
+        return /^\d+(\.\d{1,2})?$/.test(String(value));
+    })
 });
 var profileValidationSchema = Yup.object().shape({
     phone: Yup.string().matches(/^(0\d{10}|234\d{10})$/, 'Phone number must start with "0" or "234" and be 11 or 13 digits long').required("Phone number is required"),
@@ -5110,6 +5118,7 @@ var walletServices = new walletService();
     useStorageState: useStorageState,
     useTimer: useTimer,
     validationSchema: validationSchema,
-    walletServices: walletServices
+    walletServices: walletServices,
+    withdrawalValidationSchema: withdrawalValidationSchema
 });
 //# sourceMappingURL=index.js.map
