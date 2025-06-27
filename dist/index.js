@@ -4412,6 +4412,7 @@ var ENDPOINT = {
     KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
     WALLET: "".concat(WALLET),
     BANKS: "".concat(BANKS),
+    LOCAL_BANKS: "".concat(V1, "/users/local-banks"),
     ADD_BANKS: "".concat(BANKS)
 };
 // src/config/baseApi.ts
@@ -4928,7 +4929,7 @@ var ProfileService = /*#__PURE__*/ function() {
         {
             key: "BANKS",
             value: function BANKS() {
-                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+                return baseApi_default.get("".concat(ENDPOINT.LOCAL_BANKS));
             }
         },
         {

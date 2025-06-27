@@ -58,5 +58,6 @@ export const ENDPOINT = {
   KYC_SUPPORTED_ID_TYPES: `${KYC}/supported-ids`,
   WALLET: `${WALLET}`,
   BANKS: `${BANKS}`,
+  LOCAL_BANKS: `${V1}/users/local-banks`,
   ADD_BANKS: `${BANKS}`
 };

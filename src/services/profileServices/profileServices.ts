@@ -91,7 +91,7 @@ class ProfileService {
     return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
   }
   BANKS() {
-    return api.get(`${ENDPOINT.BANKS}`);
+    return api.get(`${ENDPOINT.LOCAL_BANKS}`);
   }
   ADD_BANKS(data: BankData) {
     return api.post(`${ENDPOINT.BANKS}`, data);

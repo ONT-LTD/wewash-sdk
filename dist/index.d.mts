@@ -1391,6 +1391,7 @@ declare const ENDPOINT: {
     KYC_SUPPORTED_ID_TYPES: string;
     WALLET: string;
     BANKS: string;
+    LOCAL_BANKS: string;
     ADD_BANKS: string;
 };
 
