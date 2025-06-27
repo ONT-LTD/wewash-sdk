@@ -4411,7 +4411,7 @@ var ENDPOINT = {
     INITIATE_KYC: "".concat(KYC, "/initiate"),
     KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
     WALLET: "".concat(WALLET),
-    BANKS: "".concat(BANKS, "/local"),
+    BANKS: "".concat(BANKS),
     ADD_BANKS: "".concat(BANKS)
 };
 // src/config/baseApi.ts

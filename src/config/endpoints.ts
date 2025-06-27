@@ -57,6 +57,6 @@ export const ENDPOINT = {
   INITIATE_KYC: `${KYC}/initiate`,
   KYC_SUPPORTED_ID_TYPES: `${KYC}/supported-ids`,
   WALLET: `${WALLET}`,
-  BANKS: `${BANKS}/local`,
+  BANKS: `${BANKS}`,
   ADD_BANKS: `${BANKS}`
 };
