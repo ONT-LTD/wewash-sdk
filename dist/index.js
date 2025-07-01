@@ -717,6 +717,9 @@ __export(index_exports, {
     useShareLink: function() {
         return useShareLink;
     },
+    useSocket: function() {
+        return useSocket;
+    },
     useStorageState: function() {
         return useStorageState;
     },
@@ -4636,6 +4639,9 @@ var SocketProvider = function(param) {
         }
     }, children);
 };
+var useSocket = function() {
+    return (0, import_react34.useContext)(SocketContext);
+};
 // src/services/authServices/authServices.ts
 var AuthService = /*#__PURE__*/ function() {
     function AuthService() {
@@ -5148,6 +5154,7 @@ var walletServices = new walletService();
     useModal: useModal,
     useReceiptPDF: useReceiptPDF,
     useShareLink: useShareLink,
+    useSocket: useSocket,
     useStorageState: useStorageState,
     useTimer: useTimer,
     validationSchema: validationSchema,
