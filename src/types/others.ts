@@ -243,7 +243,7 @@ export interface IWashState {
 }
 
 export interface IWalletState {
-  wallet: WalletType
+  wallet: WalletType | {}
   loading: boolean;
   error: any | {};
 }

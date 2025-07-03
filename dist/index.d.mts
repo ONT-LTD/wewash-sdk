@@ -722,7 +722,7 @@ interface IWashState {
     error: any | {};
 }
 interface IWalletState {
-    wallet: WalletType;
+    wallet: WalletType | {};
     loading: boolean;
     error: any | {};
 }
