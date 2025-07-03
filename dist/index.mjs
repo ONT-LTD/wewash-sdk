@@ -4011,6 +4011,8 @@ var ORDERS = "".concat(V1, "/orders");
 var KYC = "".concat(V1, "/kyc");
 var WALLET = "".concat(V1, "/wallets");
 var BANKS = "".concat(V1, "/users/banks");
+var USER = "".concat(V1, "/users");
+var BENEFICIARIES = "".concat(USER, "/beneficiaries");
 var ENDPOINT = {
     SIGN_IN: "".concat(AUTH, "/init/local"),
     SIGN_IN_WITH_GOOGLE: "".concat(AUTH, "/init/google"),
@@ -4059,6 +4061,7 @@ var ENDPOINT = {
     KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
     WALLET: "".concat(WALLET),
     BANKS: "".concat(BANKS),
+    BENEFICIARY: "".concat(BENEFICIARIES),
     LOCAL_BANKS: "".concat(V1, "/users/local-banks"),
     ADD_BANKS: "".concat(BANKS)
 };
@@ -4582,25 +4585,25 @@ var ProfileService = /*#__PURE__*/ function() {
         {
             key: "BANKS",
             value: function BANKS() {
-                return baseApi_default.get("".concat(ENDPOINT.LOCAL_BANKS));
+                return baseApi_default.get("".concat(ENDPOINT.BANKS));
             }
         },
         {
             key: "ADD_BANKS",
             value: function ADD_BANKS(data) {
-                return baseApi_default.post("".concat(ENDPOINT.BANKS), data);
+                return baseApi_default.post("".concat(ENDPOINT.BENEFICIARY), data);
             }
         },
         {
             key: "USER_BANK",
             value: function USER_BANK() {
-                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+                return baseApi_default.get("".concat(ENDPOINT.BENEFICIARY));
             }
         },
         {
             key: "DELETE_BANK",
             value: function DELETE_BANK() {
-                return baseApi_default.delete("".concat(ENDPOINT.BANKS));
+                return baseApi_default.delete("".concat(ENDPOINT.BENEFICIARY));
             }
         }
     ]);

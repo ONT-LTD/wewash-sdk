@@ -91,16 +91,16 @@ class ProfileService {
     return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
   }
   BANKS() {
-    return api.get(`${ENDPOINT.LOCAL_BANKS}`);
-  }
-  ADD_BANKS(data: BankData) {
-    return api.post(`${ENDPOINT.BANKS}`, data);
-  }
-  USER_BANK() {
     return api.get(`${ENDPOINT.BANKS}`);
   }
+  ADD_BANKS(data: BankData) {
+    return api.post(`${ENDPOINT.BENEFICIARY}`, data);
+  }
+  USER_BANK() {
+    return api.get(`${ENDPOINT.BENEFICIARY}`);
+  }
   DELETE_BANK() {
-    return api.delete(`${ENDPOINT.BANKS}`);
+    return api.delete(`${ENDPOINT.BENEFICIARY}`);
   }
 }
 

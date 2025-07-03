@@ -9,6 +9,9 @@ const ORDERS = `${V1}/orders`;
 const KYC = `${V1}/kyc`;
 const WALLET = `${V1}/wallets`;
 const BANKS = `${V1}/users/banks`;
+const USER = `${V1}/users`;
+const BENEFICIARIES = `${USER}/beneficiaries`;
+
 
 export const ENDPOINT = {
   SIGN_IN: `${AUTH}/init/local`,
@@ -58,6 +61,7 @@ export const ENDPOINT = {
   KYC_SUPPORTED_ID_TYPES: `${KYC}/supported-ids`,
   WALLET: `${WALLET}`,
   BANKS: `${BANKS}`,
+  BENEFICIARY: `${BENEFICIARIES}`,
   LOCAL_BANKS: `${V1}/users/local-banks`,
   ADD_BANKS: `${BANKS}`
 };
