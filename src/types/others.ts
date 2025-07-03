@@ -13,6 +13,7 @@ import {
   User,
   VehicleConfigs
 } from '../services/profileServices/types';
+import { WalletType } from '../services/walletServices/types';
 import {
   ILocation,
   ISingleWashHistory,
@@ -240,6 +241,14 @@ export interface IWashState {
   loading: boolean;
   error: any | {};
 }
+
+export interface IWalletState {
+  wallet: WalletType
+  loading: boolean;
+  error: any | {};
+}
+
+
 export enum modalEnum {
   SEARCHING = 'searching',
   CANCEL = 'cancel',
