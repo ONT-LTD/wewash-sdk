@@ -8,7 +8,8 @@ import {
   IUpdatePasswordData,
   IReferralParam,
   KYCType,
-  BankData
+  BankData,
+  paginationType
 } from './types';
 
 class ProfileService {
@@ -90,8 +91,8 @@ class ProfileService {
   KYC_SUPPORTED_ID_TYPES() {
     return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
   }
-  BANKS() {
-    return api.get(`${ENDPOINT.BANKS}`);
+  BANKS(data:paginationType) {
+    return api.get(`${ENDPOINT.BANKS}?perPage=${data?.perPage}&page=${data.page}`);
   }
   ADD_BANKS(data: BankData) {
     return api.post(`${ENDPOINT.BENEFICIARY}`, data);

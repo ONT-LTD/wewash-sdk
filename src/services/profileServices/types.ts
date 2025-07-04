@@ -188,6 +188,11 @@ export type BankData = {
   bankCode: string;
 };
 
+export type paginationType = {
+  page:number,
+  perPage:number
+}
+
 export type VehicleResponse = ApiResponse<{ vehicle: Vehicle }>;
 export type FAQResponse = ApiResponse<{ faqs: FAQS[] }>;
 export type VehicleConfigResponse = ApiResponse<{ configs: VehicleConfigs }>;

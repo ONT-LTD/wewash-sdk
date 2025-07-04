@@ -4584,8 +4584,8 @@ var ProfileService = /*#__PURE__*/ function() {
         },
         {
             key: "BANKS",
-            value: function BANKS() {
-                return baseApi_default.get("".concat(ENDPOINT.BANKS));
+            value: function BANKS(data) {
+                return baseApi_default.get("".concat(ENDPOINT.BANKS, "?perPage=").concat(data === null || data === void 0 ? void 0 : data.perPage, "&page=").concat(data.page));
             }
         },
         {
