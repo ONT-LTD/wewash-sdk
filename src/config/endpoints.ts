@@ -51,6 +51,7 @@ export const ENDPOINT = {
   WASHER_ARRIVED: `${ORDERS}/washer-arrived`,
   RETRY_WASH: `${ORDERS}/washer/retry`,
   COUPON: `${ORDERS}/validate-coupon`,
+  WASHER_AVAILABILITY: `${ORDERS}/washer-availabiltiy/toggle`,
   GET_WASHES: `${WASHES}/customer`,
   GET_WASH: `${WASHES}`,
   CREATE_TICKET: `${TICKETS}/create`,

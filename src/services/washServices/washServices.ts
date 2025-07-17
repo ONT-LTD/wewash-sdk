@@ -6,7 +6,8 @@ import {
   PaginationParams,
   RateUserData,
   WashData,
-  ICouponCode
+  ICouponCode,
+  IWasherAvailability
 } from './types';
 
 class WashService {
@@ -66,6 +67,10 @@ class WashService {
 
   COUPON(data: ICouponCode) {
     return api.post(`${ENDPOINT.COUPON}`, data);
+  }
+
+  WASHER_AVAILABILTY(data: IWasherAvailability) {
+    return api.post(`${ENDPOINT.WASHER_AVAILABILITY}`, data);
   }
 }
 

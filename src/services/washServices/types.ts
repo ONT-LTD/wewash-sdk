@@ -192,6 +192,10 @@ export interface ICouponCode {
   coupon: string;
 }
 
+export interface IWasherAvailability {
+  availability: string;
+}
+
 export interface ConfirmOrderData {
   orderId: string;
   code: string;
@@ -209,6 +213,7 @@ export type CategoriesResponses = ApiResponse<ICategories[]>;
 
 export type CreateWashResponse = ApiResponse<{}>;
 
+export type WasherAvailabiltyResponse = ApiResponse<{}>;
 export type CouponResponse = ApiResponse<{ discount: string }>;
 export type GetWashResponse = ApiResponse<{
   washes: {

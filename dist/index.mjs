@@ -4051,6 +4051,7 @@ var ENDPOINT = {
     WASHER_ARRIVED: "".concat(ORDERS, "/washer-arrived"),
     RETRY_WASH: "".concat(ORDERS, "/washer/retry"),
     COUPON: "".concat(ORDERS, "/validate-coupon"),
+    WASHER_AVAILABILITY: "".concat(ORDERS, "/washer-availabiltiy/toggle"),
     GET_WASHES: "".concat(WASHES, "/customer"),
     GET_WASH: "".concat(WASHES),
     CREATE_TICKET: "".concat(TICKETS, "/create"),
@@ -4424,6 +4425,12 @@ var WashService = /*#__PURE__*/ function() {
             key: "COUPON",
             value: function COUPON(data) {
                 return baseApi_default.post("".concat(ENDPOINT.COUPON), data);
+            }
+        },
+        {
+            key: "WASHER_AVAILABILTY",
+            value: function WASHER_AVAILABILTY(data) {
+                return baseApi_default.post("".concat(ENDPOINT.WASHER_AVAILABILITY), data);
             }
         }
     ]);
