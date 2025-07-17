@@ -193,7 +193,7 @@ export interface ICouponCode {
 }
 
 export interface IWasherAvailability {
-  availability: string;
+  availability: boolean;
 }
 
 export interface ConfirmOrderData {

@@ -402,7 +402,7 @@ interface ICouponCode {
     coupon: string;
 }
 interface IWasherAvailability {
-    availability: string;
+    availability: boolean;
 }
 interface ConfirmOrderData {
     orderId: string;
