@@ -11,6 +11,12 @@ export type WalletType = {
   updatedAt: string;
 };
 
+export type WithdrawData = {
+  amount: number
+}
+
 export type walletResponse = ApiResponse<{
   wallet: WalletType;
 }>;
+
+export type WithdrawResponse = ApiResponse<{}>;

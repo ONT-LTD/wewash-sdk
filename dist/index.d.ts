@@ -230,6 +230,17 @@ type KycResponse = ApiResponse<{
 }>;
 type SupportedKycResponse = ApiResponse<string[]>;
 type BanksResponse = ApiResponse<any>;
+type RatingResponse = ApiResponse<{
+    ratings: {
+        data: any[];
+        meta: {
+            total: number;
+            perPage: number;
+            totalPages: number;
+            page: number;
+        };
+    };
+}>;
 
 type ILocation = {
     address: string;
@@ -528,9 +539,13 @@ type WalletType = {
     createdAt: string;
     updatedAt: string;
 };
+type WithdrawData = {
+    amount: number;
+};
 type walletResponse = ApiResponse<{
     wallet: WalletType;
 }>;
+type WithdrawResponse = ApiResponse<{}>;
 
 type IVehicle = {
     id: string;
@@ -1380,6 +1395,7 @@ declare const ENDPOINT: {
     GET_VEHICLES_CONFIG: string;
     ADDRESS: string;
     PROFILE: string;
+    RATINGS: string;
     NOTIFICATIONS: string;
     UPLOAD_PROFILE_IMAGE: string;
     UPDATE_PASSWORD: string;
@@ -1416,6 +1432,7 @@ declare const ENDPOINT: {
     INITIATE_KYC: string;
     KYC_SUPPORTED_ID_TYPES: string;
     WALLET: string;
+    WITHDRAW: string;
     BANKS: string;
     BENEFICIARY: string;
     LOCAL_BANKS: string;
@@ -1494,6 +1511,7 @@ declare class ProfileService {
     ADD_BANKS(data: BankData): Promise<axios.AxiosResponse<any, any>>;
     USER_BANK(): Promise<axios.AxiosResponse<any, any>>;
     DELETE_BANK(): Promise<axios.AxiosResponse<any, any>>;
+    RATINGS(data: paginationType): Promise<axios.AxiosResponse<any, any>>;
 }
 declare const ProfileServices: ProfileService;
 
@@ -1514,7 +1532,8 @@ declare const ChatServices: ChatService;
 
 declare class walletService {
     WALLET(): Promise<axios.AxiosResponse<any, any>>;
+    WITHDRAW(data: WithdrawData): Promise<axios.AxiosResponse<any, any>>;
 }
 declare const walletServices: walletService;
 
-export { API_URL, Accordion, type Addon, type Address, type ApiResponse, AuthServices, type BankData, type BanksResponse, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, ChooseFile, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, DetailInfo, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, FileUpload, type GetWashResponse, type GoogleMapResponse, Header, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWalletState, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherAvailability, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type KYCIdType, type KYCType, type KycResponse, LineLoadingIndicator as LineIndicator, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, NotificationItem, OTPInput, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, PaymentModal, type PriceBreakdown, type Profile, ProfileCard, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SearchInput, type SocketOrderDetailsPayload, SocketProvider, type SupportedKycResponse, Tab, type TabType, type TextProps, type TicketConversationResponse, TicketItem, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WalletType, type WashData, type WashResponse, WashServices, type WasherAvailabiltyResponse, api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, type notificationDataType, otpChannel, type paginationType, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useSocket, useStorageState, useTimer, validationSchema, type walletResponse, walletServices, withdrawalValidationSchema };
+export { API_URL, Accordion, type Addon, type Address, type ApiResponse, AuthServices, type BankData, type BanksResponse, type ButtonProps, COLORS, type CancelOrderData, type CategoriesResponses, type Category, type ChatConversationResponse, ChatServices, ChooseFile, type ConfirmOrderData, type ConversationResponse, type CouponResponse, type CreateTicketResponse, type CreateWashResponse, CustomButton, CustomDropdown, CustomError, CustomInput, CustomModal, CustomMultiDropdown, CustomSelect, CustomSubtitle, CustomSwitchButton as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, type CustomerDetails, type DataItem, DetailInfo, ENDPOINT, EResult, ETab, EmptyList, type FAQResponse, type FAQS, type Feature, FileUpload, type GetWashResponse, type GoogleMapResponse, Header, type IActivateBiometrics, type IAddressData, type IAuthState, type ICategories, type ICategory, type IChatMessages, type IChatState, type ICloseConversationBody, type IConversationMembers, type IConversations, type ICouponCode, type ICreateTicket, type ICreateTicketData, type ICreateWash, type IDtype, type IGoogleAuthResponse, type ILocation, type IMessage, type IOrder, type IProfileState, type IProfileType, type IReferralParam, type IRequestError, type IRequestOTP, type IResetPassword, type ISendMessageBody, type ISignInResponse, type ISignInType, type ISignInWithBiometricsType, type ISingleWashHistory, type ITicketConversation, type ITicketConversations, type ITicketMessages, type ITickets, type IUpdatePasswordData, type IUploadImageBody, type IUser, type IUserData, type IUserProfile, type IUserProfileData, type IVehicle, type IVehicleData, type IVehicleUpdateData, type IVerifyOTP, type IWalletState, type IWash, type IWashDetails, type IWashDetailsInfo, type IWashHistory, type IWashState, type IWasherAvailability, type IWasherInfo, type IWasherLiveLocation, type IWasherStats, type Image, type ImageIcons, type KYCIdType, type KYCType, type KycResponse, LineLoadingIndicator as LineIndicator, type Location, type LogEntry, type MessageResponse, type Meta, ModalContent, type Notification, NotificationItem, OTPInput, type OrderDetails, type OrderIdData, type PaginationParams, type PaymentConfirmationPayload, PaymentModal, type PriceBreakdown, type Profile, ProfileCard, type ProfileImageResponse, type ProfileNotificationResponse, type ProfileResponse, ProfileServices, type PromoCodes, type PromoCodesResponse, type RateUserData, type RatingResponse, type Referral, type ReferralConfigData, type ReferralConfigResponse, type ReferralResponse, type ReferralsConfig, SOCKET_URL, SearchInput, type SocketOrderDetailsPayload, SocketProvider, type SupportedKycResponse, Tab, type TabType, type TextProps, type TicketConversationResponse, TicketItem, type User, type UserProfile, type Vehicle, type VehicleConfigResponse, type VehicleConfigs, type VehicleMakeAndModel, type VehicleResponse, type WalletType, type WashData, type WashResponse, WashServices, type WasherAvailabiltyResponse, type WithdrawData, type WithdrawResponse, api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, type notificationDataType, otpChannel, type paginationType, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useSocket, useStorageState, useTimer, validationSchema, type walletResponse, walletServices, withdrawalValidationSchema };

@@ -189,8 +189,8 @@ export type BankData = {
 };
 
 export type paginationType = {
-  page:number,
-  perPage:number
+  page: number,
+  perPage: number
 }
 
 export type VehicleResponse = ApiResponse<{ vehicle: Vehicle }>;
@@ -212,3 +212,15 @@ export type KycResponse = ApiResponse<{
 
 export type SupportedKycResponse = ApiResponse<string[]>;
 export type BanksResponse = ApiResponse<any>;
+
+export type RatingResponse = ApiResponse<{
+  ratings: {
+    data: any[];
+    meta: {
+      total: number;
+      perPage: number;
+      totalPages: number;
+      page: number;
+    };
+  };
+}>;

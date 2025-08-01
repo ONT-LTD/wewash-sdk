@@ -4381,6 +4381,7 @@ var ENDPOINT = {
     GET_VEHICLES_CONFIG: "".concat(PROFILE, "/vehicles/config"),
     ADDRESS: "".concat(PROFILE, "/address"),
     PROFILE: "".concat(PROFILE),
+    RATINGS: "".concat(PROFILE, "/ratings"),
     NOTIFICATIONS: "".concat(NOTIFICATIONS),
     UPLOAD_PROFILE_IMAGE: "".concat(PROFILE, "/upload/image"),
     UPDATE_PASSWORD: "".concat(PROFILE, "/update-password"),
@@ -4417,6 +4418,7 @@ var ENDPOINT = {
     INITIATE_KYC: "".concat(KYC, "/initiate"),
     KYC_SUPPORTED_ID_TYPES: "".concat(KYC, "/supported-ids"),
     WALLET: "".concat(WALLET),
+    WITHDRAW: "".concat(WALLET, "/withdraw"),
     BANKS: "".concat(BANKS),
     BENEFICIARY: "".concat(BENEFICIARIES),
     LOCAL_BANKS: "".concat(V1, "/users/local-banks"),
@@ -4965,6 +4967,12 @@ var ProfileService = /*#__PURE__*/ function() {
             value: function DELETE_BANK() {
                 return baseApi_default.delete("".concat(ENDPOINT.BENEFICIARY));
             }
+        },
+        {
+            key: "RATINGS",
+            value: function RATINGS(data) {
+                return baseApi_default.get("".concat(ENDPOINT.RATINGS, "?perPage=").concat(data === null || data === void 0 ? void 0 : data.perPage, "&page=").concat(data.page));
+            }
         }
     ]);
     return ProfileService;
@@ -5064,6 +5072,12 @@ var walletService = /*#__PURE__*/ function() {
             key: "WALLET",
             value: function WALLET() {
                 return baseApi_default.get("".concat(ENDPOINT.WALLET));
+            }
+        },
+        {
+            key: "WITHDRAW",
+            value: function WITHDRAW(data) {
+                return baseApi_default.post("".concat(ENDPOINT.WITHDRAW), data);
             }
         }
     ]);

@@ -91,7 +91,7 @@ class ProfileService {
   KYC_SUPPORTED_ID_TYPES() {
     return api.get(`${ENDPOINT.KYC_SUPPORTED_ID_TYPES}`);
   }
-  BANKS(data:paginationType) {
+  BANKS(data: paginationType) {
     return api.get(`${ENDPOINT.BANKS}?perPage=${data?.perPage}&page=${data.page}`);
   }
   ADD_BANKS(data: BankData) {
@@ -102,6 +102,9 @@ class ProfileService {
   }
   DELETE_BANK() {
     return api.delete(`${ENDPOINT.BENEFICIARY}`);
+  }
+  RATINGS(data: paginationType) {
+    return api.get(`${ENDPOINT.RATINGS}?perPage=${data?.perPage}&page=${data.page}`);
   }
 }
 
