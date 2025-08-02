@@ -3370,7 +3370,6 @@ var styles23 = StyleSheet24.create({
         lineHeight: 21
     },
     copyButton: {
-        padding: 4
     }
 });
 // src/types/others.ts

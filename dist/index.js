@@ -3687,7 +3687,6 @@ var styles23 = import_react_native28.StyleSheet.create({
         lineHeight: 21
     },
     copyButton: {
-        padding: 4
     }
 });
 // src/types/others.ts

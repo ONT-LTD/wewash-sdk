@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     lineHeight: 21
   },
   copyButton: {
-    padding: 4
+    // padding: 4
   }
 });
