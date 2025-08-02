@@ -998,21 +998,21 @@ declare function CustomText(props: TextProps): React__default.JSX.Element;
 declare function CustomTextItalics(props: TextProps): React__default.JSX.Element;
 declare function CustomUrbanistText(props: TextProps): React__default.JSX.Element;
 
-type Props$i = {
+type Props$h = {
     title: string;
     value: string;
     onPress?: () => void;
     marginBottom?: number;
 };
-declare const CustomDropdown: FC<Props$i>;
+declare const CustomDropdown: FC<Props$h>;
 
-type Props$h = {
+type Props$g = {
     error: string | string[];
     marginTop?: number;
     marginBottom?: number;
     textAlign?: string;
 };
-declare const CustomError: FC<Props$h>;
+declare const CustomError: FC<Props$g>;
 
 type InputFieldProps = ({
     label: string;
@@ -1031,7 +1031,7 @@ type InputFieldProps = ({
 } & TextInputProps);
 declare const CustomInput: React__default.FC<InputFieldProps>;
 
-interface Props$g {
+interface Props$f {
     inner: React__default.ReactNode;
     innerTop?: React__default.ReactNode;
     onClose: any;
@@ -1040,23 +1040,23 @@ interface Props$g {
     searchIcon?: React__default.ReactNode;
     disabledBg?: boolean;
 }
-declare const CustomModal: FC<Props$g>;
+declare const CustomModal: FC<Props$f>;
 
-type Props$f = {
+type Props$e = {
     title: string;
     value: IVehicle[];
     onPress?: () => void;
     removeVehicle: (vehicleId: string) => void;
 };
-declare const CustomMultiDropdown: FC<Props$f>;
+declare const CustomMultiDropdown: FC<Props$e>;
 
-type Props$e = {
+type Props$d = {
     isEnabled: boolean;
     toggleSwitch: () => void;
 };
-declare const CustomSwitchButton: FC<Props$e>;
+declare const CustomSwitchButton: FC<Props$d>;
 
-type Props$d = {
+type Props$c = {
     title?: string;
     data: any[];
     setSelect?: (v: string) => void;
@@ -1066,9 +1066,9 @@ type Props$d = {
     setSelectModelData?: (v: string[]) => void;
     setSelectVehicle?: (v: IVehicle) => void;
 };
-declare const CustomSelect: FC<Props$d>;
+declare const CustomSelect: FC<Props$c>;
 
-type Props$c = {
+type Props$b = {
     onPress?: () => void;
     title?: string;
     subtitle?: string;
@@ -1083,55 +1083,55 @@ type Props$c = {
     loading?: boolean;
     marginHorizontal?: number;
 };
-declare const ModalContent: ({ onPress, title, subtitle, icon, buttonTitle, secondButton, secondButtonTitle, subTitleMarginBottom, subTitleWidth, marginHorizontal, secondButtonOnPress, isRowButton, loading }: Props$c) => React__default.JSX.Element;
+declare const ModalContent: ({ onPress, title, subtitle, icon, buttonTitle, secondButton, secondButtonTitle, subTitleMarginBottom, subTitleWidth, marginHorizontal, secondButtonOnPress, isRowButton, loading }: Props$b) => React__default.JSX.Element;
 
-type Props$b = {
+type Props$a = {
     title: string;
     description: string;
     icon?: React__default.ReactNode;
     marginTop?: number;
 };
-declare const EmptyList: FC<Props$b>;
+declare const EmptyList: FC<Props$a>;
 
-type Props$a = {
+type Props$9 = {
     uri: string;
     onClose: () => void;
 };
-declare const PaymentModal: FC<Props$a>;
+declare const PaymentModal: FC<Props$9>;
 
-type Props$9 = {
+type Props$8 = {
     title: string;
     goBackLink?: string | any;
     isNotAuth?: boolean;
 };
-declare function Header({ title, goBackLink, isNotAuth }: Props$9): React__default.JSX.Element;
+declare function Header({ title, goBackLink, isNotAuth }: Props$8): React__default.JSX.Element;
 
-type Props$8 = {
+type Props$7 = {
     tabList: TabType[];
     setActiveTab: (v: number) => void;
     activeTab: number;
     ticketCount?: number;
 };
-declare const Tab: FC<Props$8>;
-
-type Props$7 = {
-    item: ICreateTicket;
-};
-declare const TicketItem: FC<Props$7>;
+declare const Tab: FC<Props$7>;
 
 type Props$6 = {
+    item: ICreateTicket;
+};
+declare const TicketItem: FC<Props$6>;
+
+type Props$5 = {
     code: string;
     setCode: (code: string) => void;
     setPinReady: (pinReady: boolean) => void;
     maxLength: number;
     onCodeFilled: (code: string) => void;
 };
-declare const OTPInput: React__default.FC<Props$6>;
+declare const OTPInput: React__default.FC<Props$5>;
 
-type Props$5 = {
+type Props$4 = {
     item: Notification;
 };
-declare const NotificationItem: FC<Props$5>;
+declare const NotificationItem: FC<Props$4>;
 
 declare const LineLoadingIndicator: React__default.FC;
 
@@ -1143,7 +1143,7 @@ type AccordionProps = {
 };
 declare const Accordion: FC<AccordionProps>;
 
-type Props$4 = {
+type Props$3 = {
     title: string;
     subTitle?: string;
     icon: React__default.ReactNode;
@@ -1156,9 +1156,9 @@ type Props$4 = {
     toggleSwitch?: (v: boolean) => void;
     loading?: boolean;
 };
-declare const ProfileCard: FC<Props$4>;
+declare const ProfileCard: FC<Props$3>;
 
-type Props$3 = {
+type Props$2 = {
     text: string;
     setText: (v: string) => void;
     placeholder?: string;
@@ -1167,29 +1167,30 @@ type Props$3 = {
     borderRadius?: number;
     iconRight?: React__default.ReactNode;
 };
-declare const SearchInput: FC<Props$3>;
+declare const SearchInput: FC<Props$2>;
 
-type Props$2 = {
+type Props$1 = {
     handleChoosePhotoWithoutUpload: () => void;
     error: string;
 };
-declare const ChooseFile: FC<Props$2>;
+declare const ChooseFile: FC<Props$1>;
 
-type Props$1 = {
+type Props = {
     fileSize: string;
     fileType: string;
     fileName: string;
     fileLabel: string;
     removeImage: () => void;
 };
-declare const FileUpload: FC<Props$1>;
+declare const FileUpload: FC<Props>;
 
-type Props = {
+type DetailInfoProps = {
     label: string;
     value: string;
     marginBottom?: number;
+    showCopy?: boolean;
 };
-declare const DetailInfo: FC<Props>;
+declare const DetailInfo: FC<DetailInfoProps>;
 
 declare function truncateText(text: string): string;
 declare function truncateTextWithEmail(text: string): string;

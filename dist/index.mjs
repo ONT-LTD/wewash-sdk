@@ -3278,10 +3278,53 @@ var styles22 = StyleSheet23.create({
     }
 });
 // src/components/DetailInfo/DetailInfo.tsx
-import { StyleSheet as StyleSheet24, View as View21 } from "react-native";
+import { StyleSheet as StyleSheet24, TouchableOpacity as TouchableOpacity15, View as View21, Alert } from "react-native";
 import React38 from "react";
+import { Ionicons as Ionicons2 } from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard";
 var DetailInfo = function(param) {
-    var label = param.label, value = param.value, _param_marginBottom = param.marginBottom, marginBottom = _param_marginBottom === void 0 ? 16 : _param_marginBottom;
+    var label = param.label, value = param.value, _param_marginBottom = param.marginBottom, marginBottom = _param_marginBottom === void 0 ? 16 : _param_marginBottom, _param_showCopy = param.showCopy, showCopy = _param_showCopy === void 0 ? false : _param_showCopy;
+    var handleCopy = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(text) {
+            var error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            2,
+                            ,
+                            3
+                        ]);
+                        return [
+                            4,
+                            Clipboard.setStringAsync(text)
+                        ];
+                    case 1:
+                        _state.sent();
+                        Alert.alert("Copied!", "Text copied to clipboard");
+                        return [
+                            3,
+                            3
+                        ];
+                    case 2:
+                        error = _state.sent();
+                        Alert.alert("Error", "Failed to copy text");
+                        return [
+                            3,
+                            3
+                        ];
+                    case 3:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function handleCopy(text) {
+            return _ref.apply(this, arguments);
+        };
+    }();
     return /* @__PURE__ */ React38.createElement(View21, {
         style: [
             customStyles.groupSpaceBetween,
@@ -3291,9 +3334,26 @@ var DetailInfo = function(param) {
         ]
     }, /* @__PURE__ */ React38.createElement(CustomTextNeutral, {
         style: styles23.label
-    }, label), /* @__PURE__ */ React38.createElement(CustomTextNeutral, {
+    }, label), /* @__PURE__ */ React38.createElement(View21, {
+        style: [
+            customStyles.group,
+            {
+                gap: 4
+            }
+        ]
+    }, /* @__PURE__ */ React38.createElement(CustomTextNeutral, {
         style: styles23.text
-    }, value));
+    }, value), showCopy && /* @__PURE__ */ React38.createElement(TouchableOpacity15, {
+        onPress: function() {
+            return handleCopy(value);
+        },
+        style: styles23.copyButton,
+        activeOpacity: 0.7
+    }, /* @__PURE__ */ React38.createElement(Ionicons2, {
+        name: "copy-outline",
+        size: 20,
+        color: COLORS.neutral700
+    }))));
 };
 var DetailInfo_default = DetailInfo;
 var styles23 = StyleSheet24.create({
@@ -3308,6 +3368,9 @@ var styles23 = StyleSheet24.create({
         fontFamily: "UrbanistMedium",
         fontSize: 16,
         lineHeight: 21
+    },
+    copyButton: {
+        padding: 4
     }
 });
 // src/types/others.ts

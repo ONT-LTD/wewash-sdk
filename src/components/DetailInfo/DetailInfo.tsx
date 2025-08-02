@@ -5,14 +5,14 @@ import { customStyles, COLORS } from '../../constant';
 import { CustomTextNeutral } from '../CustomText/CustomText';
 import * as Clipboard from 'expo-clipboard';
 
-type Props = {
+type DetailInfoProps = {
   label: string;
   value: string;
   marginBottom?: number;
   showCopy?: boolean;
 };
 
-const DetailInfo: FC<Props> = ({ label, value, marginBottom = 16, showCopy = false }) => {
+const DetailInfo: FC<DetailInfoProps> = ({ label, value, marginBottom = 16, showCopy = false }) => {
   const handleCopy = async (text: string) => {
     try {
       await Clipboard.setStringAsync(text);

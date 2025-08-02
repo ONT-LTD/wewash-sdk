@@ -3597,8 +3597,51 @@ var styles22 = import_react_native27.StyleSheet.create({
 // src/components/DetailInfo/DetailInfo.tsx
 var import_react_native28 = require("react-native");
 var import_react24 = __toESM(require("react"));
+var import_vector_icons3 = require("@expo/vector-icons");
+var Clipboard = __toESM(require("expo-clipboard"));
 var DetailInfo = function(param) {
-    var label = param.label, value = param.value, _param_marginBottom = param.marginBottom, marginBottom = _param_marginBottom === void 0 ? 16 : _param_marginBottom;
+    var label = param.label, value = param.value, _param_marginBottom = param.marginBottom, marginBottom = _param_marginBottom === void 0 ? 16 : _param_marginBottom, _param_showCopy = param.showCopy, showCopy = _param_showCopy === void 0 ? false : _param_showCopy;
+    var handleCopy = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(text) {
+            var error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            2,
+                            ,
+                            3
+                        ]);
+                        return [
+                            4,
+                            Clipboard.setStringAsync(text)
+                        ];
+                    case 1:
+                        _state.sent();
+                        import_react_native28.Alert.alert("Copied!", "Text copied to clipboard");
+                        return [
+                            3,
+                            3
+                        ];
+                    case 2:
+                        error = _state.sent();
+                        import_react_native28.Alert.alert("Error", "Failed to copy text");
+                        return [
+                            3,
+                            3
+                        ];
+                    case 3:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function handleCopy(text) {
+            return _ref.apply(this, arguments);
+        };
+    }();
     return /* @__PURE__ */ import_react24.default.createElement(import_react_native28.View, {
         style: [
             customStyles.groupSpaceBetween,
@@ -3608,9 +3651,26 @@ var DetailInfo = function(param) {
         ]
     }, /* @__PURE__ */ import_react24.default.createElement(CustomTextNeutral, {
         style: styles23.label
-    }, label), /* @__PURE__ */ import_react24.default.createElement(CustomTextNeutral, {
+    }, label), /* @__PURE__ */ import_react24.default.createElement(import_react_native28.View, {
+        style: [
+            customStyles.group,
+            {
+                gap: 4
+            }
+        ]
+    }, /* @__PURE__ */ import_react24.default.createElement(CustomTextNeutral, {
         style: styles23.text
-    }, value));
+    }, value), showCopy && /* @__PURE__ */ import_react24.default.createElement(import_react_native28.TouchableOpacity, {
+        onPress: function() {
+            return handleCopy(value);
+        },
+        style: styles23.copyButton,
+        activeOpacity: 0.7
+    }, /* @__PURE__ */ import_react24.default.createElement(import_vector_icons3.Ionicons, {
+        name: "copy-outline",
+        size: 20,
+        color: COLORS.neutral700
+    }))));
 };
 var DetailInfo_default = DetailInfo;
 var styles23 = import_react_native28.StyleSheet.create({
@@ -3625,6 +3685,9 @@ var styles23 = import_react_native28.StyleSheet.create({
         fontFamily: "UrbanistMedium",
         fontSize: 16,
         lineHeight: 21
+    },
+    copyButton: {
+        padding: 4
     }
 });
 // src/types/others.ts
