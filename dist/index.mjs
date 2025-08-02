@@ -366,7 +366,15 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __esm = function(fn, res) {
+    return function __init() {
+        return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+    };
+};
 var __commonJS = function(cb, mod) {
     return function __require() {
         return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = {
@@ -374,10 +382,81 @@ var __commonJS = function(cb, mod) {
         }).exports, mod), mod.exports;
     };
 };
+var __export = function(target, all) {
+    for(var name2 in all)__defProp(target, name2, {
+        get: all[name2],
+        enumerable: true
+    });
+};
+var __copyProps = function(to, from, except, desc) {
+    if (from && (typeof from === "undefined" ? "undefined" : _type_of(from)) === "object" || typeof from === "function") {
+        var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
+        try {
+            var _loop = function() {
+                var key = _step.value;
+                if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
+                    get: function() {
+                        return from[key];
+                    },
+                    enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+                });
+            };
+            for(var _iterator = __getOwnPropNames(from)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally{
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return != null) {
+                    _iterator.return();
+                }
+            } finally{
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    }
+    return to;
+};
+var __toCommonJS = function(mod) {
+    return __copyProps(__defProp({}, "__esModule", {
+        value: true
+    }), mod);
+};
 // src/assets/png/notificationLogo.png
 var require_notificationLogo = __commonJS({
     "src/assets/png/notificationLogo.png": function(exports, module) {
         module.exports = "./notificationLogo-43K2XXD4.png";
+    }
+});
+// src/config/baseApi.ts
+var baseApi_exports = {};
+__export(baseApi_exports, {
+    API_URL: function() {
+        return API_URL;
+    },
+    SOCKET_URL: function() {
+        return SOCKET_URL;
+    },
+    default: function() {
+        return baseApi_default;
+    }
+});
+import axios2 from "axios";
+var API_URL, SOCKET_URL, api, baseApi_default;
+var init_baseApi = __esm({
+    "src/config/baseApi.ts": function() {
+        "use strict";
+        API_URL = "https://gateway-ms-production.up.railway.app";
+        SOCKET_URL = "https://chats-ms-production.up.railway.app";
+        api = axios2.create({
+            baseURL: "".concat(API_URL),
+            headers: {
+                "Content-type": "application/json"
+            }
+        });
+        baseApi_default = api;
     }
 });
 // src/components/CustomButton/CustomButton.tsx
@@ -4070,17 +4149,8 @@ var ENDPOINT = {
     ADD_BANKS: "".concat(BANKS),
     TRANSACTIONS: "".concat(PAYMENT, "/transactions")
 };
-// src/config/baseApi.ts
-import axios2 from "axios";
-var API_URL = "https://gateway-ms-production.up.railway.app";
-var SOCKET_URL = "https://chats-ms-production.up.railway.app";
-var api = axios2.create({
-    baseURL: "".concat(API_URL),
-    headers: {
-        "Content-type": "application/json"
-    }
-});
-var baseApi_default = api;
+// src/config/index.ts
+init_baseApi();
 // src/config/useStorageState.ts
 import { useEffect as useEffect6, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
@@ -4185,9 +4255,81 @@ function useStorageState(key) {
         setValue
     ];
 }
+// src/config/axiosInterceptor.ts
+var setup401Interceptor = function(axiosInstance, onLogout) {
+    var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+    var _options_enableLogging = options.enableLogging, enableLogging = _options_enableLogging === void 0 ? false : _options_enableLogging;
+    var interceptor = axiosInstance.interceptors.response.use(function(response) {
+        return response;
+    }, /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(error) {
+            var _error_response, logoutError;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (!(((_error_response = error.response) === null || _error_response === void 0 ? void 0 : _error_response.status) === 401)) return [
+                            3,
+                            5
+                        ];
+                        if (enableLogging) {
+                            console.log("401 Unauthorized error detected");
+                        }
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            ,
+                            4
+                        ]);
+                        return [
+                            4,
+                            onLogout()
+                        ];
+                    case 2:
+                        _state.sent();
+                        return [
+                            3,
+                            4
+                        ];
+                    case 3:
+                        logoutError = _state.sent();
+                        if (enableLogging) {
+                            console.error("Error during logout:", logoutError);
+                        }
+                        return [
+                            3,
+                            4
+                        ];
+                    case 4:
+                        return [
+                            2,
+                            Promise.reject(new Error("User logged out due to authentication failure"))
+                        ];
+                    case 5:
+                        return [
+                            2,
+                            Promise.reject(error)
+                        ];
+                }
+            });
+        });
+        return function(error) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+    return function() {
+        axiosInstance.interceptors.response.eject(interceptor);
+    };
+};
+var setupDefault401Interceptor = function(onLogout, options) {
+    var api2 = (init_baseApi(), __toCommonJS(baseApi_exports)).default;
+    return setup401Interceptor(api2, onLogout, options);
+};
 // src/context/socket.tsx
 import React39, { createContext, useContext, useEffect as useEffect7, useState as useState11 } from "react";
 // src/config/socket.ts
+init_baseApi();
 import { io } from "socket.io-client";
 var socket = null;
 var initializeSocket = /*#__PURE__*/ function() {
@@ -4747,5 +4889,5 @@ var walletService = /*#__PURE__*/ function() {
     return walletService;
 }();
 var walletServices = new walletService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, setup401Interceptor, setupDefault401Interceptor, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
 //# sourceMappingURL=index.mjs.map

@@ -176,11 +176,7 @@ export interface IProfileState {
   supportedIDs: string[];
   banks: [] | any;
   userBank: {} | any;
-  transactions: {
-    data: TransactionType[];
-    meta: Meta;
-  } | {};
-  transaction: TransactionType | {};
+
   error: any;
 }
 
@@ -298,7 +294,12 @@ export interface IWashState {
 }
 
 export interface IWalletState {
-  wallet: WalletType | {}
+  wallet: WalletType | {};
+  transactions: {
+    data: TransactionType[];
+    meta: Meta;
+  } | {};
+  transaction: TransactionType | {};
   loading: boolean;
   error: any | {};
 }
