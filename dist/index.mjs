@@ -4010,6 +4010,7 @@ var WASHES = "".concat(V1, "/washes");
 var ORDERS = "".concat(V1, "/orders");
 var KYC = "".concat(V1, "/kyc");
 var WALLET = "".concat(V1, "/wallets");
+var PAYMENT = "".concat(V1, "/payments");
 var BANKS = "".concat(V1, "/users/banks");
 var USER = "".concat(V1, "/users");
 var BENEFICIARIES = "".concat(USER, "/beneficiaries");
@@ -4066,7 +4067,8 @@ var ENDPOINT = {
     BANKS: "".concat(BANKS),
     BENEFICIARY: "".concat(BENEFICIARIES),
     LOCAL_BANKS: "".concat(V1, "/users/local-banks"),
-    ADD_BANKS: "".concat(BANKS)
+    ADD_BANKS: "".concat(BANKS),
+    TRANSACTIONS: "".concat(PAYMENT, "/transactions")
 };
 // src/config/baseApi.ts
 import axios2 from "axios";
@@ -4727,6 +4729,18 @@ var walletService = /*#__PURE__*/ function() {
             key: "WITHDRAW",
             value: function WITHDRAW(data) {
                 return baseApi_default.post("".concat(ENDPOINT.WITHDRAW), data);
+            }
+        },
+        {
+            key: "TRANSACTIONS",
+            value: function TRANSACTIONS(data) {
+                return baseApi_default.get("".concat(ENDPOINT.TRANSACTIONS, "?perPage=").concat(data === null || data === void 0 ? void 0 : data.perPage, "&page=").concat(data.page));
+            }
+        },
+        {
+            key: "GET_TRANSACTION",
+            value: function GET_TRANSACTION(id) {
+                return baseApi_default.get("".concat(ENDPOINT.TRANSACTIONS, "/").concat(id));
             }
         }
     ]);

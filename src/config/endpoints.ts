@@ -8,6 +8,7 @@ const WASHES = `${V1}/washes`;
 const ORDERS = `${V1}/orders`;
 const KYC = `${V1}/kyc`;
 const WALLET = `${V1}/wallets`;
+const PAYMENT = `${V1}/payments`;
 const BANKS = `${V1}/users/banks`;
 const USER = `${V1}/users`;
 const BENEFICIARIES = `${USER}/beneficiaries`;
@@ -66,5 +67,6 @@ export const ENDPOINT = {
   BANKS: `${BANKS}`,
   BENEFICIARY: `${BENEFICIARIES}`,
   LOCAL_BANKS: `${V1}/users/local-banks`,
-  ADD_BANKS: `${BANKS}`
+  ADD_BANKS: `${BANKS}`,
+  TRANSACTIONS: `${PAYMENT}/transactions`,
 };

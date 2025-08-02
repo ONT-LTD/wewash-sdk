@@ -13,7 +13,7 @@ import {
   User,
   VehicleConfigs
 } from '../services/profileServices/types';
-import { WalletType } from '../services/walletServices/types';
+import { TransactionType, WalletType } from '../services/walletServices/types';
 import {
   ILocation,
   ISingleWashHistory,
@@ -112,6 +112,52 @@ export type FAQS = {
   answer: string;
 };
 
+export interface IRatingUserProfile {
+  image: string;
+  lastName: string;
+  firstName: string;
+}
+
+export interface IRatingUserMetadata {
+  os: string;
+  device: string;
+  location: string | null;
+  ipAddress: string;
+  lastLoggedInAt: string;
+}
+
+export interface IRatingUserInfo {
+  id: string;
+  email: string;
+  phone: string;
+  username: string;
+  referralCode: string;
+  referralBalance: string;
+  pushNotificationToken: string | null;
+  status: 'active' | 'inactive' | 'suspended';
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  profile: IRatingUserProfile;
+  role: 'customer' | 'washer' | 'admin';
+  source: 'local' | 'google' | 'facebook';
+  paymentMethod: 'bank-transfer' | 'card' | 'wallet';
+  createdAt: string;
+  updatedAt: string;
+  metadata: IRatingUserMetadata;
+}
+
+export interface IRating {
+  id: string;
+  rater: string;
+  ratedUser: string;
+  stars: number;
+  comment: string;
+  order: string;
+  createdAt: string;
+  updatedAt: string;
+  raterInfo: IRatingUserInfo;
+}
+
 export interface IProfileState {
   userProfile: User | {};
   addresses: Address[] | [];
@@ -122,10 +168,19 @@ export interface IProfileState {
   notifications: [] | any;
   faqs: FAQS[] | [];
   configs: VehicleConfigs | {};
+  ratings: {
+    data: IRating[];
+    meta: Meta;
+  } | {};
   loading: boolean;
   supportedIDs: string[];
   banks: [] | any;
   userBank: {} | any;
+  transactions: {
+    data: TransactionType[];
+    meta: Meta;
+  } | {};
+  transaction: TransactionType | {};
   error: any;
 }
 

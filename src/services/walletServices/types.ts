@@ -11,6 +11,34 @@ export type WalletType = {
   updatedAt: string;
 };
 
+export type TransactionMetaData = {
+  data: {
+    amount: number;
+    status: string;
+    recipientCode: string;
+    recipientAccountName: string;
+  };
+  message: string;
+  statusCode: number;
+};
+
+export type TransactionType = {
+  id: string;
+  orderId: string | null;
+  reference: string;
+  amount: string;
+  type: string;
+  status: string;
+  metaData: TransactionMetaData;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  beneficiary: {
+    bankCode: string;
+    accountNumber: string;
+  };
+};
+
 export type WithdrawData = {
   amount: number
 }
@@ -18,5 +46,14 @@ export type WithdrawData = {
 export type walletResponse = ApiResponse<{
   wallet: WalletType;
 }>;
-
 export type WithdrawResponse = ApiResponse<{}>;
+
+export type TransactionsResponse = ApiResponse<{
+  transactions: TransactionType[];
+}>;
+
+
+export type TransactionResponse = ApiResponse<{
+  transaction: TransactionType;
+}>;
+
