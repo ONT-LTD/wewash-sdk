@@ -604,6 +604,9 @@ __export(index_exports, {
     WashServices: function() {
         return WashServices;
     },
+    WithdrawalTransactionType: function() {
+        return WithdrawalTransactionType;
+    },
     api: function() {
         return baseApi_default;
     },
@@ -3727,6 +3730,12 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     apiContext2["updatePassword"] = "update-password";
     return apiContext2;
 }(apiContext || {});
+// src/services/walletServices/types.ts
+var WithdrawalTransactionType = /* @__PURE__ */ function(WithdrawalTransactionType2) {
+    WithdrawalTransactionType2["PAYMENT"] = "payment";
+    WithdrawalTransactionType2["WITHDRAWAL"] = "withdrawal";
+    return WithdrawalTransactionType2;
+}(WithdrawalTransactionType || {});
 // src/hooks/useModal/useModal.tsx
 var import_react25 = require("react");
 var useModal = function() {
@@ -5308,6 +5317,7 @@ var walletServices = new walletService();
     Tab: Tab,
     TicketItem: TicketItem,
     WashServices: WashServices,
+    WithdrawalTransactionType: WithdrawalTransactionType,
     api: api,
     apiContext: apiContext,
     blurhash: blurhash,

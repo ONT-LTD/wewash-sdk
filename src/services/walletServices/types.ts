@@ -22,12 +22,17 @@ export type TransactionMetaData = {
   statusCode: number;
 };
 
+export enum WithdrawalTransactionType {
+  PAYMENT = "payment",
+  WITHDRAWAL = "withdrawal",
+}
+
 export type TransactionType = {
   id: string;
   orderId: string | null;
   reference: string;
   amount: string;
-  type: string;
+  type: WithdrawalTransactionType;
   status: string;
   metaData: TransactionMetaData;
   createdAt: string;
@@ -41,6 +46,7 @@ export type TransactionType = {
 
 export type WithdrawData = {
   amount: number
+  pin: string
 }
 
 export type walletResponse = ApiResponse<{
