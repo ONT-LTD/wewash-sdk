@@ -4522,6 +4522,7 @@ var ENDPOINT = {
     COUPON: "".concat(ORDERS, "/validate-coupon"),
     WASHER_AVAILABILITY: "".concat(ORDERS, "/washer-availabiltiy/toggle"),
     GET_WASHES: "".concat(WASHES, "/customer"),
+    GET_WASHER_WASHES: "".concat(WASHES, "/washer"),
     GET_WASH: "".concat(WASHES),
     CREATE_TICKET: "".concat(TICKETS, "/create"),
     GET_TICKETS: "".concat(TICKETS, "/customer"),
@@ -4909,6 +4910,15 @@ var WashService = /*#__PURE__*/ function() {
                 if (data === null || data === void 0 ? void 0 : data.page) params.append("page", data.page.toString());
                 if (data === null || data === void 0 ? void 0 : data.status) params.append("status", data.status.toString());
                 return baseApi_default.get("".concat(ENDPOINT.GET_WASHES, "/?").concat(params.toString()));
+            }
+        },
+        {
+            key: "GET_WASHER_WASHES",
+            value: function GET_WASHER_WASHES(data) {
+                var params = new URLSearchParams();
+                if (data === null || data === void 0 ? void 0 : data.perPage) params.append("perPage", data.perPage.toString());
+                if (data === null || data === void 0 ? void 0 : data.page) params.append("page", data.page.toString());
+                return baseApi_default.get("".concat(ENDPOINT.GET_WASHER_WASHES, "/?").concat(params.toString()));
             }
         },
         {

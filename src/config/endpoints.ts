@@ -55,6 +55,7 @@ export const ENDPOINT = {
   COUPON: `${ORDERS}/validate-coupon`,
   WASHER_AVAILABILITY: `${ORDERS}/washer-availabiltiy/toggle`,
   GET_WASHES: `${WASHES}/customer`,
+  GET_WASHER_WASHES: `${WASHES}/washer`,
   GET_WASH: `${WASHES}`,
   CREATE_TICKET: `${TICKETS}/create`,
   GET_TICKETS: `${TICKETS}/customer`,

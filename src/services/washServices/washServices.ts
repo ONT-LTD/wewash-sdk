@@ -41,6 +41,14 @@ class WashService {
 
     return api.get(`${ENDPOINT.GET_WASHES}/?${params.toString()}`);
   }
+
+  GET_WASHER_WASHES(data: PaginationParams) {
+    const params = new URLSearchParams();
+    if (data?.perPage) params.append('perPage', data.perPage.toString());
+    if (data?.page) params.append('page', data.page.toString());
+    return api.get(`${ENDPOINT.GET_WASHER_WASHES}/?${params.toString()}`);
+  }
+
   GET_WASH(data: OrderIdData) {
     return api.get(`${ENDPOINT.GET_WASH}/${data.orderId}`);
   }

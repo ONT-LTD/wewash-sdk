@@ -1514,6 +1514,7 @@ declare const ENDPOINT: {
     COUPON: string;
     WASHER_AVAILABILITY: string;
     GET_WASHES: string;
+    GET_WASHER_WASHES: string;
     GET_WASH: string;
     CREATE_TICKET: string;
     GET_TICKETS: string;
@@ -1580,6 +1581,7 @@ declare class WashService {
     GET_CATEGORIES(): Promise<axios.AxiosResponse<any, any>>;
     CREATE_WASH(data: WashData): Promise<axios.AxiosResponse<any, any>>;
     GET_WASHES(data: PaginationParams): Promise<axios.AxiosResponse<any, any>>;
+    GET_WASHER_WASHES(data: PaginationParams): Promise<axios.AxiosResponse<any, any>>;
     GET_WASH(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
     CANCEL_ORDER(data: CancelOrderData): Promise<axios.AxiosResponse<any, any>>;
     COMPLETE_ORDER(data: OrderIdData): Promise<axios.AxiosResponse<any, any>>;
