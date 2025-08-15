@@ -27,6 +27,8 @@ export const ENDPOINT = {
   ADDRESS: `${PROFILE}/address`,
   PROFILE: `${PROFILE}`,
   RATINGS: `${PROFILE}/ratings`,
+  SET_TRANSACTION_PIN: `${PROFILE}/set-pin`,
+  UPDATE_TRANSACTION_PIN: `${PROFILE}/update-pin`,
   NOTIFICATIONS: `${NOTIFICATIONS}`,
   UPLOAD_PROFILE_IMAGE: `${PROFILE}/upload/image`,
   UPDATE_PASSWORD: `${PROFILE}/update-password`,

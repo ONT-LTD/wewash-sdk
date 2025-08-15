@@ -115,6 +115,9 @@ export type User = {
   createdAt: string;
   updatedAt: string;
   referralCode: string;
+  washer: {
+    availableToTakeOrders: boolean
+  }
 };
 
 export type Address = {
@@ -193,6 +196,15 @@ export type paginationType = {
   perPage: number
 }
 
+export type SetPINData = {
+  pin: string
+}
+
+export type UpdatePINData = {
+  currentPin: string,
+  newPin: string
+}
+
 export type VehicleResponse = ApiResponse<{ vehicle: Vehicle }>;
 export type FAQResponse = ApiResponse<{ faqs: FAQS[] }>;
 export type VehicleConfigResponse = ApiResponse<{ configs: VehicleConfigs }>;
@@ -212,7 +224,7 @@ export type KycResponse = ApiResponse<{
 
 export type SupportedKycResponse = ApiResponse<string[]>;
 export type BanksResponse = ApiResponse<any>;
-
+export type TransactionPINResponse = ApiResponse<any>;
 export type RatingResponse = ApiResponse<{
   ratings: {
     data: any[];

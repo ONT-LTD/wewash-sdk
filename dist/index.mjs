@@ -4174,6 +4174,8 @@ var ENDPOINT = {
     ADDRESS: "".concat(PROFILE, "/address"),
     PROFILE: "".concat(PROFILE),
     RATINGS: "".concat(PROFILE, "/ratings"),
+    SET_TRANSACTION_PIN: "".concat(PROFILE, "/set-pin"),
+    UPDATE_TRANSACTION_PIN: "".concat(PROFILE, "/update-pin"),
     NOTIFICATIONS: "".concat(NOTIFICATIONS),
     UPLOAD_PROFILE_IMAGE: "".concat(PROFILE, "/upload/image"),
     UPDATE_PASSWORD: "".concat(PROFILE, "/update-password"),
@@ -4841,6 +4843,18 @@ var ProfileService = /*#__PURE__*/ function() {
             key: "RATINGS",
             value: function RATINGS(data) {
                 return baseApi_default.get("".concat(ENDPOINT.RATINGS, "?perPage=").concat(data === null || data === void 0 ? void 0 : data.perPage, "&page=").concat(data.page));
+            }
+        },
+        {
+            key: "SET_TRANSACTION_PIN",
+            value: function SET_TRANSACTION_PIN(data) {
+                return baseApi_default.post("".concat(ENDPOINT.SET_TRANSACTION_PIN), data);
+            }
+        },
+        {
+            key: "UPDATE_TRANSACTION_PIN",
+            value: function UPDATE_TRANSACTION_PIN(data) {
+                return baseApi_default.post("".concat(ENDPOINT.UPDATE_TRANSACTION_PIN), data);
             }
         }
     ]);

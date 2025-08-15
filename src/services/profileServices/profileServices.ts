@@ -9,7 +9,9 @@ import {
   IReferralParam,
   KYCType,
   BankData,
-  paginationType
+  paginationType,
+  SetPINData,
+  UpdatePINData
 } from './types';
 
 class ProfileService {
@@ -105,6 +107,12 @@ class ProfileService {
   }
   RATINGS(data: paginationType) {
     return api.get(`${ENDPOINT.RATINGS}?perPage=${data?.perPage}&page=${data.page}`);
+  }
+  SET_TRANSACTION_PIN(data: SetPINData) {
+    return api.post(`${ENDPOINT.SET_TRANSACTION_PIN}`, data);
+  }
+  UPDATE_TRANSACTION_PIN(data: UpdatePINData) {
+    return api.post(`${ENDPOINT.UPDATE_TRANSACTION_PIN}`, data);
   }
 }
 
