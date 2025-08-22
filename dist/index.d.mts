@@ -959,7 +959,8 @@ declare enum apiContext {
     reset = "reset-password",
     signIn = "signin",
     signUp = "signup",
-    updatePassword = "update-password"
+    updatePassword = "update-password",
+    updatePin = "update-pin"
 }
 interface IRequestOTP {
     recipient: string;

@@ -3728,6 +3728,7 @@ var apiContext = /* @__PURE__ */ function(apiContext2) {
     apiContext2["signIn"] = "signin";
     apiContext2["signUp"] = "signup";
     apiContext2["updatePassword"] = "update-password";
+    apiContext2["updatePin"] = "update-pin";
     return apiContext2;
 }(apiContext || {});
 // src/services/walletServices/types.ts

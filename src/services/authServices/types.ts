@@ -24,7 +24,8 @@ export enum apiContext {
   reset = 'reset-password',
   signIn = 'signin',
   signUp = 'signup',
-  updatePassword = 'update-password'
+  updatePassword = 'update-password',
+  updatePin = 'update-pin'
 }
 
 export interface IRequestOTP {
