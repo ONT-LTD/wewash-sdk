@@ -24,6 +24,7 @@ type Props = {
   textRight?: string;
   toggleSwitch?: (v: boolean) => void;
   loading?: boolean;
+  rightIcon?: React.ReactNode;
 };
 
 const ProfileCard: FC<Props> = ({
@@ -37,7 +38,8 @@ const ProfileCard: FC<Props> = ({
   noArrow,
   textRight,
   loading,
-  toggleSwitch
+  toggleSwitch,
+  rightIcon = false
 }) => {
   return (
     <TouchableOpacity
@@ -62,7 +64,7 @@ const ProfileCard: FC<Props> = ({
           value={isEnabled}
           style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
         />
-      ) : !noArrow ? (
+      ) : rightIcon ? rightIcon : !noArrow ? (
         loading ? (
           <ActivityIndicator />
         ) : (

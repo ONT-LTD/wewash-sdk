@@ -2824,7 +2824,7 @@ var SvgComponent8 = function(props) {
 var ChevronRight_default = SvgComponent8;
 // src/components/ProfileCard/ProfileCard.tsx
 var ProfileCard = function(param) {
-    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch;
+    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch, _param_rightIcon = param.rightIcon, rightIcon = _param_rightIcon === void 0 ? false : _param_rightIcon;
     return /* @__PURE__ */ React28.createElement(TouchableOpacity12, {
         style: [
             styles19.container,
@@ -2862,7 +2862,7 @@ var ProfileCard = function(param) {
                 }
             ]
         }
-    }) : !noArrow ? loading ? /* @__PURE__ */ React28.createElement(ActivityIndicator3, null) : /* @__PURE__ */ React28.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ React28.createElement(CustomTextNeutral, {
+    }) : rightIcon ? rightIcon : !noArrow ? loading ? /* @__PURE__ */ React28.createElement(ActivityIndicator3, null) : /* @__PURE__ */ React28.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ React28.createElement(CustomTextNeutral, {
         style: styles19.subTitle
     }, textRight) : null);
 };

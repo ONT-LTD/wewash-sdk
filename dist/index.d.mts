@@ -138,6 +138,7 @@ type User = {
     createdAt: string;
     updatedAt: string;
     referralCode: string;
+    isPinSet?: boolean;
     washer: {
         availableToTakeOrders: boolean;
     };
@@ -1171,6 +1172,7 @@ type Props$3 = {
     textRight?: string;
     toggleSwitch?: (v: boolean) => void;
     loading?: boolean;
+    rightIcon?: React__default.ReactNode;
 };
 declare const ProfileCard: FC<Props$3>;
 

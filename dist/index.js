@@ -3144,7 +3144,7 @@ var SvgComponent8 = function(props) {
 var ChevronRight_default = SvgComponent8;
 // src/components/ProfileCard/ProfileCard.tsx
 var ProfileCard = function(param) {
-    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch;
+    var title = param.title, subTitle = param.subTitle, icon = param.icon, onPress = param.onPress, isSwitch = param.isSwitch, isEnabled = param.isEnabled, paddingVertical = param.paddingVertical, noArrow = param.noArrow, textRight = param.textRight, loading = param.loading, toggleSwitch = param.toggleSwitch, _param_rightIcon = param.rightIcon, rightIcon = _param_rightIcon === void 0 ? false : _param_rightIcon;
     return /* @__PURE__ */ import_react20.default.createElement(import_react_native24.TouchableOpacity, {
         style: [
             styles19.container,
@@ -3182,7 +3182,7 @@ var ProfileCard = function(param) {
                 }
             ]
         }
-    }) : !noArrow ? loading ? /* @__PURE__ */ import_react20.default.createElement(import_react_native24.ActivityIndicator, null) : /* @__PURE__ */ import_react20.default.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ import_react20.default.createElement(CustomTextNeutral, {
+    }) : rightIcon ? rightIcon : !noArrow ? loading ? /* @__PURE__ */ import_react20.default.createElement(import_react_native24.ActivityIndicator, null) : /* @__PURE__ */ import_react20.default.createElement(ChevronRight_default, null) : textRight ? /* @__PURE__ */ import_react20.default.createElement(CustomTextNeutral, {
         style: styles19.subTitle
     }, textRight) : null);
 };

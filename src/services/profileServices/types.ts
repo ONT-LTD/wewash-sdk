@@ -115,6 +115,7 @@ export type User = {
   createdAt: string;
   updatedAt: string;
   referralCode: string;
+  isPinSet?: boolean
   washer: {
     availableToTakeOrders: boolean
   }
