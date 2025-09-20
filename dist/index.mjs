@@ -1885,43 +1885,10 @@ var styles10 = StyleSheet11.create({
 // src/components/PaymentModal/PaymentModal.tsx
 import { ActivityIndicator as ActivityIndicator2, StyleSheet as StyleSheet12, TouchableOpacity as TouchableOpacity7, View as View9 } from "react-native";
 import React18, { useState as useState2 } from "react";
-// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
-import { NativeModules, Platform } from "react-native";
-// node_modules/expo-modules-core/src/web/index.ts
-function registerWebGlobals() {}
-// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
-function ensureNativeModulesAreInstalled() {
-    if (globalThis.expo) {
-        return;
-    }
-    try {
-        if (Platform.OS === "web") {
-            registerWebGlobals();
-        } else {
-            var _NativeModules_ExpoModulesCore;
-            (_NativeModules_ExpoModulesCore = NativeModules.ExpoModulesCore) === null || _NativeModules_ExpoModulesCore === void 0 ? void 0 : _NativeModules_ExpoModulesCore.installModules();
-        }
-    } catch (error) {
-        console.error("Unable to install Expo modules: ".concat(error));
-    }
-}
 // node_modules/expo-modules-core/src/NativeModulesProxy.ts
 var NativeModulesProxy_default = {};
-// node_modules/expo-modules-core/src/errors/CodedError.ts
-var CodedError = /*#__PURE__*/ function(Error1) {
-    "use strict";
-    _inherits(CodedError, Error1);
-    function CodedError(code, message) {
-        _class_call_check(this, CodedError);
-        var _this;
-        _this = _call_super(this, CodedError, [
-            message
-        ]);
-        _this.code = code;
-        return _this;
-    }
-    return CodedError;
-}(_wrap_native_super(Error));
+// node_modules/expo-modules-core/src/sweet/NativeErrorManager.ts
+var NativeErrorManager_default = NativeModulesProxy_default.ExpoModulesCoreErrorManager;
 // node_modules/expo-modules-core/src/Platform.ts
 import { Platform as ReactNativePlatform } from "react-native";
 // node_modules/expo-modules-core/src/environment/browser.ts
@@ -1949,7 +1916,7 @@ function select(specifics) {
     }
     return void 0;
 };
-var Platform2 = {
+var Platform = {
     /**
    * Denotes the currently running platform.
    * Can be one of ios, android, web.
@@ -1981,9 +1948,22 @@ var Platform2 = {
    * When `true`, synchronous native invocations cannot be executed.
    */ isAsyncDebugging: isAsyncDebugging
 };
-var Platform_default = Platform2;
-// node_modules/expo-modules-core/src/sweet/NativeErrorManager.ts
-var NativeErrorManager_default = NativeModulesProxy_default.ExpoModulesCoreErrorManager;
+var Platform_default = Platform;
+// node_modules/expo-modules-core/src/errors/CodedError.ts
+var CodedError = /*#__PURE__*/ function(Error1) {
+    "use strict";
+    _inherits(CodedError, Error1);
+    function CodedError(code, message) {
+        _class_call_check(this, CodedError);
+        var _this;
+        _this = _call_super(this, CodedError, [
+            message
+        ]);
+        _this.code = code;
+        return _this;
+    }
+    return CodedError;
+}(_wrap_native_super(Error));
 // node_modules/expo-modules-core/src/sweet/setUpErrorManager.fx.ts
 if (__DEV__ && Platform_default.OS === "android" && NativeErrorManager_default) {
     var onNewException = "ExpoModulesCoreErrorManager.onNewException";
@@ -1998,6 +1978,25 @@ if (__DEV__ && Platform_default.OS === "android" && NativeErrorManager_default) 
     });
 }
 globalThis.ExpoModulesCore_CodedError = CodedError;
+// node_modules/expo-modules-core/src/web/index.ts
+function registerWebGlobals() {}
+// node_modules/expo-modules-core/src/ensureNativeModulesAreInstalled.ts
+import { NativeModules, Platform as Platform2 } from "react-native";
+function ensureNativeModulesAreInstalled() {
+    if (globalThis.expo) {
+        return;
+    }
+    try {
+        if (Platform2.OS === "web") {
+            registerWebGlobals();
+        } else {
+            var _NativeModules_ExpoModulesCore;
+            (_NativeModules_ExpoModulesCore = NativeModules.ExpoModulesCore) === null || _NativeModules_ExpoModulesCore === void 0 ? void 0 : _NativeModules_ExpoModulesCore.installModules();
+        }
+    } catch (error) {
+        console.error("Unable to install Expo modules: ".concat(error));
+    }
+}
 // node_modules/expo-modules-core/src/requireNativeModule.ts
 function requireOptionalNativeModule(moduleName) {
     var _globalThis_expo_modules, _globalThis_expo;

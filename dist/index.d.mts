@@ -1482,7 +1482,7 @@ declare const useGooglePlaces: (apiKey: string) => {
 };
 
 declare const useReceiptPDF: () => {
-    receiptRef: React$1.RefObject<View>;
+    receiptRef: React$1.RefObject<View | null>;
     captureAndShare: () => Promise<void>;
     generatePDF: (modalData: IWash) => Promise<boolean>;
 };

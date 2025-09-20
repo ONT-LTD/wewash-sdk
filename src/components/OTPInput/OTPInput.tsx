@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, JSX } from 'react';
 import { COLORS } from '../../constant';
 import { CustomText } from '../CustomText/CustomText';
 
