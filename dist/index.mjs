@@ -4193,6 +4193,135 @@ var useRouteNotification = function() {
         };
     }, []);
 };
+// src/hooks/usePushNotification/usePushNotification.ts
+import { useState as useState11, useEffect as useEffect7 } from "react";
+import * as Device2 from "expo-device";
+import * as Notifications2 from "expo-notifications";
+import { Platform as Platform5 } from "react-native";
+Notifications2.setNotificationHandler({
+    handleNotification: /*#__PURE__*/ _async_to_generator(function() {
+        return _ts_generator(this, function(_state) {
+            return [
+                2,
+                {
+                    shouldShowAlert: true,
+                    shouldPlaySound: true,
+                    shouldSetBadge: true,
+                    shouldShowBanner: true,
+                    shouldShowList: true
+                }
+            ];
+        });
+    })
+});
+var usePushNotification = function() {
+    var _useState11 = _sliced_to_array(useState11(), 2), expoPushToken = _useState11[0], setExpoPushToken = _useState11[1];
+    var _useState111 = _sliced_to_array(useState11(), 2), notification = _useState111[0], setNotification = _useState111[1];
+    useEffect7(function() {
+        registerForPushNotificationsAsync().then(function(token) {
+            return setExpoPushToken(token);
+        });
+        var notificationListener = Notifications2.addNotificationReceivedListener(function(notification2) {
+            setNotification(notification2);
+        });
+        var responseListener = Notifications2.addNotificationResponseReceivedListener(function(response) {
+            console.log(response);
+        });
+        return function() {
+            Notifications2.removeNotificationSubscription(notificationListener);
+            Notifications2.removeNotificationSubscription(responseListener);
+        };
+    }, []);
+    var registerForPushNotificationsAsync = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var token, _Constants_default_expoConfig_extra_eas, _Constants_default_expoConfig_extra, _Constants_default_expoConfig, _Constants_default_easConfig, _ref, existingStatus, finalStatus, status, _Constants_default_expoConfig_extra_eas_projectId;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (!(Platform5.OS === "android")) return [
+                            3,
+                            2
+                        ];
+                        return [
+                            4,
+                            Notifications2.setNotificationChannelAsync("default", {
+                                name: "default",
+                                importance: Notifications2.AndroidImportance.MAX,
+                                vibrationPattern: [
+                                    0,
+                                    250,
+                                    250,
+                                    250
+                                ],
+                                lightColor: "#FF231F7C"
+                            })
+                        ];
+                    case 1:
+                        _state.sent();
+                        _state.label = 2;
+                    case 2:
+                        if (!Device2.isDevice) return [
+                            3,
+                            7
+                        ];
+                        return [
+                            4,
+                            Notifications2.getPermissionsAsync()
+                        ];
+                    case 3:
+                        _ref = _state.sent(), existingStatus = _ref.status;
+                        finalStatus = existingStatus;
+                        if (!(existingStatus !== "granted")) return [
+                            3,
+                            5
+                        ];
+                        return [
+                            4,
+                            Notifications2.requestPermissionsAsync()
+                        ];
+                    case 4:
+                        status = _state.sent().status;
+                        finalStatus = status;
+                        _state.label = 5;
+                    case 5:
+                        if (finalStatus !== "granted") {
+                            alert("Failed to get push token for push notification!");
+                            return [
+                                2
+                            ];
+                        }
+                        return [
+                            4,
+                            Notifications2.getExpoPushTokenAsync({
+                                projectId: (_Constants_default_expoConfig_extra_eas_projectId = Constants_default === null || Constants_default === void 0 ? void 0 : (_Constants_default_expoConfig = Constants_default.expoConfig) === null || _Constants_default_expoConfig === void 0 ? void 0 : (_Constants_default_expoConfig_extra = _Constants_default_expoConfig.extra) === null || _Constants_default_expoConfig_extra === void 0 ? void 0 : (_Constants_default_expoConfig_extra_eas = _Constants_default_expoConfig_extra.eas) === null || _Constants_default_expoConfig_extra_eas === void 0 ? void 0 : _Constants_default_expoConfig_extra_eas.projectId) !== null && _Constants_default_expoConfig_extra_eas_projectId !== void 0 ? _Constants_default_expoConfig_extra_eas_projectId : Constants_default === null || Constants_default === void 0 ? void 0 : (_Constants_default_easConfig = Constants_default.easConfig) === null || _Constants_default_easConfig === void 0 ? void 0 : _Constants_default_easConfig.projectId
+                            })
+                        ];
+                    case 6:
+                        token = _state.sent().data;
+                        return [
+                            3,
+                            8
+                        ];
+                    case 7:
+                        console.log("Must use physical device for Push Notifications");
+                        _state.label = 8;
+                    case 8:
+                        return [
+                            2,
+                            token
+                        ];
+                }
+            });
+        });
+        return function registerForPushNotificationsAsync() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    return {
+        expoPushToken: expoPushToken,
+        notification: notification
+    };
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4270,9 +4399,9 @@ var ENDPOINT = {
 // src/config/index.ts
 init_baseApi();
 // src/config/useStorageState.ts
-import { useEffect as useEffect7, useCallback as useCallback3, useReducer } from "react";
+import { useEffect as useEffect8, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
-import { Platform as Platform5 } from "react-native";
+import { Platform as Platform6 } from "react-native";
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
@@ -4294,7 +4423,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(Platform5.OS === "web")) return [
+                    if (!(Platform6.OS === "web")) return [
                         3,
                         1
                     ];
@@ -4345,8 +4474,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    useEffect7(function() {
-        if (Platform5.OS === "web") {
+    useEffect8(function() {
+        if (Platform6.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -4445,7 +4574,7 @@ var setupDefault401Interceptor = function(onLogout, options) {
     return setup401Interceptor(api2, onLogout, options);
 };
 // src/context/socket.tsx
-import React39, { createContext, useContext, useEffect as useEffect8, useState as useState11 } from "react";
+import React39, { createContext, useContext, useEffect as useEffect9, useState as useState12 } from "react";
 // src/config/socket.ts
 init_baseApi();
 import { io } from "socket.io-client";
@@ -4497,8 +4626,8 @@ var SocketContext = createContext({
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _useState11 = _sliced_to_array(useState11(null), 2), socket2 = _useState11[0], setSocket = _useState11[1];
-    useEffect8(function() {
+    var _useState12 = _sliced_to_array(useState12(null), 2), socket2 = _useState12[0], setSocket = _useState12[1];
+    useEffect9(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -5028,5 +5157,5 @@ var walletService = /*#__PURE__*/ function() {
     return walletService;
 }();
 var walletServices = new walletService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, WithdrawalTransactionType, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, setup401Interceptor, setupDefault401Interceptor, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useRouteNotification, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, WithdrawalTransactionType, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, setup401Interceptor, setupDefault401Interceptor, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, usePushNotification, useReceiptPDF, useRouteNotification, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
 //# sourceMappingURL=index.mjs.map

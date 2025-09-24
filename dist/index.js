@@ -754,6 +754,9 @@ __export(index_exports, {
     useModal: function() {
         return useModal;
     },
+    usePushNotification: function() {
+        return usePushNotification;
+    },
     useReceiptPDF: function() {
         return useReceiptPDF;
     },
@@ -4516,6 +4519,135 @@ var useRouteNotification = function() {
         };
     }, []);
 };
+// src/hooks/usePushNotification/usePushNotification.ts
+var import_react34 = require("react");
+var Device2 = __toESM(require("expo-device"));
+var Notifications2 = __toESM(require("expo-notifications"));
+var import_react_native31 = require("react-native");
+Notifications2.setNotificationHandler({
+    handleNotification: /*#__PURE__*/ _async_to_generator(function() {
+        return _ts_generator(this, function(_state) {
+            return [
+                2,
+                {
+                    shouldShowAlert: true,
+                    shouldPlaySound: true,
+                    shouldSetBadge: true,
+                    shouldShowBanner: true,
+                    shouldShowList: true
+                }
+            ];
+        });
+    })
+});
+var usePushNotification = function() {
+    var _ref = _sliced_to_array((0, import_react34.useState)(), 2), expoPushToken = _ref[0], setExpoPushToken = _ref[1];
+    var _ref1 = _sliced_to_array((0, import_react34.useState)(), 2), notification = _ref1[0], setNotification = _ref1[1];
+    (0, import_react34.useEffect)(function() {
+        registerForPushNotificationsAsync().then(function(token) {
+            return setExpoPushToken(token);
+        });
+        var notificationListener = Notifications2.addNotificationReceivedListener(function(notification2) {
+            setNotification(notification2);
+        });
+        var responseListener = Notifications2.addNotificationResponseReceivedListener(function(response) {
+            console.log(response);
+        });
+        return function() {
+            Notifications2.removeNotificationSubscription(notificationListener);
+            Notifications2.removeNotificationSubscription(responseListener);
+        };
+    }, []);
+    var registerForPushNotificationsAsync = /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function() {
+            var token, _Constants_default_expoConfig_extra_eas, _Constants_default_expoConfig_extra, _Constants_default_expoConfig, _Constants_default_easConfig, _ref, existingStatus, finalStatus, status, _Constants_default_expoConfig_extra_eas_projectId;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (!(import_react_native31.Platform.OS === "android")) return [
+                            3,
+                            2
+                        ];
+                        return [
+                            4,
+                            Notifications2.setNotificationChannelAsync("default", {
+                                name: "default",
+                                importance: Notifications2.AndroidImportance.MAX,
+                                vibrationPattern: [
+                                    0,
+                                    250,
+                                    250,
+                                    250
+                                ],
+                                lightColor: "#FF231F7C"
+                            })
+                        ];
+                    case 1:
+                        _state.sent();
+                        _state.label = 2;
+                    case 2:
+                        if (!Device2.isDevice) return [
+                            3,
+                            7
+                        ];
+                        return [
+                            4,
+                            Notifications2.getPermissionsAsync()
+                        ];
+                    case 3:
+                        _ref = _state.sent(), existingStatus = _ref.status;
+                        finalStatus = existingStatus;
+                        if (!(existingStatus !== "granted")) return [
+                            3,
+                            5
+                        ];
+                        return [
+                            4,
+                            Notifications2.requestPermissionsAsync()
+                        ];
+                    case 4:
+                        status = _state.sent().status;
+                        finalStatus = status;
+                        _state.label = 5;
+                    case 5:
+                        if (finalStatus !== "granted") {
+                            alert("Failed to get push token for push notification!");
+                            return [
+                                2
+                            ];
+                        }
+                        return [
+                            4,
+                            Notifications2.getExpoPushTokenAsync({
+                                projectId: (_Constants_default_expoConfig_extra_eas_projectId = Constants_default === null || Constants_default === void 0 ? void 0 : (_Constants_default_expoConfig = Constants_default.expoConfig) === null || _Constants_default_expoConfig === void 0 ? void 0 : (_Constants_default_expoConfig_extra = _Constants_default_expoConfig.extra) === null || _Constants_default_expoConfig_extra === void 0 ? void 0 : (_Constants_default_expoConfig_extra_eas = _Constants_default_expoConfig_extra.eas) === null || _Constants_default_expoConfig_extra_eas === void 0 ? void 0 : _Constants_default_expoConfig_extra_eas.projectId) !== null && _Constants_default_expoConfig_extra_eas_projectId !== void 0 ? _Constants_default_expoConfig_extra_eas_projectId : Constants_default === null || Constants_default === void 0 ? void 0 : (_Constants_default_easConfig = Constants_default.easConfig) === null || _Constants_default_easConfig === void 0 ? void 0 : _Constants_default_easConfig.projectId
+                            })
+                        ];
+                    case 6:
+                        token = _state.sent().data;
+                        return [
+                            3,
+                            8
+                        ];
+                    case 7:
+                        console.log("Must use physical device for Push Notifications");
+                        _state.label = 8;
+                    case 8:
+                        return [
+                            2,
+                            token
+                        ];
+                }
+            });
+        });
+        return function registerForPushNotificationsAsync() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+    return {
+        expoPushToken: expoPushToken,
+        notification: notification
+    };
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4593,15 +4725,15 @@ var ENDPOINT = {
 // src/config/index.ts
 init_baseApi();
 // src/config/useStorageState.ts
-var import_react34 = require("react");
+var import_react35 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native31 = require("react-native");
+var import_react_native32 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react34.useReducer)(function(state) {
+    return (0, import_react35.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -4617,7 +4749,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native31.Platform.OS === "web")) return [
+                    if (!(import_react_native32.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -4668,8 +4800,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react34.useEffect)(function() {
-        if (import_react_native31.Platform.OS === "web") {
+    (0, import_react35.useEffect)(function() {
+        if (import_react_native32.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -4685,7 +4817,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react34.useCallback)(function(value) {
+    var setValue = (0, import_react35.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -4768,7 +4900,7 @@ var setupDefault401Interceptor = function(onLogout, options) {
     return setup401Interceptor(api2, onLogout, options);
 };
 // src/context/socket.tsx
-var import_react35 = __toESM(require("react"));
+var import_react36 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 init_baseApi();
@@ -4815,13 +4947,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react35.createContext)({
+var SocketContext = (0, import_react36.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react35.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react35.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react36.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react36.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4868,14 +5000,14 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react35.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react36.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
     }, children);
 };
 var useSocket = function() {
-    return (0, import_react35.useContext)(SocketContext);
+    return (0, import_react36.useContext)(SocketContext);
 };
 // src/services/authServices/authServices.ts
 var AuthService = /*#__PURE__*/ function() {
@@ -5441,6 +5573,7 @@ var walletServices = new walletService();
     useDateTimePicker: useDateTimePicker,
     useGooglePlaces: useGooglePlaces,
     useModal: useModal,
+    usePushNotification: usePushNotification,
     useReceiptPDF: useReceiptPDF,
     useRouteNotification: useRouteNotification,
     useShareLink: useShareLink,
