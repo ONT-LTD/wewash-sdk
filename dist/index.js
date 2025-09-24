@@ -757,6 +757,9 @@ __export(index_exports, {
     useReceiptPDF: function() {
         return useReceiptPDF;
     },
+    useRouteNotification: function() {
+        return useRouteNotification;
+    },
     useShareLink: function() {
         return useShareLink;
     },
@@ -2643,7 +2646,7 @@ var ChevronLeft_default = SvgComponent7;
 // src/components/Header/Header.tsx
 function Header(param) {
     var title = param.title, goBackLink = param.goBackLink, isNotAuth = param.isNotAuth;
-    var router2 = (0, import_expo_router.useRouter)();
+    var router3 = (0, import_expo_router.useRouter)();
     return /* @__PURE__ */ import_react13.default.createElement(import_react_native17.View, {
         style: [
             styles12.container,
@@ -2654,7 +2657,7 @@ function Header(param) {
     }, /* @__PURE__ */ import_react13.default.createElement(import_react_native17.TouchableOpacity, {
         style: styles12.arrow,
         onPress: function() {
-            return goBackLink ? router2.push(goBackLink) : router2.back();
+            return goBackLink ? router3.push(goBackLink) : router3.back();
         }
     }, /* @__PURE__ */ import_react13.default.createElement(ChevronLeft_default, null)), /* @__PURE__ */ import_react13.default.createElement(import_react_native17.Text, {
         style: styles12.title
@@ -4466,6 +4469,53 @@ var useReceiptPDF = function() {
         generatePDF: generatePDF
     };
 };
+// src/hooks/useRouteNotification/useRouteNotification.tsx
+var Notifications = __toESM(require("expo-notifications"));
+var import_expo_router3 = require("expo-router");
+var import_react33 = require("react");
+var import_react_native30 = require("react-native");
+var useRouteNotification = function() {
+    (0, import_react33.useEffect)(function() {
+        var unreadCount = 0;
+        var notificationSubscription = Notifications.addNotificationReceivedListener(function(notification) {
+            unreadCount++;
+            Notifications.setBadgeCountAsync(unreadCount);
+            console.log("New notification received, badge count:", unreadCount);
+        });
+        var responseSubscription = Notifications.addNotificationResponseReceivedListener(function(response) {
+            var data = response.notification.request.content.data;
+            unreadCount = 0;
+            Notifications.setBadgeCountAsync(0);
+            Notifications.dismissAllNotificationsAsync();
+            if (data === null || data === void 0 ? void 0 : data.url) {
+                import_expo_router3.router.push(data.url);
+            }
+        });
+        Notifications.getLastNotificationResponseAsync().then(function(response) {
+            var _response_notification_request_content_data;
+            if (response === null || response === void 0 ? void 0 : (_response_notification_request_content_data = response.notification.request.content.data) === null || _response_notification_request_content_data === void 0 ? void 0 : _response_notification_request_content_data.url) {
+                unreadCount = 0;
+                Notifications.setBadgeCountAsync(0);
+                import_expo_router3.router.push(response.notification.request.content.data.url);
+            }
+        });
+        var handleAppStateChange = function(nextAppState) {
+            if (nextAppState === "active") {
+                unreadCount = 0;
+                Notifications.setBadgeCountAsync(0);
+                Notifications.dismissAllNotificationsAsync();
+                console.log("App became active - cleared all notifications");
+            }
+        };
+        var appStateSubscription = import_react_native30.AppState.addEventListener("change", handleAppStateChange);
+        Notifications.setBadgeCountAsync(0);
+        return function() {
+            notificationSubscription.remove();
+            responseSubscription.remove();
+            appStateSubscription === null || appStateSubscription === void 0 ? void 0 : appStateSubscription.remove();
+        };
+    }, []);
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4543,15 +4593,15 @@ var ENDPOINT = {
 // src/config/index.ts
 init_baseApi();
 // src/config/useStorageState.ts
-var import_react33 = require("react");
+var import_react34 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
-var import_react_native30 = require("react-native");
+var import_react_native31 = require("react-native");
 function useAsyncState() {
     var initialValue = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [
         true,
         null
     ];
-    return (0, import_react33.useReducer)(function(state) {
+    return (0, import_react34.useReducer)(function(state) {
         var action = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null;
         return [
             false,
@@ -4567,7 +4617,7 @@ function _setStorageItemAsync() {
         return _ts_generator(this, function(_state) {
             switch(_state.label){
                 case 0:
-                    if (!(import_react_native30.Platform.OS === "web")) return [
+                    if (!(import_react_native31.Platform.OS === "web")) return [
                         3,
                         1
                     ];
@@ -4618,8 +4668,8 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    (0, import_react33.useEffect)(function() {
-        if (import_react_native30.Platform.OS === "web") {
+    (0, import_react34.useEffect)(function() {
+        if (import_react_native31.Platform.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
                     setState(localStorage.getItem(key));
@@ -4635,7 +4685,7 @@ function useStorageState(key) {
     }, [
         key
     ]);
-    var setValue = (0, import_react33.useCallback)(function(value) {
+    var setValue = (0, import_react34.useCallback)(function(value) {
         setState(value);
         setStorageItemAsync(key, value);
     }, [
@@ -4718,7 +4768,7 @@ var setupDefault401Interceptor = function(onLogout, options) {
     return setup401Interceptor(api2, onLogout, options);
 };
 // src/context/socket.tsx
-var import_react34 = __toESM(require("react"));
+var import_react35 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
 init_baseApi();
@@ -4765,13 +4815,13 @@ var disconnectSocket = function() {
     }
 };
 // src/context/socket.tsx
-var SocketContext = (0, import_react34.createContext)({
+var SocketContext = (0, import_react35.createContext)({
     socket: null
 });
 var SocketProvider = function(param) {
     var children = param.children;
-    var _ref = _sliced_to_array((0, import_react34.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
-    (0, import_react34.useEffect)(function() {
+    var _ref = _sliced_to_array((0, import_react35.useState)(null), 2), socket2 = _ref[0], setSocket = _ref[1];
+    (0, import_react35.useEffect)(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4818,14 +4868,14 @@ var SocketProvider = function(param) {
             disconnectSocket();
         };
     }, []);
-    return /* @__PURE__ */ import_react34.default.createElement(SocketContext.Provider, {
+    return /* @__PURE__ */ import_react35.default.createElement(SocketContext.Provider, {
         value: {
             socket: socket2
         }
     }, children);
 };
 var useSocket = function() {
-    return (0, import_react34.useContext)(SocketContext);
+    return (0, import_react35.useContext)(SocketContext);
 };
 // src/services/authServices/authServices.ts
 var AuthService = /*#__PURE__*/ function() {
@@ -5392,6 +5442,7 @@ var walletServices = new walletService();
     useGooglePlaces: useGooglePlaces,
     useModal: useModal,
     useReceiptPDF: useReceiptPDF,
+    useRouteNotification: useRouteNotification,
     useShareLink: useShareLink,
     useSocket: useSocket,
     useStorageState: useStorageState,

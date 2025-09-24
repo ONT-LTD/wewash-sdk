@@ -2323,7 +2323,7 @@ var ChevronLeft_default = SvgComponent7;
 // src/components/Header/Header.tsx
 function Header(param) {
     var title = param.title, goBackLink = param.goBackLink, isNotAuth = param.isNotAuth;
-    var router2 = useRouter();
+    var router3 = useRouter();
     return /* @__PURE__ */ React20.createElement(View10, {
         style: [
             styles12.container,
@@ -2334,7 +2334,7 @@ function Header(param) {
     }, /* @__PURE__ */ React20.createElement(TouchableOpacity8, {
         style: styles12.arrow,
         onPress: function() {
-            return goBackLink ? router2.push(goBackLink) : router2.back();
+            return goBackLink ? router3.push(goBackLink) : router3.back();
         }
     }, /* @__PURE__ */ React20.createElement(ChevronLeft_default, null)), /* @__PURE__ */ React20.createElement(Text7, {
         style: styles12.title
@@ -4146,6 +4146,53 @@ var useReceiptPDF = function() {
         generatePDF: generatePDF
     };
 };
+// src/hooks/useRouteNotification/useRouteNotification.tsx
+import * as Notifications from "expo-notifications";
+import { router as router2 } from "expo-router";
+import { useEffect as useEffect6 } from "react";
+import { AppState } from "react-native";
+var useRouteNotification = function() {
+    useEffect6(function() {
+        var unreadCount = 0;
+        var notificationSubscription = Notifications.addNotificationReceivedListener(function(notification) {
+            unreadCount++;
+            Notifications.setBadgeCountAsync(unreadCount);
+            console.log("New notification received, badge count:", unreadCount);
+        });
+        var responseSubscription = Notifications.addNotificationResponseReceivedListener(function(response) {
+            var data = response.notification.request.content.data;
+            unreadCount = 0;
+            Notifications.setBadgeCountAsync(0);
+            Notifications.dismissAllNotificationsAsync();
+            if (data === null || data === void 0 ? void 0 : data.url) {
+                router2.push(data.url);
+            }
+        });
+        Notifications.getLastNotificationResponseAsync().then(function(response) {
+            var _response_notification_request_content_data;
+            if (response === null || response === void 0 ? void 0 : (_response_notification_request_content_data = response.notification.request.content.data) === null || _response_notification_request_content_data === void 0 ? void 0 : _response_notification_request_content_data.url) {
+                unreadCount = 0;
+                Notifications.setBadgeCountAsync(0);
+                router2.push(response.notification.request.content.data.url);
+            }
+        });
+        var handleAppStateChange = function(nextAppState) {
+            if (nextAppState === "active") {
+                unreadCount = 0;
+                Notifications.setBadgeCountAsync(0);
+                Notifications.dismissAllNotificationsAsync();
+                console.log("App became active - cleared all notifications");
+            }
+        };
+        var appStateSubscription = AppState.addEventListener("change", handleAppStateChange);
+        Notifications.setBadgeCountAsync(0);
+        return function() {
+            notificationSubscription.remove();
+            responseSubscription.remove();
+            appStateSubscription === null || appStateSubscription === void 0 ? void 0 : appStateSubscription.remove();
+        };
+    }, []);
+};
 // src/config/endpoints.ts
 var V1 = "v1";
 var AUTH = "".concat(V1, "/auth/customers");
@@ -4223,7 +4270,7 @@ var ENDPOINT = {
 // src/config/index.ts
 init_baseApi();
 // src/config/useStorageState.ts
-import { useEffect as useEffect6, useCallback as useCallback3, useReducer } from "react";
+import { useEffect as useEffect7, useCallback as useCallback3, useReducer } from "react";
 import * as SecureStore2 from "expo-secure-store";
 import { Platform as Platform5 } from "react-native";
 function useAsyncState() {
@@ -4298,7 +4345,7 @@ function _setStorageItemAsync() {
 }
 function useStorageState(key) {
     var _useAsyncState = _sliced_to_array(useAsyncState(), 2), state = _useAsyncState[0], setState = _useAsyncState[1];
-    useEffect6(function() {
+    useEffect7(function() {
         if (Platform5.OS === "web") {
             try {
                 if (typeof localStorage !== "undefined") {
@@ -4398,7 +4445,7 @@ var setupDefault401Interceptor = function(onLogout, options) {
     return setup401Interceptor(api2, onLogout, options);
 };
 // src/context/socket.tsx
-import React39, { createContext, useContext, useEffect as useEffect7, useState as useState11 } from "react";
+import React39, { createContext, useContext, useEffect as useEffect8, useState as useState11 } from "react";
 // src/config/socket.ts
 init_baseApi();
 import { io } from "socket.io-client";
@@ -4451,7 +4498,7 @@ var SocketContext = createContext({
 var SocketProvider = function(param) {
     var children = param.children;
     var _useState11 = _sliced_to_array(useState11(null), 2), socket2 = _useState11[0], setSocket = _useState11[1];
-    useEffect7(function() {
+    useEffect8(function() {
         var setupSocket = /*#__PURE__*/ function() {
             var _ref = _async_to_generator(function() {
                 var initializedSocket, error;
@@ -4981,5 +5028,5 @@ var walletService = /*#__PURE__*/ function() {
     return walletService;
 }();
 var walletServices = new walletService();
-export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, WithdrawalTransactionType, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, setup401Interceptor, setupDefault401Interceptor, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
+export { API_URL, Accordion_default as Accordion, AuthServices, COLORS, ChatServices, ChooseFile_default as ChooseFile, CustomButton_default as CustomButton, CustomDropdown_default as CustomDropdown, CustomError_default as CustomError, CustomInput_default as CustomInput, CustomModal_default as CustomModal, CustomMultiDropdown_default as CustomMultiDropdown, CustomSelect_default as CustomSelect, CustomSubtitle, CustomSwitch_default as CustomSwitch, CustomText, CustomTextItalics, CustomTextNeutral, CustomTitle, CustomTitleMedium, CustomUrbanistSubtitle, CustomUrbanistText, CustomUrbanistTitle, DetailInfo_default as DetailInfo, ENDPOINT, EResult, ETab, EmptyList_default as EmptyList, FileUpload_default as FileUpload, Header, LineIndicator_default as LineIndicator, ModalContent_default as ModalContent, NotificationItem_default as NotificationItem, OTPInput_default as OTPInput, PaymentModal_default as PaymentModal, ProfileCard_default as ProfileCard, ProfileServices, SOCKET_URL, SearchInput_default as SearchInput, SocketProvider, Tab_default as Tab, TicketItem_default as TicketItem, WashServices, WithdrawalTransactionType, baseApi_default as api, apiContext, blurhash, cardValidationSchema, customStyles, filterOrders, formatDateTime, formatFileSize, formatFileType, formatPhoneNumber, formatToISOString, formatWithCommas, generateKeyPair, generateSignature, getAddonAndVehicleIds, getComponent, getOrCreateDeviceId, getStoredEmail, getTimeDifference, getVehicleIds, getYearsArray, htmlContent, loginValidationSchema, modalEnum, otpChannel, phoneValidationSchema, profileValidationSchema, resetValidationSchema, sanitizeAmount, setStorageItemAsync, setup401Interceptor, setupDefault401Interceptor, showToastNotification, signBiometricToken, statusBorderColor, statusColor, storeEmail, ticketValidationSchema, transformWashAddOns, transformWashDetails, truncateText, truncateTextLast4, truncateTextSubtitle, truncateTextWithEmail, useBiometrics, useCountdown, useDateTimePicker, useGooglePlaces, useModal, useReceiptPDF, useRouteNotification, useShareLink, useSocket, useStorageState, useTimer, validationSchema, walletServices, withdrawalValidationSchema };
 //# sourceMappingURL=index.mjs.map
