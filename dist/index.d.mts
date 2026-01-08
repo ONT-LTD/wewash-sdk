@@ -1573,13 +1573,14 @@ declare const setup401Interceptor: (axiosInstance: AxiosInstance, onLogout: () =
     enableLogging?: boolean;
 }) => () => void;
 /**
- * Applies the 401 interceptor to the default api instance
- * @param onLogout - Callback function to handle logout and redirect to login screen
- * @param options - Optional configuration options
+ * Sets up a 401 response interceptor that handles unauthorized requests
+ * @param onUnauthorized - Callback function to execute when a 401 response is received
+ * @param options - Configuration options
+ * @returns Cleanup function to remove the interceptor
  */
-declare const setupDefault401Interceptor: (onLogout: () => void | Promise<void>, options?: {
+declare const setupDefault401Interceptor: (onUnauthorized: () => void | Promise<void>, options?: {
     enableLogging?: boolean;
-}) => () => void;
+}) => (() => void);
 
 interface SocketContextType {
     socket: Socket | null;

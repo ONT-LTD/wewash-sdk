@@ -373,11 +373,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __esm = function(fn, res) {
-    return function __init() {
-        return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-    };
-};
 var __commonJS = function(cb, mod) {
     return function __require() {
         return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = {
@@ -441,35 +436,6 @@ var __toCommonJS = function(mod) {
 var require_notificationLogo = __commonJS({
     "src/assets/png/notificationLogo.png": function(exports2, module2) {
         module2.exports = "./notificationLogo-43K2XXD4.png";
-    }
-});
-// src/config/baseApi.ts
-var baseApi_exports = {};
-__export(baseApi_exports, {
-    API_URL: function() {
-        return API_URL;
-    },
-    SOCKET_URL: function() {
-        return SOCKET_URL;
-    },
-    default: function() {
-        return baseApi_default;
-    }
-});
-var import_axios2, API_URL, SOCKET_URL, api, baseApi_default;
-var init_baseApi = __esm({
-    "src/config/baseApi.ts": function() {
-        "use strict";
-        import_axios2 = __toESM(require("axios"));
-        API_URL = "https://gateway-ms-production.up.railway.app";
-        SOCKET_URL = "https://chats-ms-production.up.railway.app";
-        api = import_axios2.default.create({
-            baseURL: "".concat(API_URL),
-            headers: {
-                "Content-type": "application/json"
-            }
-        });
-        baseApi_default = api;
     }
 });
 // src/index.ts
@@ -4722,8 +4688,17 @@ var ENDPOINT = {
     ADD_BANKS: "".concat(BANKS),
     TRANSACTIONS: "".concat(PAYMENT, "/transactions")
 };
-// src/config/index.ts
-init_baseApi();
+// src/config/baseApi.ts
+var import_axios2 = __toESM(require("axios"));
+var API_URL = "https://gateway-ms-production.up.railway.app";
+var SOCKET_URL = "https://chats-ms-production.up.railway.app";
+var api = import_axios2.default.create({
+    baseURL: "".concat(API_URL),
+    headers: {
+        "Content-type": "application/json"
+    }
+});
+var baseApi_default = api;
 // src/config/useStorageState.ts
 var import_react35 = require("react");
 var SecureStore2 = __toESM(require("expo-secure-store"));
@@ -4895,15 +4870,78 @@ var setup401Interceptor = function(axiosInstance, onLogout) {
         axiosInstance.interceptors.response.eject(interceptor);
     };
 };
-var setupDefault401Interceptor = function(onLogout, options) {
-    var api2 = (init_baseApi(), __toCommonJS(baseApi_exports)).default;
-    return setup401Interceptor(api2, onLogout, options);
+var setupDefault401Interceptor = function(onUnauthorized, options) {
+    var _ref = options || {}, _ref_enableLogging = _ref.enableLogging, enableLogging = _ref_enableLogging === void 0 ? false : _ref_enableLogging;
+    var responseInterceptor = baseApi_default.interceptors.response.use(function(response) {
+        return response;
+    }, /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(error) {
+            var _error_response, handlerError;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (!(((_error_response = error.response) === null || _error_response === void 0 ? void 0 : _error_response.status) === 401)) return [
+                            3,
+                            5
+                        ];
+                        if (enableLogging) {
+                            console.log("[401 Interceptor] Unauthorized request detected");
+                        }
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            ,
+                            4
+                        ]);
+                        return [
+                            4,
+                            onUnauthorized()
+                        ];
+                    case 2:
+                        _state.sent();
+                        return [
+                            3,
+                            4
+                        ];
+                    case 3:
+                        handlerError = _state.sent();
+                        if (enableLogging) {
+                            console.error("[401 Interceptor] Error in logout handler:", handlerError);
+                        }
+                        return [
+                            3,
+                            4
+                        ];
+                    case 4:
+                        return [
+                            2,
+                            Promise.reject(error)
+                        ];
+                    case 5:
+                        return [
+                            2,
+                            Promise.reject(error)
+                        ];
+                }
+            });
+        });
+        return function(error) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+    return function() {
+        baseApi_default.interceptors.response.eject(responseInterceptor);
+        if (enableLogging) {
+            console.log("[401 Interceptor] Cleaned up");
+        }
+    };
 };
 // src/context/socket.tsx
 var import_react36 = __toESM(require("react"));
 // src/config/socket.ts
 var import_socket = require("socket.io-client");
-init_baseApi();
 var socket = null;
 var initializeSocket = /*#__PURE__*/ function() {
     var _ref = _async_to_generator(function() {
