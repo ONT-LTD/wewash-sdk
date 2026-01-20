@@ -4319,8 +4319,8 @@ var ENDPOINT = {
 };
 // src/config/baseApi.ts
 import axios2 from "axios";
-var API_URL = "https://gateway-ms-production.up.railway.app";
-var SOCKET_URL = "https://chats-ms-production.up.railway.app";
+var API_URL = "https://api.we-wash.app";
+var SOCKET_URL = "https://api.we-wash.app";
 var api = axios2.create({
     baseURL: "".concat(API_URL),
     headers: {

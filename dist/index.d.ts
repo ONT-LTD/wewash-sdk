@@ -1555,8 +1555,8 @@ declare const ENDPOINT: {
     TRANSACTIONS: string;
 };
 
-declare const API_URL = "https://gateway-ms-production.up.railway.app";
-declare const SOCKET_URL = "https://chats-ms-production.up.railway.app";
+declare const API_URL = "https://api.we-wash.app";
+declare const SOCKET_URL = "https://api.we-wash.app";
 declare const api: axios.AxiosInstance;
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
